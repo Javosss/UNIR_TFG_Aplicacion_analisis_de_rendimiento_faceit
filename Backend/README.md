@@ -1,0 +1,1 @@
+Crear archivo keys.env y poner la API KEY personal de FACEIT (se puede encontrar en FACEIT.COM)
