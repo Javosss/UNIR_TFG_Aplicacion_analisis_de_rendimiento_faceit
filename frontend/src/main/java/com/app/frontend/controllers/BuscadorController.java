@@ -21,23 +21,23 @@ public class BuscadorController {
     }
     
     public void buscarJugador(JLabel label) {
-        String nickname = vista.getNickname();
-        if (nickname.isEmpty()) {
-            //JOptionPane.showMessageDialog(vista, "Introduce un nickname");
-            setMensajeEstadoBusqueda(label, false);
-            return;
-        }
+    String nickname = vista.getNickname();
+    
+    // Validar que el nickname no sea el texto predeterminado o esté vacío (Es necesario porque si no se envia "Introducir texto" a la API.
+    if (nickname.isEmpty() || nickname.equals(GestionIdiomas.getMensaje("field_nickname_1"))) {
+        setMensajeEstadoBusqueda(label, false); // Mostrar mensaje de error
+        return;
+    }
 
-        // Obtener datos del jugador desde Flask
-        Jugador jugador = ApiService.getPlayerStats(nickname);
-        
-        if (jugador != null) {
-            vista.mostrarInfoJugador(jugador);
-            setMensajeEstadoBusqueda(label, true);
-            
-        } else {
-            setMensajeEstadoBusqueda(label, false);
-            //JOptionPane.showMessageDialog(vista, "Jugador no encontrado");
+    // Obtener datos del jugador desde Flask
+    Jugador jugador = ApiService.getPlayerStats(nickname);
+    
+    if (jugador != null) {
+        vista.mostrarInfoJugador(jugador);
+        setMensajeEstadoBusqueda(label, true); // Mostrar mensaje de éxito
+        mostrarInfoJugador(jugador);
+    } else {
+        setMensajeEstadoBusqueda(label, false); // Mostrar mensaje de error
         }
     }
     
@@ -61,5 +61,15 @@ public class BuscadorController {
             label.setVisible(true);
         }
     }
+    
+    public void mostrarInfoJugador(Jugador jugador) { // Mostrar los datos de la petición a la API en el labelInfoJugador
+    // Es necesario formatear la información, se utilizan los getters y setters generados para la clase Jugador
+    String info = String.format(
+        "Nickname: %s\n" + "ID: %s\n" + "País: %s\n" + "Región CS:GO: %s\n" + "Nivel CS:GO: %d\n" + "Elo CS:GO: %d\n" + "Región CS2: %s\n" + "Nivel CS2: %d\n" + "Elo CS2: %d",
+        jugador.getNickname(),jugador.getPlayer_id(),jugador.getPais(),jugador.getRegion_csgo(),jugador.getNivel_csgo(),jugador.getElo_csgo(),jugador.getRegion_cs2(),jugador.getNivel_cs2(),jugador.getElo_cs2()
+    );
+
+    vista.actualizarInfoJugador(info, jugador.getAvatar()); // Se actualiza la vista con la información
+}
     
 }

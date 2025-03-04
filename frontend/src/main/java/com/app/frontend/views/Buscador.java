@@ -2,6 +2,7 @@ package com.app.frontend.views;
 
 import com.app.frontend.controllers.BuscadorController;
 import com.app.frontend.models.Jugador;
+import com.app.frontend.utils.CargarImagenDesdeURL;
 import com.app.frontend.utils.GestionIdiomas;
 import javax.swing.JButton;
 import java.awt.*;
@@ -26,15 +27,21 @@ public class Buscador extends javax.swing.JFrame {
     private void ConfigurarEventos() { // Asignación de los eventos del Controlador para la vista
         btnBuscar.addActionListener(e -> controlador.buscarJugador(labelEstadoBusqueda)); // Evento al presionar el boton
         
-        fieldBuscador.addFocusListener(new FocusListener() { // Evento cuando se hace click en el Text Field para introducir el usuario
+        fieldBuscador.addFocusListener(new FocusListener() {   
             @Override
-            public void focusGained(FocusEvent e) { // Al hacer click en el Field, se ejecuta la funcion de eliminar el texto del Field
-                controlador.eliminarTextoField(fieldBuscador);
+            public void focusGained(FocusEvent e) {
+            // Si el campo tiene el texto predeterminado, lo limpia
+            if (fieldBuscador.getText().equals(GestionIdiomas.getMensaje("field_nickname_1"))) {
+                fieldBuscador.setText("");
+                }
             }
             @Override
-            public void focusLost(FocusEvent e) { // Al contrario, se vuelve a poner el texto (traducido)
-                controlador.anadirTextoDeNuevo(fieldBuscador); 
-            }          
+            public void focusLost(FocusEvent e) {
+            // Si el campo está vacío, se vuelve a poner el texto predeterminado
+            if (fieldBuscador.getText().trim().isEmpty()) {
+            fieldBuscador.setText(GestionIdiomas.getMensaje("field_nickname_1"));
+                }
+            }
         });
     }
 
@@ -43,7 +50,13 @@ public class Buscador extends javax.swing.JFrame {
     }
     
     public void mostrarInfoJugador(Jugador jugador) {
-        labelInfoJugador.setText(jugador.getNickname() + " - " + GestionIdiomas.getMensaje("player_elo") + " " + jugador.getElo());
+        //labelInfoJugador.setText(jugador.getNickname() + " - " + GestionIdiomas.getMensaje("player_elo") + " " + jugador.getElo());
+        panelTarjeta.setVisible(true);
+    }
+    
+    public void actualizarInfoJugador(String info, String avatarUrl) { // Función para añadir la información de la API en la tarjeta
+        labelInfoJugador.setText(info); // Se añade la información al label
+        CargarImagenDesdeURL.cargarImagen(labelFotoJugador, avatarUrl); // Se carga la imagen desde la URL
         panelTarjeta.setVisible(true);
     }
     
@@ -56,6 +69,7 @@ public class Buscador extends javax.swing.JFrame {
         btnBuscar = new javax.swing.JButton();
         panelTarjeta = new javax.swing.JPanel();
         labelInfoJugador = new javax.swing.JLabel();
+        labelFotoJugador = new javax.swing.JLabel();
         labelEstadoBusqueda = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -67,11 +81,12 @@ public class Buscador extends javax.swing.JFrame {
 
         // Se le asigna el texto traducido al boton
         btnBuscar.setText(GestionIdiomas.getMensaje("boton_buscar_1"));
-        btnBuscar.setOpaque(false);
 
         panelTarjeta.setBackground(new java.awt.Color(255, 255, 255));
 
         labelInfoJugador.setText("jLabel1");
+
+        labelFotoJugador.setText("jLabel1");
 
         javax.swing.GroupLayout panelTarjetaLayout = new javax.swing.GroupLayout(panelTarjeta);
         panelTarjeta.setLayout(panelTarjetaLayout);
@@ -79,15 +94,19 @@ public class Buscador extends javax.swing.JFrame {
             panelTarjetaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTarjetaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(labelInfoJugador)
-                .addContainerGap(128, Short.MAX_VALUE))
+                .addGroup(panelTarjetaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelInfoJugador, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
+                    .addComponent(labelFotoJugador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         panelTarjetaLayout.setVerticalGroup(
             panelTarjetaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelTarjetaLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(labelInfoJugador)
-                .addContainerGap(140, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTarjetaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelFotoJugador, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelInfoJugador, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout panelPrincipalLayout = new javax.swing.GroupLayout(panelPrincipal);
@@ -177,6 +196,7 @@ public class Buscador extends javax.swing.JFrame {
     private javax.swing.JButton btnBuscar;
     private javax.swing.JTextField fieldBuscador;
     private javax.swing.JLabel labelEstadoBusqueda;
+    private javax.swing.JLabel labelFotoJugador;
     private javax.swing.JLabel labelInfoJugador;
     private javax.swing.JPanel panelPrincipal;
     private javax.swing.JPanel panelTarjeta;
