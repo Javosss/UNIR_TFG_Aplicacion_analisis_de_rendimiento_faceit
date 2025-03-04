@@ -4,6 +4,10 @@
 
 package com.app.frontend;
 
+import com.app.frontend.controllers.BuscadorController;
+import com.app.frontend.views.Buscador;
+import javax.swing.*;
+
 /**
  *
  * @author Javier
@@ -11,6 +15,12 @@ package com.app.frontend;
 public class Frontend {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        
+        // Primera interfaz, test.
+        java.awt.EventQueue.invokeLater(() -> {
+            Buscador vista = new Buscador();
+            vista.setVisible(true);
+        });
+        
     }
 }
