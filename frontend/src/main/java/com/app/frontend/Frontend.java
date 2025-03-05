@@ -19,6 +19,7 @@ public class Frontend {
         // Primera interfaz, test.
         java.awt.EventQueue.invokeLater(() -> {
             Buscador vista = new Buscador();
+            vista.setSize(600,400);
             vista.setVisible(true);
         });
         

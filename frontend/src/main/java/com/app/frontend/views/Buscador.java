@@ -7,6 +7,8 @@ import com.app.frontend.utils.GestionIdiomas;
 import javax.swing.JButton;
 import java.awt.*;
 import java.awt.event.*;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 /**
  * Interfaz principal de la aplicación:
@@ -19,7 +21,7 @@ public class Buscador extends javax.swing.JFrame {
     public Buscador() {
         initComponents();
         this.controlador = new BuscadorController(this); // Se crea el controlador pasandole la propia vista como argumento
-        
+              
         ConfigurarEventos(); // Se llama a la función que configura los eventos
         
     }
@@ -53,10 +55,37 @@ public class Buscador extends javax.swing.JFrame {
         //labelInfoJugador.setText(jugador.getNickname() + " - " + GestionIdiomas.getMensaje("player_elo") + " " + jugador.getElo());
         panelTarjeta.setVisible(true);
     }
+
     
-    public void actualizarInfoJugador(String info, String avatarUrl) { // Función para añadir la información de la API en la tarjeta
-        labelInfoJugador.setText(info); // Se añade la información al label
+    public void actualizarInfoJugador(String nickname, String pais, int nivel_cs2, int elo_cs2, String avatarUrl) { // Función para añadir la información de la API en la tarjeta
+        // Se convierte a String para utilizar setText()
+        String nivel_cs2_str = String.valueOf(nivel_cs2);
+        String elo_cs2_str = String.valueOf(elo_cs2);
+        
+        // Se cargan todos los datos
+        labelNickname.setText(nickname);
+        labelElo.setText("Elo: " + elo_cs2_str);
         CargarImagenDesdeURL.cargarImagen(labelFotoJugador, avatarUrl); // Se carga la imagen desde la URL
+        
+        // Cargar el icono del nivel correspondiente (Nivel 1-10)
+        String nivelIconPath = "/icons/niveles_faceit/" + nivel_cs2 + ".png"; // Ruta donde se guardan los 11 iconos
+        java.net.URL nivelIconUrl = getClass().getResource(nivelIconPath); // URL completa
+
+        if (nivelIconUrl != null) {
+            ImageIcon nivelIcon = new ImageIcon(nivelIconUrl); // Crear un objeto ImageIcon
+            labelNivel.setIcon(nivelIcon); // Asignar el icono al JLabel
+            labelNivel.setText(""); // Es necesario limpiar el texto porque si no muestra un texto
+        } else { // En caso de que no se encuentre el icono, se muestra el nivel en texto
+            labelNivel.setText("Nivel: " + nivel_cs2);
+        }
+         
+        /* Para cargar el país como logo en vez de como código (Por ejemplo, es), he buscado alguna API que me pueda proporcionar las banderar a partir de una URL,
+        de esta forma puedo reutilizar CargarImagenDesdeURL que he desarrollado.
+        El recurso que he encontrado sería: https://flagcdn.com/ , servicio proporcionado por parte de "Flagpedia"
+        De todas las que ofrece la página, las que mejor quedan en mi interfaz son las de "https://flagcdn.com/h20/" , hay multiples tipos
+        */
+        String banderaUrl = "https://flagcdn.com/h20/" + pais.toLowerCase() + ".png"; // URL completa que proporciona la bandera ("pais" pasado como parámetro es el código del país)
+        CargarImagenDesdeURL.cargarImagen(labelPais, banderaUrl);
         panelTarjeta.setVisible(true);
     }
     
@@ -64,13 +93,19 @@ public class Buscador extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        labelElo1 = new javax.swing.JLabel();
         panelPrincipal = new javax.swing.JPanel();
         fieldBuscador = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
         panelTarjeta = new javax.swing.JPanel();
-        labelInfoJugador = new javax.swing.JLabel();
+        labelNickname = new javax.swing.JLabel();
         labelFotoJugador = new javax.swing.JLabel();
+        labelNivel = new javax.swing.JLabel();
+        labelPais = new javax.swing.JLabel();
+        labelElo = new javax.swing.JLabel();
         labelEstadoBusqueda = new javax.swing.JLabel();
+
+        labelElo1.setText("jLabel1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -84,9 +119,11 @@ public class Buscador extends javax.swing.JFrame {
 
         panelTarjeta.setBackground(new java.awt.Color(255, 255, 255));
 
-        labelInfoJugador.setText("jLabel1");
+        labelNickname.setText("jLabel1");
 
-        labelFotoJugador.setText("jLabel1");
+        labelNivel.setText("jLabel1");
+
+        labelElo.setText("jLabel1");
 
         javax.swing.GroupLayout panelTarjetaLayout = new javax.swing.GroupLayout(panelTarjeta);
         panelTarjeta.setLayout(panelTarjetaLayout);
@@ -95,17 +132,29 @@ public class Buscador extends javax.swing.JFrame {
             .addGroup(panelTarjetaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelTarjetaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelInfoJugador, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
-                    .addComponent(labelFotoJugador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(labelFotoJugador, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
+                    .addComponent(labelPais, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
+                    .addGroup(panelTarjetaLayout.createSequentialGroup()
+                        .addComponent(labelNickname, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(labelNivel, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(labelElo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelTarjetaLayout.setVerticalGroup(
             panelTarjetaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTarjetaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(labelFotoJugador, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                .addComponent(labelFotoJugador, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(panelTarjetaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelNivel)
+                    .addComponent(labelNickname))
+                .addGap(8, 8, 8)
+                .addComponent(labelElo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelInfoJugador, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labelPais)
                 .addContainerGap())
         );
 
@@ -195,9 +244,13 @@ public class Buscador extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JTextField fieldBuscador;
+    private javax.swing.JLabel labelElo;
+    private javax.swing.JLabel labelElo1;
     private javax.swing.JLabel labelEstadoBusqueda;
     private javax.swing.JLabel labelFotoJugador;
-    private javax.swing.JLabel labelInfoJugador;
+    private javax.swing.JLabel labelNickname;
+    private javax.swing.JLabel labelNivel;
+    private javax.swing.JLabel labelPais;
     private javax.swing.JPanel panelPrincipal;
     private javax.swing.JPanel panelTarjeta;
     // End of variables declaration//GEN-END:variables
