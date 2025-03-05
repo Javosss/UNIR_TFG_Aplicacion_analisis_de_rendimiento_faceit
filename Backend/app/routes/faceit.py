@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 # Crear las rutas de la API
 
-#http://127.0.0.1:5000/api/player?nickname=Javos
+#http://127.0.0.1:5000/api/player?nickname=s1mple
 @app.route("/api/player", methods=["GET"]) # API de Extraer las partidas de ayer y KD medio, Kills media y partidas jugadas
 def get_estadisticas_jugador():
     nickname = request.args.get('nickname') # Se pide el nickname por parametro

@@ -50,25 +50,19 @@ public class Buscador extends javax.swing.JFrame {
     public String getNickname() { // Devuelve el nickname del text field de la interfaz
         return fieldBuscador.getText().trim();
     }
-    
-    public void mostrarInfoJugador(Jugador jugador) {
-        //labelInfoJugador.setText(jugador.getNickname() + " - " + GestionIdiomas.getMensaje("player_elo") + " " + jugador.getElo());
-        panelTarjeta.setVisible(true);
-    }
 
-    
-    public void actualizarInfoJugador(String nickname, String pais, int nivel_cs2, int elo_cs2, String avatarUrl) { // Función para añadir la información de la API en la tarjeta
+    public void actualizarInfoJugador(Jugador jugador) { // Función para añadir la información de la API en la tarjeta
         // Se convierte a String para utilizar setText()
-        String nivel_cs2_str = String.valueOf(nivel_cs2);
-        String elo_cs2_str = String.valueOf(elo_cs2);
+        String nivel_cs2_str = String.valueOf(jugador.getRegion_cs2());
+        String elo_cs2_str = String.valueOf(jugador.getElo_cs2());
         
         // Se cargan todos los datos
-        labelNickname.setText(nickname);
+        labelNickname.setText(jugador.getNickname());
         labelElo.setText("Elo: " + elo_cs2_str);
-        CargarImagenDesdeURL.cargarImagen(labelFotoJugador, avatarUrl); // Se carga la imagen desde la URL
+        CargarImagenDesdeURL.cargarImagen(labelFotoJugador, jugador.getAvatar()); // Se carga la imagen desde la URL
         
         // Cargar el icono del nivel correspondiente (Nivel 1-10)
-        String nivelIconPath = "/icons/niveles_faceit/" + nivel_cs2 + ".png"; // Ruta donde se guardan los 11 iconos
+        String nivelIconPath = "/icons/niveles_faceit/" + jugador.getNivel_cs2() + ".png"; // Ruta donde se guardan los 11 iconos
         java.net.URL nivelIconUrl = getClass().getResource(nivelIconPath); // URL completa
 
         if (nivelIconUrl != null) {
@@ -76,7 +70,7 @@ public class Buscador extends javax.swing.JFrame {
             labelNivel.setIcon(nivelIcon); // Asignar el icono al JLabel
             labelNivel.setText(""); // Es necesario limpiar el texto porque si no muestra un texto
         } else { // En caso de que no se encuentre el icono, se muestra el nivel en texto
-            labelNivel.setText("Nivel: " + nivel_cs2);
+            labelNivel.setText("Nivel: " + jugador.getNivel_cs2());
         }
          
         /* Para cargar el país como logo en vez de como código (Por ejemplo, es), he buscado alguna API que me pueda proporcionar las banderar a partir de una URL,
@@ -84,7 +78,7 @@ public class Buscador extends javax.swing.JFrame {
         El recurso que he encontrado sería: https://flagcdn.com/ , servicio proporcionado por parte de "Flagpedia"
         De todas las que ofrece la página, las que mejor quedan en mi interfaz son las de "https://flagcdn.com/h20/" , hay multiples tipos
         */
-        String banderaUrl = "https://flagcdn.com/h20/" + pais.toLowerCase() + ".png"; // URL completa que proporciona la bandera ("pais" pasado como parámetro es el código del país)
+        String banderaUrl = "https://flagcdn.com/h20/" + jugador.getPais().toLowerCase() + ".png"; // URL completa que proporciona la bandera ("pais" pasado como parámetro es el código del país)
         CargarImagenDesdeURL.cargarImagen(labelPais, banderaUrl);
         panelTarjeta.setVisible(true);
     }

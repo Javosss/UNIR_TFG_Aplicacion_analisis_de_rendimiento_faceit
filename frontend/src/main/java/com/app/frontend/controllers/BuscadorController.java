@@ -30,10 +30,9 @@ public class BuscadorController {
     }
 
     // Obtener datos del jugador desde Flask
-    Jugador jugador = ApiService.getPlayerStats(nickname);
+    Jugador jugador = ApiService.getPlayerStats(nickname);  
     
     if (jugador != null) {
-        vista.mostrarInfoJugador(jugador);
         setMensajeEstadoBusqueda(label, true); // Mostrar mensaje de éxito
         mostrarInfoJugador(jugador);
     } else {
@@ -63,12 +62,7 @@ public class BuscadorController {
     }
     
     public void mostrarInfoJugador(Jugador jugador) { // Mostrar los datos de la petición a la API en el labelInfoJugador
-        String nickname = jugador.getNickname();
-        String pais = jugador.getPais();
-        int nivel_cs2 = jugador.getNivel_cs2();
-        int elo_cs2 = jugador.getElo_cs2();
-        
-        vista.actualizarInfoJugador(nickname, pais, nivel_cs2, elo_cs2, jugador.getAvatar()); // Se actualiza la vista con la información
+        vista.actualizarInfoJugador(jugador); // Se actualiza la vista con el jugador pasado como objeto
     }
     
 }

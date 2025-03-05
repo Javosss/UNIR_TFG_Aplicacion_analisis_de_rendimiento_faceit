@@ -1,24 +1,44 @@
 package com.app.frontend.models;
 
 /**
- * Clase para modelar un Jugador como objeto
+ * Clase para modelar un Jugador como objeto, se utilizará este modelo durante toda la aplicación.
+ * Contiene datos relevantes del jugador que permitirán hacer peticiones a otras APIs para obtener más datos. (Por ejemplo player_id)
+ * Se han recogido los datos que más interesan en esta clase para generar un modelo de Jugador con sus características
  * @author Javier
  */
-
 public class Jugador {
     
     private String nickname;
-    private String player_id;
-    private String pais;
-    private String avatar;
+    private String player_id; // El player_id es una cadena de texto muy larga que contiene numeros y caracteres 
+    private String pais; // Código del país
+    private String avatar; // URL de la imagen
     private String region_csgo;
     private int nivel_csgo;
     private int elo_csgo;
     private String region_cs2;
     private int nivel_cs2;
     private int elo_cs2;
-
+    private String steam_id_64; // ID de la cuenta de steam
+    private String fecha_creacion_cuenta;
     
+    public Jugador() {
+    }
+
+    public Jugador(String nickname, String player_id, String pais, String avatar, String region_csgo, int nivel_csgo, int elo_csgo, String region_cs2, int nivel_cs2, int elo_cs2, String steam_id_64, String fecha_creacion_cuenta) {
+        this.nickname = nickname;
+        this.player_id = player_id;
+        this.pais = pais;
+        this.avatar = avatar;
+        this.region_csgo = region_csgo;
+        this.nivel_csgo = nivel_csgo;
+        this.elo_csgo = elo_csgo;
+        this.region_cs2 = region_cs2;
+        this.nivel_cs2 = nivel_cs2;
+        this.elo_cs2 = elo_cs2;
+        this.steam_id_64 = steam_id_64;
+        this.fecha_creacion_cuenta = fecha_creacion_cuenta;
+    }
+
     // Getters y Setters (Generados automáticamente con NetBeans)
     public String getNickname() {
         return nickname;
@@ -99,6 +119,21 @@ public class Jugador {
     public void setElo_cs2(int elo_cs2) {
         this.elo_cs2 = elo_cs2;
     }
+    
+    public String getSteam_id_64() {
+        return steam_id_64;
+    }
 
+    public void setSteam_id_64(String steam_id_64) {
+        this.steam_id_64 = steam_id_64;
+    }
+
+    public String getFecha_creacion_cuenta() {
+        return fecha_creacion_cuenta;
+    }
+
+    public void setFecha_creacion_cuenta(String fecha_creacion_cuenta) {
+        this.fecha_creacion_cuenta = fecha_creacion_cuenta;
+    }
 }
 
