@@ -4,6 +4,7 @@ import com.app.frontend.models.Jugador;
 import com.app.frontend.services.ApiService;
 import com.app.frontend.utils.GestionIdiomas;
 import com.app.frontend.views.Buscador;
+import com.app.frontend.views.Dashboard;
 import java.awt.Color;
 import java.util.HashSet;
 import java.util.Set;
@@ -35,6 +36,10 @@ public class BuscadorController {
     if (jugador != null) {
         setMensajeEstadoBusqueda(label, true); // Mostrar mensaje de éxito
         mostrarInfoJugador(jugador);
+        // Se crea la nueva interfaz
+        //Dashboard dashboard = new Dashboard(jugador);
+        //dashboard.setVisible(true);
+        //vista.dispose(); // Cerrar la ventana actual
     } else {
         setMensajeEstadoBusqueda(label, false); // Mostrar mensaje de error
         }

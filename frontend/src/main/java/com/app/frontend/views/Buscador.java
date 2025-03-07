@@ -17,6 +17,7 @@ import javax.swing.JLabel;
  */
 public class Buscador extends javax.swing.JFrame {
     private BuscadorController controlador;
+    private Jugador jugadorActual;
     
     public Buscador() {
         initComponents();
@@ -29,22 +30,47 @@ public class Buscador extends javax.swing.JFrame {
     private void ConfigurarEventos() { // Asignación de los eventos del Controlador para la vista
         btnBuscar.addActionListener(e -> controlador.buscarJugador(labelEstadoBusqueda)); // Evento al presionar el boton
         
+        // Eliminar texto del TextField si se hace click para escribir
         fieldBuscador.addFocusListener(new FocusListener() {   
             @Override
-            public void focusGained(FocusEvent e) {
+            public void focusGained(FocusEvent e) {          
             // Si el campo tiene el texto predeterminado, lo limpia
-            if (fieldBuscador.getText().equals(GestionIdiomas.getMensaje("field_nickname_1"))) {
-                fieldBuscador.setText("");
+                if (fieldBuscador.getText().equals(GestionIdiomas.getMensaje("field_nickname_1"))) {
+                    fieldBuscador.setText("");
                 }
             }
             @Override
             public void focusLost(FocusEvent e) {
             // Si el campo está vacío, se vuelve a poner el texto predeterminado
             if (fieldBuscador.getText().trim().isEmpty()) {
-            fieldBuscador.setText(GestionIdiomas.getMensaje("field_nickname_1"));
+                fieldBuscador.setText(GestionIdiomas.getMensaje("field_nickname_1"));
                 }
             }
         });
+        
+        // LLevar a la siguiente interfaz haciendo click en la tarjeta
+        /* Para este evento es importante hacerlo para todos los componentes que hay en el panel, porque si no se bloquean entre ellos,
+        y si se hace click en el label, por ejemplo, no ejecuta el evento. */
+        MouseAdapter eventoClick = new MouseAdapter() {            
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // Si el panel es visible, singifica que la busqueda del jugador ha sido exitosa
+                if (panelTarjeta.isVisible()) {
+                    if (jugadorActual != null) {
+                        // Se crea la nueva interfaz
+                        Dashboard dashboard = new Dashboard(jugadorActual);
+                        dashboard.setVisible(true);
+                        dispose(); // Cerrar la ventana actual
+                    }
+                }
+            }
+        };
+        // Se añade el evento al panel y luego a todos los componentes
+        panelTarjeta.addMouseListener(eventoClick);
+        for (Component component : panelTarjeta.getComponents()) { // Se iteran todos los componentes del panel, y se añade el evento
+            component.addMouseListener(eventoClick);
+        }
+        
     }
 
     public String getNickname() { // Devuelve el nickname del text field de la interfaz
@@ -52,6 +78,7 @@ public class Buscador extends javax.swing.JFrame {
     }
 
     public void actualizarInfoJugador(Jugador jugador) { // Función para añadir la información de la API en la tarjeta
+        this.jugadorActual = jugador; // Para actualizar el jugador
         // Se convierte a String para utilizar setText()
         String nivel_cs2_str = String.valueOf(jugador.getRegion_cs2());
         String elo_cs2_str = String.valueOf(jugador.getElo_cs2());
@@ -81,6 +108,8 @@ public class Buscador extends javax.swing.JFrame {
         String banderaUrl = "https://flagcdn.com/h20/" + jugador.getPais().toLowerCase() + ".png"; // URL completa que proporciona la bandera ("pais" pasado como parámetro es el código del país)
         CargarImagenDesdeURL.cargarImagen(labelPais, banderaUrl);
         panelTarjeta.setVisible(true);
+        
+        
     }
     
     @SuppressWarnings("unchecked")
