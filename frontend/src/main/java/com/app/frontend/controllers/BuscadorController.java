@@ -11,7 +11,7 @@ import java.util.Set;
 import javax.swing.*;
 
 /**
- * Clase Controller para la interfaz Buscador.java
+ * Clase de la parte controladora para la vista de la interfaz Buscador
  * @author Javier
  */
 public class BuscadorController {
@@ -36,10 +36,6 @@ public class BuscadorController {
     if (jugador != null) {
         setMensajeEstadoBusqueda(label, true); // Mostrar mensaje de éxito
         mostrarInfoJugador(jugador);
-        // Se crea la nueva interfaz
-        //Dashboard dashboard = new Dashboard(jugador);
-        //dashboard.setVisible(true);
-        //vista.dispose(); // Cerrar la ventana actual
     } else {
         setMensajeEstadoBusqueda(label, false); // Mostrar mensaje de error
         }
