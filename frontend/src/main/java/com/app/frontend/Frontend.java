@@ -5,6 +5,7 @@
 package com.app.frontend;
 
 import com.app.frontend.controllers.BuscadorController;
+import com.app.frontend.services.ApiService;
 import com.app.frontend.views.Buscador;
 import javax.swing.*;
 
@@ -22,6 +23,5 @@ public class Frontend {
             vista.setSize(600,400);
             vista.setVisible(true);
         });
-        
     }
 }

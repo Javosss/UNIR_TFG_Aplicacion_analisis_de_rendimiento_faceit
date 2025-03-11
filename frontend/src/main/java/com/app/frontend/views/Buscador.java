@@ -24,7 +24,7 @@ public class Buscador extends javax.swing.JFrame {
         this.controlador = new BuscadorController(this); // Se crea el controlador pasandole la propia vista como argumento
               
         ConfigurarEventos(); // Se llama a la función que configura los eventos
-        
+        ConfigurarComboBoxIdiomas(); // Funcion para configurar la traducción de idiomas a partir del JComboBox
     }
     
     private void ConfigurarEventos() { // Asignación de los eventos del Controlador para la vista
@@ -107,9 +107,37 @@ public class Buscador extends javax.swing.JFrame {
         */
         String banderaUrl = "https://flagcdn.com/h20/" + jugador.getPais().toLowerCase() + ".png"; // URL completa que proporciona la bandera ("pais" pasado como parámetro es el código del país)
         CargarImagenDesdeURL.cargarImagen(labelPais, banderaUrl);
-        panelTarjeta.setVisible(true);
+        panelTarjeta.setVisible(true);    
+    }
+    
+    public void ConfigurarComboBoxIdiomas() {
+        //Añadir las opciones de idiomas al JComboBox
+        comboBoxCambiarIdioma.addItem("Español");
+        comboBoxCambiarIdioma.addItem("English");
+        comboBoxCambiarIdioma.addItem("Français");
+        //Añadir el action listener para cambiar el idioma
+        comboBoxCambiarIdioma.addActionListener(e -> CambiarIdioma());
+    }
+    
+    private void CambiarIdioma() {
+        // Se coge el idioma que esta seleccionado en el comboBox para coger el codigo de idioma y llamar a la función de cambio de idioma
+        String idiomaSeleccionado = (String) comboBoxCambiarIdioma.getSelectedItem();
+        String codigoIdioma = "";
         
+        if (idiomaSeleccionado.equals("Español")) {
+            codigoIdioma = "es";
+        }
+        if (idiomaSeleccionado.equals("English")) {
+            codigoIdioma = "en";
+        }
+        if (idiomaSeleccionado.equals("Français")) {
+            codigoIdioma = "fr";
+        }
         
+        // Se cambia el idioma y se actualizan los componentes de la interfaz
+        GestionIdiomas.setIdioma(codigoIdioma);
+        fieldBuscador.setText(GestionIdiomas.getMensaje("field_nickname_1"));
+        btnBuscar.setText(GestionIdiomas.getMensaje("boton_buscar_1"));
     }
     
     @SuppressWarnings("unchecked")
@@ -127,6 +155,7 @@ public class Buscador extends javax.swing.JFrame {
         labelPais = new javax.swing.JLabel();
         labelElo = new javax.swing.JLabel();
         labelEstadoBusqueda = new javax.swing.JLabel();
+        comboBoxCambiarIdioma = new javax.swing.JComboBox<>();
 
         labelElo1.setText("jLabel1");
 
@@ -181,6 +210,8 @@ public class Buscador extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        comboBoxCambiarIdioma.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {}));
+
         javax.swing.GroupLayout panelPrincipalLayout = new javax.swing.GroupLayout(panelPrincipal);
         panelPrincipal.setLayout(panelPrincipalLayout);
         panelPrincipalLayout.setHorizontalGroup(
@@ -194,12 +225,14 @@ public class Buscador extends javax.swing.JFrame {
                         .addGap(134, 134, 134)
                         .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelPrincipalLayout.createSequentialGroup()
-                        .addGap(97, 97, 97)
-                        .addComponent(panelTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelPrincipalLayout.createSequentialGroup()
                         .addGap(63, 63, 63)
                         .addComponent(labelEstadoBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(48, Short.MAX_VALUE))
+            .addGroup(panelPrincipalLayout.createSequentialGroup()
+                .addGap(97, 97, 97)
+                .addComponent(panelTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(comboBoxCambiarIdioma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         panelPrincipalLayout.setVerticalGroup(
             panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,12 +240,17 @@ public class Buscador extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(fieldBuscador, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(labelEstadoBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16)
-                .addComponent(panelTarjeta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(19, 19, 19))
+                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelPrincipalLayout.createSequentialGroup()
+                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(labelEstadoBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(16, 16, 16)
+                        .addComponent(panelTarjeta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(19, 19, 19))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPrincipalLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(comboBoxCambiarIdioma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -266,6 +304,7 @@ public class Buscador extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JComboBox<String> comboBoxCambiarIdioma;
     private javax.swing.JTextField fieldBuscador;
     private javax.swing.JLabel labelElo;
     private javax.swing.JLabel labelElo1;

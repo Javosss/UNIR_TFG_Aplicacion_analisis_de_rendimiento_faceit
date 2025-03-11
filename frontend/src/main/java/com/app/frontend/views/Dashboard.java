@@ -2,6 +2,7 @@ package com.app.frontend.views;
 
 import com.app.frontend.controllers.DashboardController;
 import com.app.frontend.models.Jugador;
+import com.app.frontend.utils.GestionIdiomas;
 
 /**
  * Clase Dashboard de la interfaz.
@@ -18,7 +19,10 @@ public class Dashboard extends javax.swing.JFrame {
         initComponents();
         ConfigurarEventos();
         
+        // Algunas funciones a incluir en la inicializacion
         CargarDatosPanelResumenStats();
+        CargarClasificacionesRegionalesLista();
+        CargarClasificacionesPais();
     }
 
     private void ConfigurarEventos() {
@@ -28,6 +32,19 @@ public class Dashboard extends javax.swing.JFrame {
     private void CargarDatosPanelResumenStats() {
         controlador.CargarDatosPanelResumenStats(jugador, labelImagen, labelNickname, labelCuentaCreada, labelEloCs2, labelEloCsgo);
     }
+    
+    private void CargarClasificacionesRegionalesLista() {
+        controlador.CargarTablasDeClasificacioin(jugador.getRegion_cs2(), "cs2", tablaClasificacionRegion); // Se utilza el objeto jugador para coger su región de juego
+    }
+    
+    private void CargarClasificacionesPais() {
+        controlador.CargarTablaClasificacionPais(tablaClasificacionPais);
+    }
+    
+    public Jugador getJugador() {
+        return jugador;
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -42,8 +59,15 @@ public class Dashboard extends javax.swing.JFrame {
         labelEloCs2 = new javax.swing.JLabel();
         labelEloCsgo = new javax.swing.JLabel();
         panelTablasClasificacion = new javax.swing.JPanel();
+        labelClasificacion = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tablaClasificacionRegion = new javax.swing.JTable();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaClasificacionPais = new javax.swing.JTable();
         panelStatsDetalladas = new javax.swing.JPanel();
         panelUltimosPartidos = new javax.swing.JPanel();
+        labelUltimosPartidos = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -84,7 +108,7 @@ public class Dashboard extends javax.swing.JFrame {
                         .addGroup(panelResumenStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(labelEloCsgo, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         panelResumenStatsLayout.setVerticalGroup(
             panelResumenStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,15 +132,65 @@ public class Dashboard extends javax.swing.JFrame {
 
         panelTablasClasificacion.setBackground(new java.awt.Color(255, 255, 255));
 
+        labelClasificacion.setText(GestionIdiomas.getMensaje("label_clasificacion_2"));
+
+        jLabel3.setText(GestionIdiomas.getMensaje("label_clasificacion_pais_2"));
+
+        jScrollPane3.setPreferredSize(new java.awt.Dimension(400, 200));
+
+        tablaClasificacionRegion.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        tablaClasificacionRegion.setFocusable(false);
+        jScrollPane3.setViewportView(tablaClasificacionRegion);
+
+        tablaClasificacionPais.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        tablaClasificacionPais.setFocusable(false);
+        jScrollPane1.setViewportView(tablaClasificacionPais);
+
         javax.swing.GroupLayout panelTablasClasificacionLayout = new javax.swing.GroupLayout(panelTablasClasificacion);
         panelTablasClasificacion.setLayout(panelTablasClasificacionLayout);
         panelTablasClasificacionLayout.setHorizontalGroup(
             panelTablasClasificacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(panelTablasClasificacionLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelTablasClasificacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelClasificacion, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap())
         );
         panelTablasClasificacionLayout.setVerticalGroup(
             panelTablasClasificacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(panelTablasClasificacionLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelClasificacion)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         panelStatsDetalladas.setBackground(new java.awt.Color(255, 255, 255));
@@ -129,7 +203,7 @@ public class Dashboard extends javax.swing.JFrame {
         );
         panelStatsDetalladasLayout.setVerticalGroup(
             panelStatsDetalladasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 570, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         panelUltimosPartidos.setBackground(new java.awt.Color(255, 255, 255));
@@ -142,8 +216,13 @@ public class Dashboard extends javax.swing.JFrame {
         );
         panelUltimosPartidosLayout.setVerticalGroup(
             panelUltimosPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 206, Short.MAX_VALUE)
+            .addGap(0, 195, Short.MAX_VALUE)
         );
+
+        labelUltimosPartidos.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
+        labelUltimosPartidos.setText(GestionIdiomas.getMensaje("label_ultimos_partidos_2"));
+        labelUltimosPartidos.setMinimumSize(new java.awt.Dimension(100, 17));
+        labelUltimosPartidos.setPreferredSize(new java.awt.Dimension(100, 17));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -156,7 +235,8 @@ public class Dashboard extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(panelTablasClasificacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(panelResumenStats, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(panelResumenStats, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(labelUltimosPartidos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addComponent(panelStatsDetalladas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -169,10 +249,12 @@ public class Dashboard extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(panelResumenStats, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(panelTablasClasificacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(panelStatsDetalladas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(panelUltimosPartidos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(panelTablasClasificacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panelStatsDetalladas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelUltimosPartidos, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelUltimosPartidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -243,17 +325,24 @@ public class Dashboard extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JLabel labelClasificacion;
     private javax.swing.JLabel labelClasificacionPais;
     private javax.swing.JLabel labelCuentaCreada;
     private javax.swing.JLabel labelEloCs2;
     private javax.swing.JLabel labelEloCsgo;
     private javax.swing.JLabel labelImagen;
     private javax.swing.JLabel labelNickname;
+    private javax.swing.JLabel labelUltimosPartidos;
     private javax.swing.JPanel panelResumenStats;
     private javax.swing.JPanel panelStatsDetalladas;
     private javax.swing.JPanel panelTablasClasificacion;
     private javax.swing.JPanel panelUltimosPartidos;
+    private javax.swing.JTable tablaClasificacionPais;
+    public javax.swing.JTable tablaClasificacionRegion;
     // End of variables declaration//GEN-END:variables
 }
