@@ -86,7 +86,7 @@ public class Buscador extends javax.swing.JFrame {
         // Se cargan todos los datos
         labelNickname.setText(jugador.getNickname());
         labelElo.setText("Elo: " + elo_cs2_str);
-        CargarImagenDesdeURL.cargarImagen(labelFotoJugador, jugador.getAvatar()); // Se carga la imagen desde la URL
+        CargarImagenDesdeURL.cargarImagen(labelFotoJugador, jugador.getAvatar(),100,100); // Se carga la imagen desde la URL
         
         // Cargar el icono del nivel correspondiente (Nivel 1-10)
         String nivelIconPath = "/icons/niveles_faceit/" + jugador.getNivel_cs2() + ".png"; // Ruta donde se guardan los 11 iconos
@@ -106,7 +106,7 @@ public class Buscador extends javax.swing.JFrame {
         De todas las que ofrece la página, las que mejor quedan en mi interfaz son las de "https://flagcdn.com/h20/" , hay multiples tipos
         */
         String banderaUrl = "https://flagcdn.com/h20/" + jugador.getPais().toLowerCase() + ".png"; // URL completa que proporciona la bandera ("pais" pasado como parámetro es el código del país)
-        CargarImagenDesdeURL.cargarImagen(labelPais, banderaUrl);
+        CargarImagenDesdeURL.cargarImagen(labelPais, banderaUrl,100,100);
         panelTarjeta.setVisible(true);    
     }
     

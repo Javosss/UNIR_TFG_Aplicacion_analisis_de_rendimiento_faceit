@@ -8,10 +8,12 @@ import javax.swing.JLabel;
 import com.app.frontend.utils.CargarImagenDesdeURL;
 import com.app.frontend.utils.ConvertirCodigoEnPais;
 import com.google.gson.Gson;
+import java.awt.Image;
+
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-
+import javax.swing.ImageIcon;
 
 /**
  * Clase de la parte controladora para la vista de la interfaz Dashboard
@@ -42,10 +44,10 @@ public class DashboardController {
         labelEloCs2.setText("Elo CS2: " + elo_cs2_str);
         labelEloCsgo.setText("Elo CSGO: " + elo_csgo_str);
         
-        CargarImagenDesdeURL.cargarImagen(labelAvatar, avatar);
+        CargarImagenDesdeURL.cargarImagen(labelAvatar, avatar,80,70);
     }
     
-    // Funcion para cargar los datos de la clasificación en la lista
+    // Funcion para cargar los datos de la clasificación en la tabla
     public void CargarTablasDeClasificacioin(String region, String juego, JTable tabla) {
         String respuestaAPI = ApiService.getClasificacionRegion(region); // JSON de la respuesta de la API
         
@@ -101,4 +103,62 @@ public class DashboardController {
         }
         tabla.setModel(modelo);
     }
+    
+    // Cargar la posición del jugador en el Ranking de su región
+    public void CargarPosicionJugadorRegion(JLabel labelPosicion) {
+        Jugador jugador = vista.getJugador();
+        String region = jugador.getRegion_cs2();
+        
+        // Sacar la ruta del icono a mostrar en base a la región del jugador
+        String rutaIcono;
+        switch (region) {
+            case "EU":
+                rutaIcono = "/icons/eu.png";
+                break;
+            case "NA":
+                rutaIcono = "/icons/na.png";
+                break;
+            case "SA":
+                rutaIcono = "/icons/sa.png";
+                break;
+            case "SEA":
+                rutaIcono = "/icons/sea.png";
+                break;
+            case "OCE":
+                rutaIcono = "/icons/oce.png";
+                break;
+            default:
+                rutaIcono = "/icons/error.png";
+                break;
+        }
+        // Respuesta de la API
+        String posicion = ApiService.getPosicionJugadorRegion(jugador.getRegion_cs2(), jugador.getPlayer_id(), "");
+       
+        // Cargar el icono desde la ruta de iconos
+        java.net.URL iconUrl = getClass().getResource(rutaIcono); // Se carga el icono desde la ruta
+        if (iconUrl != null) {
+            ImageIcon icono = new ImageIcon(iconUrl);
+            // Escalar la imagen
+            Image imagenEscalada = icono.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH); // 50x50 píxeles
+            icono = new ImageIcon(imagenEscalada);
+            labelPosicion.setIcon(icono); // Se asigna el icono al label
+            
+            } else {
+            System.err.println("No se ha podido cargar el icono: " + rutaIcono);
+            labelPosicion.setIcon(null); // Limpiar el icono
+            }
+        
+        // Mostrar la posición y el nivel en el JLabel
+        labelPosicion.setText("#" + posicion);      
+    }
+    
+    // Función para cargar la posición del jugador en el ranking de su país
+    public void CargarPosicionJugadorPais(JLabel labelPosicionPais) {
+        Jugador jugador = vista.getJugador();       
+        String posicion = ApiService.getPosicionJugadorRegion(jugador.getRegion_cs2(), jugador.getPlayer_id(), jugador.getPais());
+        // Cargar la bandera del jugador al label       
+        String banderaUrl = "https://flagcdn.com/h20/" + jugador.getPais().toLowerCase() + ".png";
+        CargarImagenDesdeURL.cargarImagen(labelPosicionPais, banderaUrl,20,10);       
+        labelPosicionPais.setText("#"+posicion);       
+    }    
 }

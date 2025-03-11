@@ -13,14 +13,14 @@ import java.net.URL;
  */
 public class CargarImagenDesdeURL {
 
-    public static void cargarImagen(JLabel label, String imageUrl) {
+    public static void cargarImagen(JLabel label, String imageUrl, int anchura, int altura) {
         try {
             URL url = new URL(imageUrl); // Se crea una URL a partir de la cadena de texto
             ImageIcon imageIcon = new ImageIcon(url); // Se carga la imagen desde la URL
 
             // Es necesario escalar la imagen, porque si no queda para nada escalado en el label , para ello utilizo la libería awt.Image
             Image image = imageIcon.getImage();
-            Image scaledImage = image.getScaledInstance(100, 100, Image.SCALE_SMOOTH); // Ajusta el tamaño
+            Image scaledImage = image.getScaledInstance(anchura, altura, Image.SCALE_SMOOTH); // Ajusta el tamaño
             imageIcon = new ImageIcon(scaledImage); // Se crea el nuevo objeto
 
             label.setIcon(imageIcon); // Se asigna la imagen al label en cuestión, ya escalada

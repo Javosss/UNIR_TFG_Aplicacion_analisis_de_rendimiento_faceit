@@ -40,6 +40,7 @@ public class ApiService {
         }
     }
     
+    // Conexión con Flask para sacar la Clasificación de una región
     public static String getClasificacionRegion(String region) {
         
         try {
@@ -62,6 +63,7 @@ public class ApiService {
         }     
     }
     
+    // Conexión con Flask para sacar la Clasificación de un país
     public static String getClasificacionPais(String region, String codigoPais) {       
         try {
             String url = API_URL + "clasificacion?region="+ region +"&juego=cs2&pais=" + codigoPais+"&limite=100";
@@ -79,5 +81,35 @@ public class ApiService {
             e.printStackTrace();
             return null;
         }       
-    }    
+    }
+    
+    public static String getPosicionJugadorRegion(String region ,String playerID, String codigoPais) {
+        try{
+            // Manejo de los 2 endpoints de la URL a la API para no hacer 2 funciones idénticas
+            String url = "";
+            
+            if (codigoPais.equals("")) { 
+                url = API_URL + "posicion?region=" +region+"&juego=cs2&player_id=" +playerID;
+            } else {
+                url = API_URL + "posicion?region=" +region+"&juego=cs2&player_id=" +playerID+"&pais="+codigoPais;
+            }
+            
+            
+            HttpClient cliente = HttpClient.newHttpClient();
+            HttpRequest peticion = HttpRequest.newBuilder().uri(URI.create(url)).GET().build();
+            HttpResponse<String> respuesta = cliente.send(peticion, HttpResponse.BodyHandlers.ofString());
+            
+            if (respuesta.statusCode() == 200) {
+                return respuesta.body();
+            } else {
+                System.err.println("Error en la respuesta con la API de Flask: " + respuesta.statusCode());
+                return null;
+            }
+            
+        } catch(Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
 }
