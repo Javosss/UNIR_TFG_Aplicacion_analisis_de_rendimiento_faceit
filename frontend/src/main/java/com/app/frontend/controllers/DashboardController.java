@@ -7,6 +7,7 @@ import com.app.frontend.services.ApiService;
 import javax.swing.JLabel;
 import com.app.frontend.utils.CargarImagenDesdeURL;
 import com.app.frontend.utils.ConvertirCodigoEnPais;
+import com.app.frontend.utils.GestionIdiomas;
 import com.google.gson.Gson;
 import java.awt.Image;
 
@@ -40,7 +41,7 @@ public class DashboardController {
         
         // Se cargan los datos a los labels del panel
         labelNickname.setText(nickname);
-        labelFechaCreacionCuenta.setText(fechaCreacion);
+        labelFechaCreacionCuenta.setText(GestionIdiomas.getMensaje("label_fecha_creacion_2") +fechaCreacion);
         labelEloCs2.setText("Elo CS2: " + elo_cs2_str);
         labelEloCsgo.setText("Elo CSGO: " + elo_csgo_str);
         

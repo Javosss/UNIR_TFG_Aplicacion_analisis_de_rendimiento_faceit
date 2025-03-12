@@ -1,17 +1,25 @@
 from app.utils.peticion_HTTP import hacer_request
+from datetime import datetime # Librería para formatear la fecha
 
 def estadisticas_jugador(nickname):
     # Parámetros correctamente formateados
     parametros = {"nickname": nickname, "game": "cs2"}  # "game" es opcional
     cuerpo = hacer_request("players", parametros)
-    print(cuerpo)
+
     # Extraer información básica del jugador
     nickname = cuerpo["nickname"]
     player_id = cuerpo["player_id"]
     pais = cuerpo["country"]
     avatar =cuerpo["avatar"]
     steam_id_64 = cuerpo["steam_id_64"]
+
     fecha_creacion_cuenta = cuerpo["activated_at"]
+    # Formatear la fecha. Es necesario hacerlo en un bloque try porque si no da muchos errores a la hora de formatear
+    try:
+        fecha_creacion = datetime.strptime(fecha_creacion_cuenta, "%Y-%m-%dT%H:%M:%S.%fZ")
+    except ValueError:
+        fecha_creacion = datetime.strptime(fecha_creacion_cuenta, "%Y-%m-%dT%H:%M:%SZ") # En caso de que falle, se intenta sin milisegundos
+    fecha_formateada = fecha_creacion.strftime("%d/%m/%Y") # Formato al que se quiere cambiar. En este caso decido el formato europeo y sin horas/segundos
 
     # Información de CSGO en específico:
     stats_csgo = cuerpo["games"]["csgo"]
@@ -37,7 +45,7 @@ def estadisticas_jugador(nickname):
         "nivel_cs2": nivel_cs2,
         "elo_cs2": elo_cs2,
         "steam_id_64": steam_id_64,
-        "fecha_creacion_cuenta": fecha_creacion_cuenta,
+        "fecha_creacion_cuenta": fecha_formateada,
     }
     return lista_devolver
 

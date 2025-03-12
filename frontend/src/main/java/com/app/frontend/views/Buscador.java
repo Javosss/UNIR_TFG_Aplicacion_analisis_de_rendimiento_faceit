@@ -22,11 +22,13 @@ public class Buscador extends javax.swing.JFrame {
     public Buscador() {
         initComponents();
         this.controlador = new BuscadorController(this); // Se crea el controlador pasandole la propia vista como argumento
-              
-        ConfigurarEventos(); // Se llama a la función que configura los eventos
-        ConfigurarComboBoxIdiomas(); // Funcion para configurar la traducción de idiomas a partir del JComboBox
+        
+        // Funciones a inicializar
+        ConfigurarEventos();
+        ConfigurarComboBoxIdiomas();
     }
     
+    // Funcion para configurar y definir el comportamiento de eventos
     private void ConfigurarEventos() { // Asignación de los eventos del Controlador para la vista
         btnBuscar.addActionListener(e -> controlador.buscarJugador(labelEstadoBusqueda)); // Evento al presionar el boton
         
@@ -72,11 +74,12 @@ public class Buscador extends javax.swing.JFrame {
         }
         
     }
-
+    
     public String getNickname() { // Devuelve el nickname del text field de la interfaz
         return fieldBuscador.getText().trim();
     }
-
+    
+    // Función para actualizar la Tarjeta con la información del jugador tras hacer la petición a la API
     public void actualizarInfoJugador(Jugador jugador) { // Función para añadir la información de la API en la tarjeta
         this.jugadorActual = jugador; // Para actualizar el jugador
         // Se convierte a String para utilizar setText()
@@ -110,6 +113,7 @@ public class Buscador extends javax.swing.JFrame {
         panelTarjeta.setVisible(true);    
     }
     
+    // Función para configurar el JComboBox
     public void ConfigurarComboBoxIdiomas() {
         //Añadir las opciones de idiomas al JComboBox
         comboBoxCambiarIdioma.addItem("Español");
@@ -119,6 +123,7 @@ public class Buscador extends javax.swing.JFrame {
         comboBoxCambiarIdioma.addActionListener(e -> CambiarIdioma());
     }
     
+    // Funcion para hacer el cambio de idioma
     private void CambiarIdioma() {
         // Se coge el idioma que esta seleccionado en el comboBox para coger el codigo de idioma y llamar a la función de cambio de idioma
         String idiomaSeleccionado = (String) comboBoxCambiarIdioma.getSelectedItem();
