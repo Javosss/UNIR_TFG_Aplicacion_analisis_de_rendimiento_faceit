@@ -1,7 +1,7 @@
 package com.app.frontend.models;
 
 /**
- * Clase para modelar un Jugador como objeto, se utilizará este modelo durante toda la aplicación.
+ * Clase para modelar un Jugador, se utilizará este modelo durante toda la aplicación.
  * Contiene datos relevantes del jugador que permitirán hacer peticiones a otras APIs para obtener más datos. (Por ejemplo player_id)
  * Se han recogido los datos que más interesan en esta clase para generar un modelo de Jugador con sus características
  * @author Javier

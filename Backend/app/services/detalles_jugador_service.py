@@ -50,4 +50,12 @@ def estadisticas_jugador(nickname):
     return lista_devolver
 
 
-estadisticas_jugador("Javos")
+# Función que devuelve el nickname del jugador a partir del ID de jugador
+def devolver_nickname_jugador(player_id):
+    cuerpo = hacer_request(f"players/{player_id}")  # Quizás el endpoint debería ser f"players/{player_id}"
+    nickname = cuerpo["nickname"]
+    return nickname
+
+
+#estadisticas_jugador("Javos")
+#devolver_nickname_jugador("d1a1aa41-f4ea-4035-97f7-cd522733c6d9")

@@ -19,7 +19,8 @@ public class JugadorClasificacion {
         this.player_id = player_id;
         this.posicion = posicion;
     }
-
+    
+    // Getters y Setters
     public String getCountry() {
         return country;
     }

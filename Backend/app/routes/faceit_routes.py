@@ -5,7 +5,9 @@ from app.services import detalles_jugador_service
 from app.services.detalles_jugador_service import estadisticas_jugador
 from app.services import clasificaciones_service
 from app.utils.peticion_HTTP import hacer_request
-from app.services.partidos_jugador import partidos_jugador
+from app.services.partidos_jugador import partidos_jugador, estadisticas_partido
+from app.services.partidos_jugador import estadisticas_partido
+
 
 # Crear la aplicación Flask
 app = Flask(__name__)
@@ -52,13 +54,37 @@ def get_posicion_jugador_clasificacion(): # API para extraer la posicion de un j
     posicion_ranking = clasificaciones_service.posicion_jugador_clasificacion(juego, region, player_id, pais)
     return jsonify(posicion_ranking)
 
-@app.route("/api/partidos_jugador", methods=["GET"])
+
+
+
+
+# detalles_jugador_service
+
+# http://127.0.0.1:5000/api/historial_partidos_jugador?player_id=d1a1aa41-f4ea-4035-97f7-cd522733c6d9&juego=cs2
+@app.route("/api/historial_partidos_jugador", methods=["GET"])
 def get_ultimos_partidos_jugador():
     player_id = request.args.get('player_id')
     juego = request.args.get('juego')
+    limite_arg =request.args.get('limite')
 
-    partidos = partidos_jugador(player_id, juego)
+    partidos = partidos_jugador(player_id, juego, limite=limite_arg)
     return jsonify(partidos)
+
+# http://127.0.0.1:5000/api/estadisticas_partido_jugador?id_partido=1-0faa6008-b45d-4651-ace8-0b1cdb1e1697&player_id=d1a1aa41-f4ea-4035-97f7-cd522733c6d9
+@app.route("/api/estadisticas_partido_jugador", methods=["GET"])
+def get_estadisticas_partidos_jugador():
+    id_partido = request.args.get('id_partido')
+    player_id = request.args.get('player_id')
+
+    estadisticas = estadisticas_partido(id_partido, player_id)
+    return jsonify(estadisticas)
+
+
+
+
+
+
+
 
 # Ejecutar la aplicación Flask
 if __name__ == "__main__":

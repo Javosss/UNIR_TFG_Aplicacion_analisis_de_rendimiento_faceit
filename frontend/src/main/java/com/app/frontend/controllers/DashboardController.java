@@ -1,20 +1,26 @@
 package com.app.frontend.controllers;
 
+import com.app.frontend.models.EstadisticasPartido;
 import com.app.frontend.views.Dashboard;
 import com.app.frontend.models.Jugador;
 import com.app.frontend.models.JugadorClasificacion;
+import com.app.frontend.models.Partido;
 import com.app.frontend.services.ApiService;
 import javax.swing.JLabel;
 import com.app.frontend.utils.CargarImagenDesdeURL;
 import com.app.frontend.utils.ConvertirCodigoEnPais;
 import com.app.frontend.utils.GestionIdiomas;
 import com.google.gson.Gson;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Image;
+import java.util.List;
 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  * Clase de la parte controladora para la vista de la interfaz Dashboard
@@ -161,5 +167,79 @@ public class DashboardController {
         String banderaUrl = "https://flagcdn.com/h20/" + jugador.getPais().toLowerCase() + ".png";
         CargarImagenDesdeURL.cargarImagen(labelPosicionPais, banderaUrl,20,10);       
         labelPosicionPais.setText("#"+posicion);       
-    }    
+    } 
+    
+    // Función para cargar la posición del jugador en el ranking de su país
+    public void CargarHistorialPartidos(JTable tabla) {
+        Jugador jugador = vista.getJugador(); // Obtener el jugador de la vista     
+        List<Partido> partidos = ApiService.getHistorialPartidos(jugador.getPlayer_id(), "cs2",100); // Obtener el historial de partidos llamando a la API
+
+        if (partidos == null || partidos.isEmpty()) {
+            System.err.println("No se encontraron partidos o hubo un error al cargarlos");
+            return;
+        }
+
+        // Crear el modelo de tabla
+        DefaultTableModel model = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // Hacer que la tabla no sea editable
+            }
+        };
+        // Configurar las columnas de la tabla
+        model.setColumnIdentifiers(new String[]{"Competición","Tipo","Región","Modo","Resultado","Inicio","Fin","ID Partido"});
+
+        // Se llena la tabla con los datos de los partidos
+        for (Partido partido : partidos) {
+            Object[] fila = {
+                partido.getNombreCompeticion(),
+                partido.getTipoCompeticion(),
+                partido.getRegion(),
+                partido.getModo(),
+                partido.getResultadoPartido(),
+                partido.getHoraComienzo(),
+                partido.getHoraFinalizacion(),
+                partido.getIdPartido()
+            };
+            model.addRow(fila);
+        }
+        tabla.setModel(model);
+
+        // Se colorea cada fila en función de si el resultado es Ganada o perdida
+        tabla.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value,boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                String resultado = table.getModel().getValueAt(row, 4).toString(); // Se obtiene el valor de la columna resultado
+
+                if ("Ganada".equals(resultado)) {
+                    c.setBackground(new Color(200, 255, 200)); // En caso de que sea ganada, se cambia a color verde
+                } else if ("Perdida".equals(resultado)) {
+                    c.setBackground(new Color(255, 200, 200)); // Si es perdida, se cambia a color rojo
+                } else {
+                    c.setBackground(Color.WHITE);
+                }
+
+                if (isSelected) {
+                    c.setBackground(table.getSelectionBackground());
+                    c.setForeground(table.getSelectionForeground());
+                } else {
+                    c.setForeground(table.getForeground());
+                }
+
+                return c;
+            }
+        });
+
+        // Se ajusta el ancho de las columnas manualmente porque si no queda un poco descompensado
+        tabla.getColumnModel().getColumn(0).setPreferredWidth(150);
+        tabla.getColumnModel().getColumn(1).setPreferredWidth(80);
+        tabla.getColumnModel().getColumn(2).setPreferredWidth(60);
+        tabla.getColumnModel().getColumn(3).setPreferredWidth(100);
+        tabla.getColumnModel().getColumn(4).setPreferredWidth(80);
+        tabla.getColumnModel().getColumn(5).setPreferredWidth(120);
+        tabla.getColumnModel().getColumn(6).setPreferredWidth(120);
+        tabla.getColumnModel().getColumn(7).setPreferredWidth(200);
+    }
+          
 }
