@@ -4,6 +4,7 @@ from flask import request # Para pedir un parametro por Path Variable en la URL
 from app.services import detalles_jugador_service
 from app.services.detalles_jugador_service import estadisticas_jugador
 from app.services import clasificaciones_service
+from app.services.equipos_jugador import extraer_equipos_jugador, obtener_equipos_completos, torneos_jugados_del_equipo
 from app.utils.peticion_HTTP import hacer_request
 from app.services.partidos_jugador import partidos_jugador, estadisticas_partido
 from app.services.partidos_jugador import estadisticas_partido
@@ -80,11 +81,22 @@ def get_estadisticas_partidos_jugador():
     return jsonify(estadisticas)
 
 
+# equipos_jugador
 
-
-
-
-
+# http://127.0.0.1:5000/api/equipos_jugador?player_id=d682a62e-43f5-49be-b8c9-de923adcf564
+# Extraer equipos asociados del jugador
+@app.route("/api/equipos_jugador", methods=["GET"])
+def get_equipos_jugador():
+    id_jugador = request.args.get('player_id')
+    lista_equipos = obtener_equipos_completos(id_jugador)
+    return jsonify(lista_equipos)
+# http://127.0.0.1:5000/api/torneos_equipo?team_id=108a5c12-2252-4309-a315-c3d63d735c83
+# Extraer los torneos jugados por un equipo
+@app.route("/api/torneos_equipo", methods=["GET"])
+def get_torneos_equipo():
+    id_equipo = request.args.get('team_id')
+    torneos_jugados = torneos_jugados_del_equipo(id_equipo)
+    return jsonify(torneos_jugados)
 
 # Ejecutar la aplicación Flask
 if __name__ == "__main__":
