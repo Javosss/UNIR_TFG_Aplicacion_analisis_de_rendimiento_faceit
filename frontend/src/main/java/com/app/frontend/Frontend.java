@@ -5,6 +5,8 @@ import com.app.frontend.services.ApiService;
 import com.app.frontend.views.Buscador;
 import javax.swing.*;
 
+import com.app.frontend.models.Partido;
+import com.app.frontend.services.ApiService;
 /**
  *
  * @author Javier
@@ -12,7 +14,7 @@ import javax.swing.*;
 public class Frontend {
 
     public static void main(String[] args) {
-        
+               
         // Primera interfaz, test.
         java.awt.EventQueue.invokeLater(() -> {
             Buscador vista = new Buscador();

@@ -150,6 +150,7 @@ public class ApiService {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
             if (response.statusCode() == 200) {
+                System.out.println("Respuesta JSON completa: " + response.body());
                 Gson gson = new Gson();
                 return gson.fromJson(response.body(), EstadisticasPartido.class);
             } else {

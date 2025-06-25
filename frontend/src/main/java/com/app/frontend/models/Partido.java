@@ -32,16 +32,9 @@ public class Partido {
     private String tipoCompeticion;
     
     private String Score;
-    
 
-    // Getters y Setters para todos los campos
     public String getHoraComienzo() {
         return horaComienzo;
-    }
-    
-    @SerializedName("Score")
-    public String getScore() {
-        return Score;
     }
 
     public void setHoraComienzo(String horaComienzo) {
@@ -110,6 +103,14 @@ public class Partido {
 
     public void setTipoCompeticion(String tipoCompeticion) {
         this.tipoCompeticion = tipoCompeticion;
+    }
+
+    public String getScore() {
+        return Score;
+    }
+
+    public void setScore(String Score) {
+        this.Score = Score;
     }
     
     

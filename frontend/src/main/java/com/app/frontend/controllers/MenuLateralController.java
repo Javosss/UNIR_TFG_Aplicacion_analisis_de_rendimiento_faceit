@@ -4,6 +4,7 @@ import com.app.frontend.views.Buscador;
 import com.app.frontend.views.Dashboard;
 import com.app.frontend.views.MenuLateral;
 import com.app.frontend.views.MainView;
+import com.app.frontend.views.Partidos;
 //import java.awt.event.ActionListener;
 
 /**
@@ -38,7 +39,11 @@ public class MenuLateralController {
         
         // Listener para el botón Partidos
         vista.setPartidosListener(e -> {
-            
+            if (!(parentView instanceof Partidos)) {
+                parentView.dispose();
+                Partidos vistaPartidos = new Partidos(parentView.getJugador());
+                vistaPartidos.setVisible(true);
+            }
         });
         
         // Listener para el botón Clasificaciones
@@ -60,8 +65,8 @@ public class MenuLateralController {
         vista.setBuscadorListener(e -> {
             if (!(parentView instanceof Buscador)) {
                 parentView.dispose();
-                Buscador vista = new Buscador();
-                vista.setVisible(true);
+                Buscador vistaBuscador = new Buscador();
+                vistaBuscador.setVisible(true);
             }
         });
         
@@ -70,7 +75,7 @@ public class MenuLateralController {
         vista.setCerrarListener(e -> System.exit(0));
         
         
-    // Se habilitan los botones
+        // Se habilitan los botones
         vista.btnEstadisticas.setEnabled(true);
         vista.btnPartidos.setEnabled(true);
         vista.btnClasificaciones.setEnabled(true);
