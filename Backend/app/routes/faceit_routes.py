@@ -90,13 +90,6 @@ def get_equipos_jugador():
     id_jugador = request.args.get('player_id')
     lista_equipos = obtener_equipos_completos(id_jugador)
     return jsonify(lista_equipos)
-# http://127.0.0.1:5000/api/torneos_equipo?team_id=108a5c12-2252-4309-a315-c3d63d735c83
-# Extraer los torneos jugados por un equipo
-@app.route("/api/torneos_equipo", methods=["GET"])
-def get_torneos_equipo():
-    id_equipo = request.args.get('team_id')
-    torneos_jugados = torneos_jugados_del_equipo(id_equipo)
-    return jsonify(torneos_jugados)
 
 # Ejecutar la aplicación Flask
 if __name__ == "__main__":

@@ -48,18 +48,7 @@ def detalles_del_equipo(team_id):
     return equipo_data
 
 
-# Función para juntar el funcionamiento de las funciones anteriores para compactarlo todo en uno
-def obtener_equipos_completos(player_id, limite=None):
 
-    ids_equipos = extraer_equipos_jugador(player_id, limite) # obtener todos los ids de los equipos asociados
-    resultado_final = [] # lista para almacenar los resultados
-    # Obtener los detalles para cada equipo de la lista
-    for equipo_id in ids_equipos:
-        detalles_equipo = detalles_del_equipo(equipo_id)
-
-        if detalles_equipo is not None: # Se añaden a la lista si existe información
-            resultado_final.append(detalles_equipo)
-    return resultado_final
 
 
 def torneos_jugados_del_equipo(id_equipo):
@@ -89,6 +78,20 @@ def torneos_jugados_del_equipo(id_equipo):
         }
         torneos_devolver.append(datos_torneo)
     return torneos_devolver
+
+# Función para juntar el funcionamiento de las funciones anteriores para compactarlo todo en uno (se juntan todos los endpoints anteriores en uno solo que se modelará en Java)
+def obtener_equipos_completos(player_id, limite=None):
+    ids_equipos = extraer_equipos_jugador(player_id, limite)
+    resultado_final = []
+
+    for equipo_id in ids_equipos:
+        detalles_equipo = detalles_del_equipo(equipo_id)
+
+        if detalles_equipo is not None:
+            detalles_equipo["Torneos"] = torneos_jugados_del_equipo(equipo_id)
+            resultado_final.append(detalles_equipo)
+
+    return resultado_final
 
 #print(extraer_equipos_jugador("a362c5ee-705b-4c7d-bf5f-c616e47ada19",100))
 #extraer_equipos_jugador("d682a62e-43f5-49be-b8c9-de923adcf564",100)

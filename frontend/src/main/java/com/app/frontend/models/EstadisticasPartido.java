@@ -2,6 +2,10 @@ package com.app.frontend.models;
 
 import com.google.gson.annotations.SerializedName;
 
+/*
+* Clase para modelar las estadísticas de un partido de la clase modelo Partido.java
+* @author Javier
+*/
 public class EstadisticasPartido {
     /* 
     Al igual que para la clase Partido, se utiliza @SerializedName ya que para la respuesta del JSON por la API de Flask, se utilizan nombres con espacios, entonces con esta

@@ -2,6 +2,7 @@ package com.app.frontend.controllers;
 
 import com.app.frontend.views.Buscador;
 import com.app.frontend.views.Dashboard;
+import com.app.frontend.views.Equipos;
 import com.app.frontend.views.MenuLateral;
 import com.app.frontend.views.MainView;
 import com.app.frontend.views.Partidos;
@@ -53,7 +54,11 @@ public class MenuLateralController {
         
         // Listener para el botón Equipos
         vista.setEquiposListener(e -> {
-            
+            if (!(parentView instanceof Equipos)) {
+                parentView.dispose();
+                Equipos vistaEquipos = new Equipos(parentView.getJugador());
+                vistaEquipos.setVisible(true);
+            }
         });
         
         // Listener para el botón Buscador

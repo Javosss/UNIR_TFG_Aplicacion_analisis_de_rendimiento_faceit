@@ -1,5 +1,6 @@
 package com.app.frontend.services;
 
+import com.app.frontend.models.EquipoJugador;
 import com.app.frontend.models.EstadisticasPartido;
 import com.app.frontend.models.Jugador;
 import com.app.frontend.models.Partido;
@@ -90,7 +91,6 @@ public class ApiService {
     
     public static String getPosicionJugadorRegion(String region ,String playerID, String codigoPais) {
         try{
-            // Manejo de los 2 endpoints de la URL a la API para no hacer 2 funciones idénticas
             String url = "";
             
             if (codigoPais.equals("")) { 
@@ -158,10 +158,34 @@ public class ApiService {
                 return null;
             }
         } catch (Exception e) {
-            // Manejo de excepciones como en tus otros métodos
             e.printStackTrace();
             return null;
         }
     }
     
+    // Metodo para extraer los equipos que tiene asociados un jugador, junto con sus miembros y torneos jugados
+    public static List<EquipoJugador> getEquiposJugador(String playerId) {
+        try {
+
+            String url = API_URL + "equipos_jugador?player_id=" + playerId;
+
+            HttpClient cliente = HttpClient.newHttpClient();
+            HttpRequest peticion = HttpRequest.newBuilder().uri(URI.create(url)).GET().build();
+            HttpResponse<String> respuesta = cliente.send(peticion, HttpResponse.BodyHandlers.ofString());
+
+            if (respuesta.statusCode() == 200) {
+                //System.out.println(respuesta.body());
+                Gson gson = new Gson();
+                Type tipoListaEquipos = new TypeToken<List<EquipoJugador>>(){}.getType();
+                return gson.fromJson(respuesta.body(), tipoListaEquipos);
+            } else {
+                System.err.println("Error en la respuesta a la API de Flask: " + respuesta.statusCode());
+                return null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+       
 }

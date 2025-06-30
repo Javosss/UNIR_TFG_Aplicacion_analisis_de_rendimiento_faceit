@@ -2,6 +2,10 @@ package com.app.frontend.models;
 
 import com.google.gson.annotations.SerializedName;
 
+ /* 
+  * Clase modelo para modelar un partido de un jugador
+  * @author Javier
+  */
 public class Partido {
     
     /* 
