@@ -1,6 +1,7 @@
 package com.app.frontend.controllers;
 
 import com.app.frontend.views.Buscador;
+import com.app.frontend.views.Clasificaciones;
 import com.app.frontend.views.Dashboard;
 import com.app.frontend.views.Equipos;
 import com.app.frontend.views.MenuLateral;
@@ -49,7 +50,11 @@ public class MenuLateralController {
         
         // Listener para el botón Clasificaciones
         vista.setClasificacionesListener(e -> {
-            
+            if (!(parentView instanceof Clasificaciones)) {
+                parentView.dispose();
+                Clasificaciones vistaClasificaciones = new Clasificaciones(parentView.getJugador());
+                vistaClasificaciones.setVisible(true);
+            }
         });
         
         // Listener para el botón Equipos

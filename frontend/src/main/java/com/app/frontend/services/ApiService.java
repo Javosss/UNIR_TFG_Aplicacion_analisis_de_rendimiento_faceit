@@ -187,5 +187,40 @@ public class ApiService {
             return null;
         }
     }
-       
+    
+    // Método para filtrar las tablas de clasificaciones (Es un método muy parecido a getClasificacionRegion , pero en este caso se construye el endpoint a partir del número de parámetros
+    public static String getClasificacionFiltros(String region, String juego, String pais, int comienzo, int limite) {
+        try {
+            // Construir la URL base con los parámetros obligatorios
+            StringBuilder urlBuilder = new StringBuilder(API_URL).append("clasificacion?region=").append(region).append("&juego=").append(juego);
+                   
+            // Comprobar si los parámetros opcionales (pais,comienzo,límite) son valores válidos para hacer la petición a Flask
+            if (pais != null && !pais.isEmpty()) {
+                urlBuilder.append("&pais=").append(pais);
+            }
+            if (comienzo > 0) {
+                urlBuilder.append("&comienzo=").append(comienzo);
+            }
+            if (limite > 0 && limite != 100) {  // Si no es el valor por defecto (100)
+                urlBuilder.append("&limite=").append(limite);
+            }
+
+            String url = urlBuilder.toString();
+            //System.out.println("URL construida: " + url);
+
+            HttpClient cliente = HttpClient.newHttpClient();
+            HttpRequest peticion = HttpRequest.newBuilder().uri(URI.create(url)).GET().build();
+            HttpResponse<String> respuesta = cliente.send(peticion, HttpResponse.BodyHandlers.ofString());
+
+            if (respuesta.statusCode() == 200) {
+                return respuesta.body();
+            } else {
+                System.err.println("Error en la respuesta de la API: " + respuesta.statusCode());
+                return null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }      
 }
