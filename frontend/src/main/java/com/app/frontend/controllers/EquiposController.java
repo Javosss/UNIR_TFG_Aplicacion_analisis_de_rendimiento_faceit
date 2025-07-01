@@ -163,23 +163,19 @@ public class EquiposController {
         // Se renderizan las imágenes (para ambas columnas con iconos)
         javax.swing.table.DefaultTableCellRenderer renderer = new javax.swing.table.DefaultTableCellRenderer() {
             @Override
-            public java.awt.Component getTableCellRendererComponent(JTable table, Object value, 
-                    boolean isSelected, boolean hasFocus, int row, int column) {
+            public java.awt.Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 if (value instanceof ImageIcon) {
                     setIcon((ImageIcon) value);
                     setText("");
-                } else {
-                    setIcon(null);
-                    setText(value != null ? value.toString() : "");
                 }
                 setHorizontalAlignment(javax.swing.JLabel.CENTER);
                 return this;
             }
         };
 
-        tabla.getColumnModel().getColumn(0).setCellRenderer(renderer);  // Avatar
-        tabla.getColumnModel().getColumn(2).setCellRenderer(renderer);  // Bandera
+        tabla.getColumnModel().getColumn(0).setCellRenderer(renderer);
+        tabla.getColumnModel().getColumn(2).setCellRenderer(renderer);
     }
     
     // Método para cargar los torneos jugados de un equipo (al seleccionar el equipo en la tabla de miembros)

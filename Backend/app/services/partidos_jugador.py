@@ -7,6 +7,7 @@ from datetime import datetime
 def partidos_jugador(player_id, juego, desde=None, hasta=None, comienzo=None, limite=None):
     parametros = {"game" : juego, "from" : desde, "to" : hasta, "offset" : comienzo, "limit" : limite}
     cuerpo = hacer_request(f"players/{player_id}/history",parametros)
+    #print(cuerpo)
 
     lista_partidos = cuerpo["items"]
     partidos_devolver = [] # Lista para acumular todos los partidos a devolver
@@ -63,6 +64,7 @@ def partidos_jugador(player_id, juego, desde=None, hasta=None, comienzo=None, li
 def devolver_ids_partidos_jugador(player_id, juego, desde=None, hasta=None, comienzo=None, limite=None):
     parametros = {"game": juego, "from": desde, "to": hasta, "offset": comienzo, "limit": limite}
     cuerpo = hacer_request(f"players/{player_id}/history", parametros)
+    #print(cuerpo)
 
     # Se extraen los ids de los partidos del jugador y se guardan en una lista
     ids_partidos = []
@@ -77,16 +79,14 @@ def devolver_ids_partidos_jugador(player_id, juego, desde=None, hasta=None, comi
 # Función para extraer estadísticas de un partido jugado
 def estadisticas_partido(match_id, player_id=None):
     cuerpo = hacer_request(f"matches/{match_id}/stats")
-
-    # Diccionario con todas las estadísticas necesarias (algunos nombres los dejo en inglés por conveniencia)
+    #print(cuerpo)
+    # Diccionario con todas las estadísticas necesarias
     datos = {
         'Mapa': None,
         'Resultado del partido': None,
-        'ID del equipo ganardor': None,
-
+        'ID del equipo ganador': None,
         'Nickname del jugador': None,
         'jugador_equipo': None,
-
         'Utility Damage': None,
         'Flash Success Rate per Match': None,
         'Double_Kills': None,
@@ -136,42 +136,99 @@ def estadisticas_partido(match_id, player_id=None):
         'Quadro Kills': None
     }
 
+    if not cuerpo or "rounds" not in cuerpo:
+        return datos
+    ''' 
+    Para esta ruta es necesario hacer el mapeo manual, porque sin ello, la API no devolvía correctamente los campos del JSON
+    Había muchos campos que salían null cuando no debería, incluso algunos básicos como kills/deaths, lo cuál era por este motivo'''
 
-    # Acceder a las estadísticas de la ronda
-    rondas = cuerpo["rounds"]
-    for ronda in rondas:
-        estadisticas_rondas = ronda["round_stats"]
+    mapeo_estadisticas = { # El mapeo se hace manualmente (las agrupo en las diferentes categorías para que sea más fácil de leer)
+        # Estadísticas básicas
+        "Kills": "Kills",
+        "Deaths": "Deaths",
+        "Assists": "Assists",
+        "Headshots": "Headshots",
+        "Headshots %": "Headshots %",
+        "K/D Ratio": "K/D Ratio",
+        "K/R Ratio": "K/R Ratio",
+        "ADR": "ADR",
+        "Damage": "Damage",
+        "MVPs": "MVPs",
+        "Result": "Result",
 
-        mapa = estadisticas_rondas["Map"]
-        resultado_numerico_rondas = estadisticas_rondas["Score"]
-        id_equipo_ganador = estadisticas_rondas["Winner"] # ID para extraer más estadísticas de cada equipo
+        # Clutches
+        "1v1Count": "1v1Count",
+        "1v1Wins": "1v1Wins",
+        "1v2Count": "1v2Count",
+        "1v2Wins": "1v2Wins",
+        "Match 1v1 Win Rate": "Match 1v1 Win Rate",
+        "Match 1v2 Win Rate": "Match 1v2 Win Rate",
+        "Clutch Kills": "Clutch Kills",
 
-        datos.update(
-            {'Mapa': mapa, "Resultado del partido": resultado_numerico_rondas}
-        )
+        # Entries
+        "Entry Count": "Entry Count",
+        "Entry Wins": "Entry Wins",
+        "Match Entry Rate": "Match Entry Rate",
+        "Match Entry Success Rate": "Match Entry Success Rate",
+        "First Kills": "First_Kills",
 
-        # Estadísticas más detalladas de cada equipo de la partida
-        equipos = ronda["teams"]
-        for equipo in equipos:
-            jugadores = equipo["players"]
+        # Multi-kills
+        "Double Kills": "Double_Kills",
+        "Triple Kills": "Triple Kills",
+        "Quadro Kills": "Quadro Kills",
+        "Penta Kills": "Penta Kills",
 
-            for jugador in jugadores:
+        # Armas especificas
+        "Pistol Kills": "Pistol Kills",
+        "Sniper Kills": "Sniper Kills",
+        "Sniper Kill Rate per Match": "Sniper Kill Rate per Match",
+        "Sniper Kill Rate per Round": "Sniper Kill Rate per Round",
+        "Knife Kills": "Knife Kills",
+        "Zeus Kills": "Zeus Kills",
 
+        # Flashbangs
+        "Flash Count": "Flash Count",
+        "Flash Successes": "Flash Successes",
+        "Flash Success Rate per Match": "Flash Success Rate per Match",
+        "Enemies Flashed": "Enemies Flashed",
+        "Enemies Flashed per Round in a Match": "Enemies Flashed per Round in a Match",
+        "Flashes per Round in a Match": "Flashes per Round in a Match",
+
+        # Utilidades
+        "Utility Count": "Utility Count",
+        "Utility Successes": "Utility Successes",
+        "Utility Success Rate per Match": "Utility Success Rate per Match",
+        "Utility Damage": "Utility Damage",
+        "Utility Damage per Round in a Match": "Utility Damage per Round in a Match",
+        "Utility Damage Success Rate per Match": "Utility Damage Success Rate per Match",
+        "Utility Enemies": "Utility Enemies",
+        "Utility Usage per Round": "Utility Usage per Round"
+    }
+
+    # Procesar todas las rondas (normalmente solo hay una en CS)
+    for ronda in cuerpo["rounds"]:
+        # Obtener información básica del partido
+        estadisticas_ronda = ronda["round_stats"]
+        datos['Mapa'] = estadisticas_ronda["Map"]
+        datos['Resultado del partido'] = estadisticas_ronda["Score"]
+        datos['ID del equipo ganador'] = estadisticas_ronda["Winner"]
+
+        # Procesar equipos
+        for equipo in ronda["teams"]:
+            for jugador in equipo["players"]:
                 if jugador["player_id"] == player_id:
-                    nickname = jugador["nickname"]
-                    id_equipo_jugador = equipo["team_id"]
 
-                    datos.update({"Nickname del jugador": nickname, "ID del equipo ": id_equipo_jugador})
+                    datos['Nickname del jugador'] = jugador["nickname"]
+                    datos['jugador_equipo'] = equipo["team_id"]
 
-                    # Extraer todas las estadísticas del jugador en cuestión
-                    estadisticas = jugador["player_stats"]
-                    # Con el bucle for se actualizan todas las estadísticas en el diccionario
-                    for estadistica,valor in estadisticas.items():
-                        clave = estadistica.replace(" ", "_") # Se convierte el diccionario en pares para poder iterarlos
-                        if clave in datos:
+                    # Procesar las estadísticas del jugador
+                    estadisticas_jugador = jugador["player_stats"]
+                    for nombre, valor in estadisticas_jugador.items():
+                        clave = mapeo_estadisticas.get(nombre)
+                        if clave and clave in datos:
                             datos[clave] = valor
-                    return datos
-            return datos
+
+    return datos
 
 
 # Función para extraer detalles de un partido
@@ -187,14 +244,7 @@ def detalles_partido(match_id):
     equipos = cuerpo["teams"]
 
 
-    print(cuerpo)
-
-
-
-
-
-
-print(partidos_jugador("d1a1aa41-f4ea-4035-97f7-cd522733c6d9","cs2", limite=100))
+#print(partidos_jugador("d1a1aa41-f4ea-4035-97f7-cd522733c6d9","cs2", limite=100))
 #devolver_ids_partidos_jugador("d1a1aa41-f4ea-4035-97f7-cd522733c6d9","cs2", limite=100)
-#estadisticas_partido('1-0faa6008-b45d-4651-ace8-0b1cdb1e1697',"d1a1aa41-f4ea-4035-97f7-cd522733c6d9")
-#detalles_partido('1-0faa6008-b45d-4651-ace8-0b1cdb1e1697')
+#print(estadisticas_partido('1-75bff51d-c0c6-4ab1-9e4c-4e4cef676732',"d1a1aa41-f4ea-4035-97f7-cd522733c6d9"))
+#print(detalles_partido('1-0faa6008-b45d-4651-ace8-0b1cdb1e1697'))
