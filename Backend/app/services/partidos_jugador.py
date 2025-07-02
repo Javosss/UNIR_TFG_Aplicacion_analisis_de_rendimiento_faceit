@@ -271,5 +271,5 @@ def detalles_partido(match_id):
 
 #print(partidos_jugador("d1a1aa41-f4ea-4035-97f7-cd522733c6d9","cs2", limite=400))
 #print(devolver_ids_partidos_jugador("d1a1aa41-f4ea-4035-97f7-cd522733c6d9","cs2", limite=250))
-#print(estadisticas_partido('1-75bff51d-c0c6-4ab1-9e4c-4e4cef676732',"d1a1aa41-f4ea-4035-97f7-cd522733c6d9"))
+print(estadisticas_partido('1-75bff51d-c0c6-4ab1-9e4c-4e4cef676732',"d1a1aa41-f4ea-4035-97f7-cd522733c6d9"))
 #print(detalles_partido('1-0faa6008-b45d-4651-ace8-0b1cdb1e1697'))

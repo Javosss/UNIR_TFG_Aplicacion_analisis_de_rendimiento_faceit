@@ -8,7 +8,7 @@ from app.services.equipos_jugador import extraer_equipos_jugador, obtener_equipo
 from app.utils.peticion_HTTP import hacer_request
 from app.services.partidos_jugador import partidos_jugador, estadisticas_partido
 from app.services.partidos_jugador import estadisticas_partido
-
+from app.services.estadisticas_jugador import extraer_resumen_estadisticas_jugador
 
 # Crear la aplicación Flask
 app = Flask(__name__)
@@ -90,6 +90,20 @@ def get_equipos_jugador():
     id_jugador = request.args.get('player_id')
     lista_equipos = obtener_equipos_completos(id_jugador)
     return jsonify(lista_equipos)
+
+
+# estadisticas_jugador
+
+@app.route("/api/resumen_estadisticas_jugador", methods=["GET"])
+def get_resumen_estadisticas_jugador():
+    player_id = request.args.get('player_id')
+    juego = request.args.get('juego')
+    num_partidos = int(request.args.get('num_partidos')) # Es importante transformarlo a int para que el índice sea int en ids[:num_partidos]
+
+    resumen = extraer_resumen_estadisticas_jugador(player_id, juego, num_partidos)
+    return jsonify(resumen)
+
+
 
 # Ejecutar la aplicación Flask
 if __name__ == "__main__":

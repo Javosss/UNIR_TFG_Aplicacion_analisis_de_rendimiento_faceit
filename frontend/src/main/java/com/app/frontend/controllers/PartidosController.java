@@ -45,7 +45,7 @@ public class PartidosController {
         new SwingWorker<List<Partido>, Void>() {
             @Override
             protected List<Partido> doInBackground() throws Exception { // Se ejecuta en segundo plano para obtener los partidos utilizando la llamada a la API de ApiService.java
-                return ApiService.getHistorialPartidos( jugador.getPlayer_id(), "cs2", 100);
+                return ApiService.getHistorialPartidos( jugador.getPlayer_id(), "cs2", 300);
             }
             
             @Override
