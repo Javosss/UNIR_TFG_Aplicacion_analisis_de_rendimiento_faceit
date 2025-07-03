@@ -27,7 +27,7 @@ public class Equipos extends javax.swing.JFrame implements MainView{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        // Primero inicializa los componentes Swing (importante porque si no el menu lateral no funciona)
+        // Primero se inicializa los componentes Swing (importante porque si no el menu lateral no funciona)
         initComponents();
         // Configuracion del menu lateral
         this.menuLateral = new MenuLateral(); 
@@ -41,11 +41,21 @@ public class Equipos extends javax.swing.JFrame implements MainView{
     public JTable getTablaEquipos() {
         return tablaEquipos;
     }
+    
     public JTable getTablaMiembros() {
         return tablaMiembros;
     }
+    
     public JTable getTablaTorneos() {
         return tablaTorneos;
+    }
+    
+    public JLabel getImagenEquipo() {
+        return imagenEquipo;
+    }
+    
+    public JTextArea getTextAreaInfoEquipo() {
+        return textAreaInfoEquipo;
     }
 
     @Override
@@ -76,6 +86,10 @@ public class Equipos extends javax.swing.JFrame implements MainView{
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaEquipos = new javax.swing.JTable();
         labelHistorialDeEquipos = new javax.swing.JLabel();
+        panelInfoEquipos = new javax.swing.JPanel();
+        imagenEquipo = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        textAreaInfoEquipo = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -154,13 +168,15 @@ public class Equipos extends javax.swing.JFrame implements MainView{
             panelDerechoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane2)
             .addGroup(panelDerechoLayout.createSequentialGroup()
-                .addGroup(panelDerechoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelMiembros, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelTorneos, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(panelDerechoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 622, Short.MAX_VALUE))
+            .addGroup(panelDerechoLayout.createSequentialGroup()
+                .addGroup(panelDerechoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelMiembros, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panelDerechoLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(labelTorneos, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         panelDerechoLayout.setVerticalGroup(
             panelDerechoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -168,11 +184,11 @@ public class Equipos extends javax.swing.JFrame implements MainView{
                 .addContainerGap()
                 .addComponent(labelMiembros, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(labelTorneos, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelTorneos, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -191,6 +207,38 @@ public class Equipos extends javax.swing.JFrame implements MainView{
 
         labelHistorialDeEquipos.setText(GestionIdiomas.getMensaje("label_equipos_jugador"));
 
+        panelInfoEquipos.setBackground(new java.awt.Color(255, 255, 255));
+
+        imagenEquipo.setText("jLabel1");
+
+        textAreaInfoEquipo.setEditable(false);
+        textAreaInfoEquipo.setColumns(20);
+        textAreaInfoEquipo.setRows(5);
+        jScrollPane4.setViewportView(textAreaInfoEquipo);
+
+        javax.swing.GroupLayout panelInfoEquiposLayout = new javax.swing.GroupLayout(panelInfoEquipos);
+        panelInfoEquipos.setLayout(panelInfoEquiposLayout);
+        panelInfoEquiposLayout.setHorizontalGroup(
+            panelInfoEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelInfoEquiposLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(imagenEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        panelInfoEquiposLayout.setVerticalGroup(
+            panelInfoEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelInfoEquiposLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelInfoEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelInfoEquiposLayout.createSequentialGroup()
+                        .addComponent(imagenEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 205, Short.MAX_VALUE))
+                    .addComponent(jScrollPane4))
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout panelBaseLayout = new javax.swing.GroupLayout(panelBase);
         panelBase.setLayout(panelBaseLayout);
         panelBaseLayout.setHorizontalGroup(
@@ -201,8 +249,10 @@ public class Equipos extends javax.swing.JFrame implements MainView{
                 .addGroup(panelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(panelBaseLayout.createSequentialGroup()
-                        .addComponent(labelHistorialDeEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(293, 293, 293)
+                        .addGroup(panelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelHistorialDeEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(panelInfoEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(panelIzquierdo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -216,8 +266,14 @@ public class Equipos extends javax.swing.JFrame implements MainView{
                 .addComponent(labelHistorialDeEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelIzquierdo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(panelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelBaseLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(panelIzquierdo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBaseLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(panelInfoEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
             .addComponent(panelDerecho, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -271,20 +327,24 @@ public class Equipos extends javax.swing.JFrame implements MainView{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JLabel imagenEquipo;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel labelHistorialDeEquipos;
     private javax.swing.JLabel labelMiembros;
     private javax.swing.JLabel labelTorneos;
     private javax.swing.JPanel panelBase;
     private javax.swing.JPanel panelDerecho;
     private javax.swing.JPanel panelInfoEquipo;
+    private javax.swing.JPanel panelInfoEquipos;
     private javax.swing.JPanel panelIzquierdo;
     private javax.swing.JPanel panelMenuLateral;
     private javax.swing.JTable tablaEquipos;
     private javax.swing.JTable tablaMiembros;
     private javax.swing.JTable tablaTorneos;
+    public javax.swing.JTextArea textAreaInfoEquipo;
     // End of variables declaration//GEN-END:variables
 
 }

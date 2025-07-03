@@ -116,7 +116,7 @@ public class PartidosController {
         columnModel.getColumn(5).setPreferredWidth(120);
     }
     
-    // Configuración de los listeners para cuando el usuario interactue
+    // Configuración de los listeners para cuando el usuario interactue con la tabla
     private void configurarListeners() {
         vista.getTablaPartidos().getSelectionModel().addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
@@ -127,16 +127,18 @@ public class PartidosController {
     
     // Método para cargar las estadísticas del partido que se ha seleccionado (de nuevo, utilizando SwingWorker para que no se bloquee la interfaz)
     private void cargarEstadisticasPartido() {
-        int filaSeleccionada = vista.getTablaPartidos().getSelectedRow();
-        if (filaSeleccionada >= 0) {
-            String idPartido = vista.getTablaPartidos().getModel().getValueAt(filaSeleccionada, 0).toString();
-            
+        int filaSeleccionada = vista.getTablaPartidos().getSelectedRow(); // Fila seleccionada en la tabla
+        
+        if (filaSeleccionada >= 0) { // Si se selecciona una fila válida
+            String idPartido = vista.getTablaPartidos().getModel().getValueAt(filaSeleccionada, 0).toString(); // ID del partido para hacer la petición a la API con esa ID de partido
+            // Se crea el SwingWorker para hacer la carga en segundo plano
             new SwingWorker<EstadisticasPartido, Void>() {
+                // Llamada a la API
                 @Override
                 protected EstadisticasPartido doInBackground() throws Exception {
                     return ApiService.getEstadisticasPartido(idPartido, jugador.getPlayer_id());
                 }
-                
+                // Se actualiza la interfaz con los resultados cuando termina la operación en segundo plano (doInBackground)
                 @Override
                 protected void done() {
                     try {

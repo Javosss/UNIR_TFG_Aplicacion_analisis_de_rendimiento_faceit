@@ -52,9 +52,7 @@ public class Dashboard extends javax.swing.JFrame implements MainView{
     private void ConfigurarEventos() {
         
     }
-    
-    
-    
+        
     // Ejecutar las Funciones de la parte Controladora:
     private void CargarDatosPanelResumenStats() {
         controlador.CargarDatosPanelResumenStats(jugador, labelImagen, labelNickname, labelCuentaCreada, labelEloCs2, labelEloCsgo);

@@ -36,7 +36,9 @@ public class Partido {
     private String tipoCompeticion;
     
     private String Score;
-
+    
+    
+    // Getters y setters generados automáticamente
     public String getHoraComienzo() {
         return horaComienzo;
     }

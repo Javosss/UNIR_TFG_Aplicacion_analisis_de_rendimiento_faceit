@@ -3,6 +3,7 @@ package com.app.frontend.controllers;
 import com.app.frontend.models.EquipoJugador;
 import com.app.frontend.models.Jugador;
 import com.app.frontend.services.ApiService;
+import com.app.frontend.utils.CargarImagenDesdeURL;
 import com.app.frontend.views.Equipos;
 import java.util.List;
 import javax.swing.ImageIcon;
@@ -43,11 +44,13 @@ public class EquiposController {
                     // Se cargan los datos en las otras tablas (los datos del equipo seleccionado)
                     cargarTablaMiembros();
                     cargarTablaTorneos();
+                    cargarInfoEquipo();
                 }
             }
         });
     }
     
+    // Método para cargar los equipos en la tabla de equipos
     private void cargarTablaEquipos() {
         equipos = ApiService.getEquiposJugador(jugador.getPlayer_id()); // Se obtienen todos los equipos del jugador llamando a la API  
         
@@ -65,7 +68,7 @@ public class EquiposController {
         
         model.setColumnIdentifiers(new String[]{"Foto", "Nombre", "Abreviatura"}); // Configuración de las columnas de la tabla     
         
-        // Se recorren los equipos y se llena la tabla con esa información
+        // Se llena la tabla con esa información
         for (EquipoJugador equipo : equipos) {
             ImageIcon iconoEquipo = null; // Para las tablas, se utilikza ImageIcon en vez de la función auxiliar
             try {
@@ -126,7 +129,7 @@ public class EquiposController {
         };
 
         model.setColumnIdentifiers(new String[]{"Foto", "Nickname", "País"});
-        // Se llena la tabla con los datos de los miembros (recorriendo los miembros del equipo)
+        // Bandera del jugador 
         for (EquipoJugador.Miembro miembro : equipoSeleccionado.getMiembros()) {
             ImageIcon iconoMiembro = null;
             ImageIcon banderaPais = null;
@@ -206,5 +209,36 @@ public class EquiposController {
         tabla.getColumnModel().getColumn(4).setPreferredWidth(120);
         tabla.revalidate();
         tabla.repaint();
-    }   
+    }
+    
+    // Cargar la información del equipo seleccionado en la "tarjeta" del panelInfoEquipos
+    private void cargarInfoEquipo() {
+        if (equipoSeleccionado == null) {
+            return;
+        }
+
+        // Cargar la imagen del equipo (desde la URL que devuelve la API) utilizando la función auxiliar
+        if (equipoSeleccionado.getFotoEquipo() != null && !equipoSeleccionado.getFotoEquipo().isEmpty()) {
+            CargarImagenDesdeURL.cargarImagen(vista.imagenEquipo, equipoSeleccionado.getFotoEquipo(), 200, 170);
+        } else { // Si el equipo no tiene imgaen (hay muchos casos en los que no han añadido imagen al crear equipo
+            vista.imagenEquipo.setIcon(null);
+            vista.imagenEquipo.setText("Sin imagen");
+        }
+
+        // Construir el texto para el textarea con la información del equipo
+        StringBuilder info = new StringBuilder();
+        info.append("Nickname: ").append(equipoSeleccionado.getNicknameEquipo()).append("\n");
+        info.append("Nombre: ").append(equipoSeleccionado.getNombreEquipo()).append("\n");
+        info.append("Total miembros: ").append(equipoSeleccionado.getTotalMiembros()).append("\n");
+        info.append("Tipo de equipo: ").append(equipoSeleccionado.getTipoEquipo()).append("\n");
+        info.append("Juego: ").append(equipoSeleccionado.getJuego()).append("\n");
+
+        // Agregar campos opcionales si existen (algunos equipos tienen campos como la página del equipo
+        if (equipoSeleccionado.getFaceitURL() != null && !equipoSeleccionado.getFaceitURL().isEmpty()) {
+            info.append("Página del equipo: ").append(equipoSeleccionado.getFaceitURL()).append("\n");
+        }
+
+        vista.textAreaInfoEquipo.setText(info.toString()); // Añadir la información del equipo al textarea
+
+    }
 }

@@ -1,6 +1,5 @@
 package com.app.frontend.controllers;
 
-import com.app.frontend.models.EstadisticasPartido;
 import com.app.frontend.views.Dashboard;
 import com.app.frontend.models.Jugador;
 import com.app.frontend.models.JugadorClasificacion;
@@ -35,47 +34,35 @@ public class DashboardController {
     
     // Funcion para cargar los datos del Jugador en el Panel de Resumen de estadísticas
     public void CargarDatosPanelResumenStats(Jugador jugador, JLabel labelAvatar, JLabel labelNickname, JLabel labelFechaCreacionCuenta, JLabel labelEloCs2, JLabel labelEloCsgo) {
-        // Datos a cargar
-        String avatar = jugador.getAvatar();
-        String nickname = jugador.getNickname();
-        String fechaCreacion = jugador.getFecha_creacion_cuenta();
-        
+        String avatar = jugador.getAvatar();      
         int elo_cs2 = jugador.getElo_cs2();
         int elo_csgo = jugador.getElo_csgo();
         String elo_cs2_str = String.valueOf(elo_cs2);
         String elo_csgo_str = String.valueOf(elo_csgo);
         
         // Se cargan los datos a los labels del panel
-        labelNickname.setText(nickname);
-        labelFechaCreacionCuenta.setText(GestionIdiomas.getMensaje("label_fecha_creacion_2") +fechaCreacion);
+        labelNickname.setText(jugador.getNickname());
+        labelFechaCreacionCuenta.setText(GestionIdiomas.getMensaje("label_fecha_creacion_2") +jugador.getFecha_creacion_cuenta());
         labelEloCs2.setText("Elo CS2: " + elo_cs2_str);
-        labelEloCsgo.setText("Elo CSGO: " + elo_csgo_str);
-        
+        labelEloCsgo.setText("Elo CSGO: " + elo_csgo_str);     
         CargarImagenDesdeURL.cargarImagen(labelAvatar, avatar,80,70);
     }
     
     // Funcion para cargar los datos de la clasificación en la tabla
     public void CargarTablasDeClasificacioin(String region, String juego, JTable tabla) {
         String respuestaAPI = ApiService.getClasificacionRegion(region); // JSON de la respuesta de la API
-        
         // Convertir el JSON a un objeto para poder añadir los datos a la tabla
         Gson gson = new Gson();
         JugadorClasificacion[] jugadores = gson.fromJson(respuestaAPI, JugadorClasificacion[].class); // Se convierte el JSON en un array de objetos JugadorClasificacion
 
         DefaultTableModel model = new DefaultTableModel(); // Se crea el modelo de tabla
         model.setColumnIdentifiers(new String[]{"Posición", "Nickname", "País", "Elo"}); // Se añaden las columnas de la tabla (Se hace desde el controller porque desde la vista no carga la tabla)
-        
-        
+            
         for (JugadorClasificacion jugador : jugadores) { // Crea un array de obbjetos que representa una fila de la tabla a partir de los datos del jugador
             // Nombre del país a partir del código del país
             String codigoPais = jugador.getCountry();
-            String pais = ConvertirCodigoEnPais.getPaisDesdeCodigoIngles(codigoPais); // Por defecto se utilizará el inglés
-            
-            Object[] fila = {
-                jugador.getPosicion(),
-                jugador.getNickname(),
-                pais,
-                jugador.getFaceit_elo()
+            String pais = ConvertirCodigoEnPais.getPaisDesdeCodigoIngles(codigoPais); // Por defecto se utilizará el inglés           
+            Object[] fila = {jugador.getPosicion(),jugador.getNickname(),pais,jugador.getFaceit_elo()
             };
             model.addRow(fila); // Se añade la fila a la tabla
         }
@@ -86,9 +73,7 @@ public class DashboardController {
     public void CargarTablaClasificacionPais(JTable tabla) {
         // Sacar la region y el pais del jugador para la peticion a FLask
         Jugador jugadorInterfaz = vista.getJugador();
-        String region = jugadorInterfaz.getRegion_cs2();
-        String pais = jugadorInterfaz.getPais();
-        String respuestaAPI = ApiService.getClasificacionPais(region, pais); // Se le pasa la region y el pais
+        String respuestaAPI = ApiService.getClasificacionPais(jugadorInterfaz.getRegion_cs2(), jugadorInterfaz.getPais()); // Se le pasa la region y el pais para hacer la petición
         
         // Mismo procedimiento que para CargarTablasDeClasificacion
         Gson gson = new Gson();
@@ -100,11 +85,7 @@ public class DashboardController {
             String codigoPais = jugador.getCountry();
             String paisJugador = ConvertirCodigoEnPais.getPaisDesdeCodigoIngles(codigoPais);
             
-            Object[] fila = {
-                jugador.getPosicion(),
-                jugador.getNickname(),
-                paisJugador,
-                jugador.getFaceit_elo()
+            Object[] fila = {jugador.getPosicion(),jugador.getNickname(),paisJugador,jugador.getFaceit_elo()
             };
             modelo.addRow(fila);
         }
@@ -113,12 +94,10 @@ public class DashboardController {
     
     // Cargar la posición del jugador en el Ranking de su región
     public void CargarPosicionJugadorRegion(JLabel labelPosicion) {
-        Jugador jugador = vista.getJugador();
-        String region = jugador.getRegion_cs2();
-        
+        Jugador jugador = vista.getJugador();     
         // Sacar la ruta del icono a mostrar en base a la región del jugador
         String rutaIcono;
-        switch (region) {
+        switch (jugador.getRegion_cs2()) {
             case "EU":
                 rutaIcono = "/icons/eu.png";
                 break;
@@ -174,7 +153,7 @@ public class DashboardController {
         Jugador jugador = vista.getJugador(); // Obtener el jugador de la vista     
         List<Partido> partidos = ApiService.getHistorialPartidos(jugador.getPlayer_id(), "cs2",100); // Obtener el historial de partidos llamando a la API
 
-        if (partidos == null || partidos.isEmpty()) {
+        if (partidos == null || partidos.isEmpty()) {// Puede ser que el jugador esté registrado pero no haya jugado partidas en la plataforma
             System.err.println("No se encontraron partidos o hubo un error al cargarlos");
             return;
         }
@@ -191,15 +170,8 @@ public class DashboardController {
 
         // Se llena la tabla con los datos de los partidos
         for (Partido partido : partidos) {
-            Object[] fila = {
-                partido.getNombreCompeticion(),
-                partido.getTipoCompeticion(),
-                partido.getRegion(),
-                partido.getModo(),
-                partido.getResultadoPartido(),
-                partido.getHoraComienzo(),
-                partido.getHoraFinalizacion(),
-                partido.getIdPartido()
+            Object[] fila = {partido.getNombreCompeticion(),partido.getTipoCompeticion(),partido.getRegion(),partido.getModo(),partido.getResultadoPartido(),
+                partido.getHoraComienzo(),partido.getHoraFinalizacion(),partido.getIdPartido()
             };
             model.addRow(fila);
         }
@@ -240,6 +212,5 @@ public class DashboardController {
         tabla.getColumnModel().getColumn(5).setPreferredWidth(120);
         tabla.getColumnModel().getColumn(6).setPreferredWidth(120);
         tabla.getColumnModel().getColumn(7).setPreferredWidth(200);
-    }
-          
+    }        
 }

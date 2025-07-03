@@ -10,7 +10,8 @@ import java.util.Locale;
  */
 public class ConvertirCodigoEnPais {
     
-    public static String getPaisDesdeCodigoIngles(String codigoPais) { // Funcion para convertir el código a nombre del país en inglés
+    // Funcion para convertir el código a nombre del país en inglés
+    public static String getPaisDesdeCodigoIngles(String codigoPais) { 
         if (codigoPais == null){ // Si el código no es correcto, devuelve error
             return "Invalid code";
         }
