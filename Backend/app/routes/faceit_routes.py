@@ -94,6 +94,7 @@ def get_equipos_jugador():
 
 # estadisticas_jugador
 
+#http://127.0.0.1:5000/api/resumen_estadisticas_jugador?player_id=d1a1aa41-f4ea-4035-97f7-cd522733c6d9&juego=cs2&num_partidos=30
 @app.route("/api/resumen_estadisticas_jugador", methods=["GET"])
 def get_resumen_estadisticas_jugador():
     player_id = request.args.get('player_id')

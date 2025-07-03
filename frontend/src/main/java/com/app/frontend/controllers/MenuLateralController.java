@@ -4,6 +4,7 @@ import com.app.frontend.views.Buscador;
 import com.app.frontend.views.Clasificaciones;
 import com.app.frontend.views.Dashboard;
 import com.app.frontend.views.Equipos;
+import com.app.frontend.views.Estadisticas;
 import com.app.frontend.views.MenuLateral;
 import com.app.frontend.views.MainView;
 import com.app.frontend.views.Partidos;
@@ -36,7 +37,10 @@ public class MenuLateralController {
 
         // Listener para el botón de Estadísticas
         vista.setEstadisticasListener(e -> {
-            
+            if (!(parentView instanceof Estadisticas)) {
+                parentView.dispose();
+                new Estadisticas(parentView.getJugador()).setVisible(true);
+            }
         });
         
         // Listener para el botón Partidos

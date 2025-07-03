@@ -222,5 +222,26 @@ public class ApiService {
             e.printStackTrace();
             return null;
         }
-    }      
+    }
+    
+    // Método para extraer el resumen de estadísticas de un jugador para una serie de partidos
+    public static String getResumenEstadisticasJugador(String playerId, String juego, int numPartidos) {
+        try {
+            String url = API_URL + "resumen_estadisticas_jugador?player_id=" + playerId + "&juego=" + juego + "&num_partidos=" + numPartidos;
+
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).GET().build();
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+            if (response.statusCode() == 200) {
+                return response.body();
+            } else {
+                System.err.println("Error en la respuesta a la API de Flask: " + response.statusCode());
+                return null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

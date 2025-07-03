@@ -277,7 +277,7 @@ public class Clasificaciones extends javax.swing.JFrame implements MainView{
 
     @Override
     public Jugador getJugador() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return this.jugador;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
