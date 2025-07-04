@@ -61,7 +61,7 @@ def get_posicion_jugador_clasificacion(): # API para extraer la posicion de un j
 
 # detalles_jugador_service
 
-# http://127.0.0.1:5000/api/historial_partidos_jugador?player_id=d1a1aa41-f4ea-4035-97f7-cd522733c6d9&juego=cs2
+# http://127.0.0.1:5000/api/historial_partidos_jugador?player_id=d1a1aa41-f4ea-4035-97f7-cd522733c6d9&juego=cs2&limite=5
 @app.route("/api/historial_partidos_jugador", methods=["GET"])
 def get_ultimos_partidos_jugador():
     player_id = request.args.get('player_id')

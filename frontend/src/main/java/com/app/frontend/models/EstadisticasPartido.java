@@ -159,7 +159,7 @@ public class EstadisticasPartido {
     @SerializedName("jugador_equipo")
     private String jugadorEquipo;
 
-    // Getters para campos numéricos con conversión segura
+   
 
     public String getMapa() {
         return Mapa;

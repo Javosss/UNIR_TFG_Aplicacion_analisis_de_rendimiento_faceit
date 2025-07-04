@@ -33,8 +33,7 @@ public class DashboardController {
     }
     
     // Funcion para cargar los datos del Jugador en el Panel de Resumen de estadísticas
-    public void CargarDatosPanelResumenStats(Jugador jugador, JLabel labelAvatar, JLabel labelNickname, JLabel labelFechaCreacionCuenta, JLabel labelEloCs2, JLabel labelEloCsgo) {
-        String avatar = jugador.getAvatar();      
+    public void CargarDatosPanelResumenStats(Jugador jugador, JLabel labelAvatar, JLabel labelNickname, JLabel labelFechaCreacionCuenta, JLabel labelEloCs2, JLabel labelEloCsgo) {    
         int elo_cs2 = jugador.getElo_cs2();
         int elo_csgo = jugador.getElo_csgo();
         String elo_cs2_str = String.valueOf(elo_cs2);
@@ -45,10 +44,10 @@ public class DashboardController {
         labelFechaCreacionCuenta.setText(GestionIdiomas.getMensaje("label_fecha_creacion_2") +jugador.getFecha_creacion_cuenta());
         labelEloCs2.setText("Elo CS2: " + elo_cs2_str);
         labelEloCsgo.setText("Elo CSGO: " + elo_csgo_str);     
-        CargarImagenDesdeURL.cargarImagen(labelAvatar, avatar,80,70);
+        CargarImagenDesdeURL.cargarImagen(labelAvatar, jugador.getAvatar(),80,70);
     }
     
-    // Funcion para cargar los datos de la clasificación en la tabla
+    // Cargar los datos de la clasificación en la tabla
     public void CargarTablasDeClasificacioin(String region, String juego, JTable tabla) {
         String respuestaAPI = ApiService.getClasificacionRegion(region); // JSON de la respuesta de la API
         // Convertir el JSON a un objeto para poder añadir los datos a la tabla
@@ -69,7 +68,7 @@ public class DashboardController {
         tabla.setModel(model); // Se asigna el modelo a la tabla para mostrar los datos
     }
     
-    // Funcion para cargar los datos de la clasificacion del pais del jugador. Funcion muy parecida a la anterior, lo que cambia es la peticion a la API
+    // Cargar los datos de la clasificacion del pais del jugador. Funcion muy parecida a la anterior, lo que cambia es la peticion a la API
     public void CargarTablaClasificacionPais(JTable tabla) {
         // Sacar la region y el pais del jugador para la peticion a FLask
         Jugador jugadorInterfaz = vista.getJugador();
@@ -85,8 +84,7 @@ public class DashboardController {
             String codigoPais = jugador.getCountry();
             String paisJugador = ConvertirCodigoEnPais.getPaisDesdeCodigoIngles(codigoPais);
             
-            Object[] fila = {jugador.getPosicion(),jugador.getNickname(),paisJugador,jugador.getFaceit_elo()
-            };
+            Object[] fila = {jugador.getPosicion(),jugador.getNickname(),paisJugador,jugador.getFaceit_elo()};
             modelo.addRow(fila);
         }
         tabla.setModel(modelo);
@@ -117,8 +115,8 @@ public class DashboardController {
                 rutaIcono = "/icons/error.png";
                 break;
         }
-        // Respuesta de la API
-        String posicion = ApiService.getPosicionJugadorRegion(jugador.getRegion_cs2(), jugador.getPlayer_id(), "");
+        
+        String posicion = ApiService.getPosicionJugadorRegion(jugador.getRegion_cs2(), jugador.getPlayer_id(), ""); // Respuesta de la API
        
         // Cargar el icono desde la ruta de iconos
         java.net.URL iconUrl = getClass().getResource(rutaIcono); // Se carga el icono desde la ruta
@@ -138,7 +136,7 @@ public class DashboardController {
         labelPosicion.setText("#" + posicion);      
     }
     
-    // Función para cargar la posición del jugador en el ranking de su país
+    // Cargar la posición del jugador en el ranking de su país
     public void CargarPosicionJugadorPais(JLabel labelPosicionPais) {
         Jugador jugador = vista.getJugador();       
         String posicion = ApiService.getPosicionJugadorRegion(jugador.getRegion_cs2(), jugador.getPlayer_id(), jugador.getPais());
@@ -148,7 +146,7 @@ public class DashboardController {
         labelPosicionPais.setText("#"+posicion);       
     } 
     
-    // Función para cargar la posición del jugador en el ranking de su país
+    // Cargar la posición del jugador en el ranking de su país
     public void CargarHistorialPartidos(JTable tabla) {
         Jugador jugador = vista.getJugador(); // Obtener el jugador de la vista     
         List<Partido> partidos = ApiService.getHistorialPartidos(jugador.getPlayer_id(), "cs2",100); // Obtener el historial de partidos llamando a la API

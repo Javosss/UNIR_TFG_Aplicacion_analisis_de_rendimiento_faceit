@@ -2,7 +2,7 @@ import app.utils.peticion_HTTP
 from app.utils.peticion_HTTP import hacer_request
 from datetime import datetime
 
-# Función para extraer los 100 últimos partidos de un jugador junto con algunos detalles básicos del partido
+# Función para extraer los últimos partidos de un jugador junto con algunos detalles básicos del partido
 # Esta extracción no devuelve datos detallados del partido, para ello hay otro endpoint de la API de FACEIT
 def partidos_jugador(player_id, juego, desde=None, hasta=None, comienzo=None, limite=None):
     partidos_devolver = []  # Lista para acumular todos los partidos a devolver
@@ -14,7 +14,6 @@ def partidos_jugador(player_id, juego, desde=None, hasta=None, comienzo=None, li
     # Se utiliza un bucle para poder extraer más de 100 partidos, que es el límite que pone FACEIT por petición al endpoint
     while len(partidos_devolver) < limite_total:
         limite_peticion = min(max_por_peticion, limite_total - len(partidos_devolver))
-
 
         parametros = {"game": juego, "from": desde, "to": hasta, "offset": offset, "limit": limite_peticion}
         cuerpo = hacer_request(f"players/{player_id}/history", parametros)
@@ -42,17 +41,46 @@ def partidos_jugador(player_id, juego, desde=None, hasta=None, comienzo=None, li
             resultado = resultados_partido["score"]
             equipo_ganador = resultados_partido["winner"]
 
-            # Lógica para determinar si el jugador está en el equipo ganador
-            equipo_jugador = None
-            for faction, equipo_data in partido["teams"].items():
-                for jugador in equipo_data["players"]:
-                    if jugador["player_id"] == player_id:
-                        equipo_jugador = faction
-                        break
-                if equipo_jugador:
-                    break
+            # Variables para almacenar información de los equipos
+            informacion_equipo_jugador = None # Equipo al que pertenece el jugador que se ha pasado por parámetro
+            informacion_equipo_contrario = None # Equipo contrario al jugador que se ha pasado por parámetro
+            equipo_jugador_id = None
 
-            if equipo_jugador == equipo_ganador:
+            # Procesar los equipos para sacar los jugadores de cada equipo
+            for faction, equipo_data in partido["teams"].items():
+                jugadores_equipo = []
+
+                for jugador in equipo_data["players"]:
+
+                    # Se extraen los datos de cada jugador para cada equipo
+                    jugador_info = {
+                        "nickname": jugador["nickname"],
+                        "player_id": jugador["player_id"],
+                        "avatar": jugador["avatar"],
+                        "skill_level": jugador["skill_level"],
+                        "game_player_id": jugador["game_player_id"],
+                        "faceit_url": jugador["faceit_url"]
+                    }
+                    jugadores_equipo.append(jugador_info)
+
+                    # Se comprueba si es este el jugador que se busca
+                    if jugador["player_id"] == player_id:
+                        equipo_jugador_id = faction
+                # Información del equipo en sí (no de jugadores)
+                equipo_info = {
+                    "team_id": equipo_data["team_id"],
+                    "nombre": equipo_data["nickname"],
+                    "avatar": equipo_data["avatar"],
+                    "jugadores": jugadores_equipo
+                }
+
+                if faction == equipo_jugador_id:
+                    informacion_equipo_jugador = equipo_info
+                else:
+                    informacion_equipo_contrario = equipo_info
+
+            # Determinar resultado del jugador
+            if equipo_jugador_id == equipo_ganador:
                 resultado_jugador = "Ganada"
             else:
                 resultado_jugador = "Perdida"
@@ -67,6 +95,8 @@ def partidos_jugador(player_id, juego, desde=None, hasta=None, comienzo=None, li
                 "Resultado del partido": resultado_jugador,
                 "Hora de comienzo": hora_comienzo,
                 "Hora de finalizacion": hora_finalizacion,
+                "Equipo del jugador": informacion_equipo_jugador,
+                "Equipo contrario": informacion_equipo_contrario
             })
 
         offset += len(lista_partidos)
@@ -269,7 +299,7 @@ def detalles_partido(match_id):
     equipos = cuerpo["teams"]
 
 
-#print(partidos_jugador("d1a1aa41-f4ea-4035-97f7-cd522733c6d9","cs2", limite=400))
+print(partidos_jugador("d1a1aa41-f4ea-4035-97f7-cd522733c6d9","cs2", limite=2))
 #print(devolver_ids_partidos_jugador("d1a1aa41-f4ea-4035-97f7-cd522733c6d9","cs2", limite=250))
-print(estadisticas_partido('1-75bff51d-c0c6-4ab1-9e4c-4e4cef676732',"d1a1aa41-f4ea-4035-97f7-cd522733c6d9"))
+#print(estadisticas_partido('1-75bff51d-c0c6-4ab1-9e4c-4e4cef676732',"d1a1aa41-f4ea-4035-97f7-cd522733c6d9"))
 #print(detalles_partido('1-0faa6008-b45d-4651-ace8-0b1cdb1e1697'))

@@ -1,6 +1,7 @@
 package com.app.frontend.models;
 
 import com.google.gson.annotations.SerializedName;
+import java.util.List;
 
  /* 
   * Clase modelo para modelar un partido de un jugador
@@ -36,6 +37,99 @@ public class Partido {
     private String tipoCompeticion;
     
     private String Score;
+    
+    @SerializedName("Equipo del jugador")
+    private Equipo equipoJugador;
+    
+    @SerializedName("Equipo contrario")
+    private Equipo equipoContrario;
+    
+    // Clase para modelar un equipo
+    public static class Equipo {
+        private String nombre;
+        private String avatar;
+        @SerializedName("team_id")
+        private String teamId;
+        private List<JugadorPartido> jugadores;
+        
+        public String getNombre() {
+            return nombre;
+        }
+
+        public void setNombre(String nombre) {
+            this.nombre = nombre;
+        }
+
+        public String getAvatar() {
+            return avatar;
+        }
+
+        public void setAvatar(String avatar) {
+            this.avatar = avatar;
+        }
+
+        public String getTeamId() {
+            return teamId;
+        }
+
+        public void setTeamId(String teamId) {
+            this.teamId = teamId;
+        }
+
+        public List<JugadorPartido> getJugadores() {
+            return jugadores;
+        }
+
+        public void setJugadores(List<JugadorPartido> jugadores) {
+            this.jugadores = jugadores;
+        }
+        
+        
+    }
+    
+    // Clase para modelar un jugador en un partido
+    public static class JugadorPartido {
+        private String nickname;
+        private String avatar;
+        @SerializedName("player_id")
+        private String playerId;
+        @SerializedName("skill_level")
+        private int skillLevel;
+
+        public String getNickname() {
+            return nickname;
+        }
+
+        public void setNickname(String nickname) {
+            this.nickname = nickname;
+        }
+
+        public String getAvatar() {
+            return avatar;
+        }
+
+        public void setAvatar(String avatar) {
+            this.avatar = avatar;
+        }
+
+        public String getPlayerId() {
+            return playerId;
+        }
+
+        public void setPlayerId(String playerId) {
+            this.playerId = playerId;
+        }
+
+        public int getSkillLevel() {
+            return skillLevel;
+        }
+
+        public void setSkillLevel(int skillLevel) {
+            this.skillLevel = skillLevel;
+        }
+        
+        
+    }
     
     
     // Getters y setters generados automáticamente
@@ -133,5 +227,13 @@ public class Partido {
                ", resultadoPartido='" + resultadoPartido + '\'' +
                ", tipoCompeticion='" + tipoCompeticion + '\'' +
                '}';
+    }
+    
+    public Equipo getEquipoJugador() {
+        return equipoJugador;
+    }
+    
+    public Equipo getEquipoContrario() {
+        return equipoContrario;
     }
 }
