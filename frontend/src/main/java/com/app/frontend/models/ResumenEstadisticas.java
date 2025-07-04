@@ -4,7 +4,9 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Map;
 
 /**
- * Clase para modelar el resumen de estadisticas
+ * Clase para modelar el resumen de estadisticas de un jugador para una serie de Partidos.
+ * Además de estas estadísticas, se puede reutilizar la clase EstadisticasPartido para llenarla con los datos del resumen
+ * del partido, porque es una agrupación de las EstadisticasPartido para muchos partidos, por ello se realiza de forma externa
  * @author Javier
  */
 public class ResumenEstadisticas {
@@ -62,7 +64,5 @@ public class ResumenEstadisticas {
 
     public void setEstadisticasPorMapa(Map<String, Map<String, Double>> estadisticasPorMapa) {
         this.estadisticasPorMapa = estadisticasPorMapa;
-    }
-    
-    
+    }   
 }

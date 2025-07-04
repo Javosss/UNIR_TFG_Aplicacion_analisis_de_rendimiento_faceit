@@ -9,16 +9,19 @@ import javax.swing.JFrame;
 
 /**
  * Clase Dashboard de la interfaz.
- * En esta parte de la interfaz se mostrará un pequeño resumen de datos de importancia para el usuario
+ * En esta parte de la interfaz se mostrará un pequeño resumen de datos de importancia para el usuario. Incluyendo:
+ * Tabla de clasificación de los jugadores mejor clasificados de su región y otra de su país, resumen de su rendimiento reciente, pequeño historial
+ * de últimas partidas jugadas
  * @author Javier
  */
 public class Dashboard extends javax.swing.JFrame implements MainView{
-    private Jugador jugador;
-    private DashboardController controlador;
-    private MenuLateral menuLateral;
+    private final Jugador jugador;
+    private final DashboardController controlador;
+    private final MenuLateral menuLateral;
     
     public Dashboard(Jugador jugador) {
-        this.jugador = jugador;  
+        this.jugador = jugador;       
+        //setSize(1440, 900);
         
         // Configuración básica del JFrame
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -28,7 +31,6 @@ public class Dashboard extends javax.swing.JFrame implements MainView{
         this.menuLateral = new MenuLateral(); 
         new MenuLateralController(menuLateral, this);
         
-     
         initComponents();
         
         jPanel2.setLayout(new BorderLayout()); // Se organizan los componentes
@@ -39,43 +41,18 @@ public class Dashboard extends javax.swing.JFrame implements MainView{
         
         this.controlador = new DashboardController(this);
         ConfigurarEventos();
-              
-        // Se incluyen las funciones en la inicialización
-        CargarDatosPanelResumenStats();
-        CargarClasificacionesRegionalesLista();
-        CargarClasificacionesPais();
-        CargarPosicionJugadorRegion();
-        CargarPosicionJugadorPais();
-        CargarHistorialPartidos();
-    }
 
+    }
+    
+    // Métodos del controlador de la interfaz
     private void ConfigurarEventos() {
-        
-    }
-        
-    // Ejecutar las Funciones de la parte Controladora:
-    private void CargarDatosPanelResumenStats() {
-        controlador.CargarDatosPanelResumenStats(jugador, labelImagen, labelNickname, labelCuentaCreada, labelEloCs2, labelEloCsgo);
-    }
-    
-    private void CargarClasificacionesRegionalesLista() {
-        controlador.CargarTablasDeClasificacioin(jugador.getRegion_cs2(), "cs2", tablaClasificacionRegion); // Se utilza el objeto jugador para coger su región de juego
-    }
-    
-    private void CargarClasificacionesPais() {
-        controlador.CargarTablaClasificacionPais(tablaClasificacionPais);
-    }
-    
-    private void CargarPosicionJugadorRegion() {
-        controlador.CargarPosicionJugadorRegion(labelClasificacionRegion);
-    }
-    
-    private void CargarPosicionJugadorPais() {
-        controlador.CargarPosicionJugadorPais(labelClasificacionPais);
-    }
-    
-    private void CargarHistorialPartidos() {
-        controlador.CargarHistorialPartidos(tablaHistorialPartidos);
+        controlador.cargarEstadisticasDetalladas();
+        controlador.cargarDatosPanelResumenStats(jugador, labelImagen, labelNickname, labelCuentaCreada, labelEloCs2, labelEloCsgo);
+        controlador.cargarTablasDeClasificacioin(jugador.getRegion_cs2(), "cs2", tablaClasificacionRegion);
+        controlador.cargarTablaClasificacionPais(tablaClasificacionPais);
+        controlador.cargarPosicionJugadorRegion(labelClasificacionRegion);
+        controlador.cargarPosicionJugadorPais(labelClasificacionPais);
+        controlador.cargarHistorialPartidos(tablaHistorialPartidos);
     }
     
     @Override
@@ -104,9 +81,23 @@ public class Dashboard extends javax.swing.JFrame implements MainView{
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaClasificacionPais = new javax.swing.JTable();
         panelStatsDetalladas = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        panelEstadisticasIndividuales = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        textAreaEstadisticasIndividuales = new javax.swing.JTextArea();
+        panelEntriesClutches = new javax.swing.JPanel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        textAreaEntriesClutches = new javax.swing.JTextArea();
+        panelEstadisticasArmas = new javax.swing.JPanel();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        textAreaEstadisticasArmas = new javax.swing.JTextArea();
+        panelUtilidad = new javax.swing.JPanel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        textAreaUtilidad = new javax.swing.JTextArea();
+        panelEstadisticasMejorMapa = new javax.swing.JPanel();
+        imagenMejorMapa = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        textAreaMejorMapa = new javax.swing.JTextArea();
         panelUltimosPartidos = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaHistorialPartidos = new javax.swing.JTable();
@@ -114,8 +105,10 @@ public class Dashboard extends javax.swing.JFrame implements MainView{
         jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(1440, 900));
 
         jPanel1.setBackground(new java.awt.Color(218, 244, 255));
+        jPanel1.setMaximumSize(new java.awt.Dimension(1440, 900));
         jPanel1.setPreferredSize(new java.awt.Dimension(1440, 900));
 
         panelResumenStats.setBackground(new java.awt.Color(153, 204, 255));
@@ -248,37 +241,130 @@ public class Dashboard extends javax.swing.JFrame implements MainView{
 
         panelStatsDetalladas.setBackground(new java.awt.Color(255, 255, 255));
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 220, Short.MAX_VALUE)
+        jLabel1.setText(GestionIdiomas.getMensaje("label_resumen_estadisticas_dashboard"));
+
+        panelEstadisticasIndividuales.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 204, 255), 3));
+
+        textAreaEstadisticasIndividuales.setEditable(false);
+        textAreaEstadisticasIndividuales.setColumns(20);
+        textAreaEstadisticasIndividuales.setRows(5);
+        jScrollPane5.setViewportView(textAreaEstadisticasIndividuales);
+
+        javax.swing.GroupLayout panelEstadisticasIndividualesLayout = new javax.swing.GroupLayout(panelEstadisticasIndividuales);
+        panelEstadisticasIndividuales.setLayout(panelEstadisticasIndividualesLayout);
+        panelEstadisticasIndividualesLayout.setHorizontalGroup(
+            panelEstadisticasIndividualesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelEstadisticasIndividualesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane5)
+                .addContainerGap())
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 138, Short.MAX_VALUE)
+        panelEstadisticasIndividualesLayout.setVerticalGroup(
+            panelEstadisticasIndividualesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelEstadisticasIndividualesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane5)
+                .addContainerGap())
         );
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 232, Short.MAX_VALUE)
+        panelEntriesClutches.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 204, 255), 3));
+
+        textAreaEntriesClutches.setEditable(false);
+        textAreaEntriesClutches.setColumns(20);
+        textAreaEntriesClutches.setRows(5);
+        jScrollPane6.setViewportView(textAreaEntriesClutches);
+
+        javax.swing.GroupLayout panelEntriesClutchesLayout = new javax.swing.GroupLayout(panelEntriesClutches);
+        panelEntriesClutches.setLayout(panelEntriesClutchesLayout);
+        panelEntriesClutchesLayout.setHorizontalGroup(
+            panelEntriesClutchesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelEntriesClutchesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane6)
+                .addContainerGap())
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        panelEntriesClutchesLayout.setVerticalGroup(
+            panelEntriesClutchesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelEntriesClutchesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 220, Short.MAX_VALUE)
+        panelEstadisticasArmas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 204, 255), 3));
+
+        textAreaEstadisticasArmas.setEditable(false);
+        textAreaEstadisticasArmas.setColumns(20);
+        textAreaEstadisticasArmas.setRows(5);
+        jScrollPane8.setViewportView(textAreaEstadisticasArmas);
+
+        javax.swing.GroupLayout panelEstadisticasArmasLayout = new javax.swing.GroupLayout(panelEstadisticasArmas);
+        panelEstadisticasArmas.setLayout(panelEstadisticasArmasLayout);
+        panelEstadisticasArmasLayout.setHorizontalGroup(
+            panelEstadisticasArmasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelEstadisticasArmasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
+                .addContainerGap())
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 138, Short.MAX_VALUE)
+        panelEstadisticasArmasLayout.setVerticalGroup(
+            panelEstadisticasArmasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelEstadisticasArmasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        panelUtilidad.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 204, 255), 3));
+
+        textAreaUtilidad.setEditable(false);
+        textAreaUtilidad.setColumns(20);
+        textAreaUtilidad.setRows(5);
+        jScrollPane7.setViewportView(textAreaUtilidad);
+
+        javax.swing.GroupLayout panelUtilidadLayout = new javax.swing.GroupLayout(panelUtilidad);
+        panelUtilidad.setLayout(panelUtilidadLayout);
+        panelUtilidadLayout.setHorizontalGroup(
+            panelUtilidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelUtilidadLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        panelUtilidadLayout.setVerticalGroup(
+            panelUtilidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelUtilidadLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane7)
+                .addContainerGap())
+        );
+
+        panelEstadisticasMejorMapa.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 204, 255), 3));
+
+        textAreaMejorMapa.setEditable(false);
+        textAreaMejorMapa.setColumns(20);
+        textAreaMejorMapa.setRows(5);
+        jScrollPane4.setViewportView(textAreaMejorMapa);
+
+        javax.swing.GroupLayout panelEstadisticasMejorMapaLayout = new javax.swing.GroupLayout(panelEstadisticasMejorMapa);
+        panelEstadisticasMejorMapa.setLayout(panelEstadisticasMejorMapaLayout);
+        panelEstadisticasMejorMapaLayout.setHorizontalGroup(
+            panelEstadisticasMejorMapaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelEstadisticasMejorMapaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelEstadisticasMejorMapaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(imagenMejorMapa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4))
+                .addContainerGap())
+        );
+        panelEstadisticasMejorMapaLayout.setVerticalGroup(
+            panelEstadisticasMejorMapaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelEstadisticasMejorMapaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(imagenMejorMapa, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane4)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout panelStatsDetalladasLayout = new javax.swing.GroupLayout(panelStatsDetalladas);
@@ -287,22 +373,34 @@ public class Dashboard extends javax.swing.JFrame implements MainView{
             panelStatsDetalladasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelStatsDetalladasLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addGroup(panelStatsDetalladasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(panelUtilidad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelEstadisticasIndividuales, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelEntriesClutches, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                .addGroup(panelStatsDetalladasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(panelEstadisticasArmas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelEstadisticasMejorMapa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         panelStatsDetalladasLayout.setVerticalGroup(
             panelStatsDetalladasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelStatsDetalladasLayout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelStatsDetalladasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(panelEstadisticasArmas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelEstadisticasIndividuales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(panelStatsDetalladasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelStatsDetalladasLayout.createSequentialGroup()
+                        .addComponent(panelEntriesClutches, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(panelUtilidad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(panelEstadisticasMejorMapa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         panelUltimosPartidos.setBackground(new java.awt.Color(255, 255, 255));
@@ -327,13 +425,13 @@ public class Dashboard extends javax.swing.JFrame implements MainView{
             .addGroup(panelUltimosPartidosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(8, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelUltimosPartidosLayout.setVerticalGroup(
             panelUltimosPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelUltimosPartidosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 443, Short.MAX_VALUE)
+                .addComponent(jScrollPane2)
                 .addContainerGap())
         );
 
@@ -347,18 +445,18 @@ public class Dashboard extends javax.swing.JFrame implements MainView{
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panelUltimosPartidos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(labelUltimosPartidos, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(panelTablasClasificacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(panelResumenStats, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                         .addComponent(panelStatsDetalladas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(657, 657, 657))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -395,11 +493,12 @@ public class Dashboard extends javax.swing.JFrame implements MainView{
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1910, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1433, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(477, 477, 477))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1080, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1071, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -445,15 +544,19 @@ public class Dashboard extends javax.swing.JFrame implements MainView{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JLabel imagenMejorMapa;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JLabel labelClasificacion;
     private javax.swing.JLabel labelClasificacionPais;
     private javax.swing.JLabel labelClasificacionRegion;
@@ -463,12 +566,22 @@ public class Dashboard extends javax.swing.JFrame implements MainView{
     private javax.swing.JLabel labelImagen;
     private javax.swing.JLabel labelNickname;
     private javax.swing.JLabel labelUltimosPartidos;
+    private javax.swing.JPanel panelEntriesClutches;
+    private javax.swing.JPanel panelEstadisticasArmas;
+    private javax.swing.JPanel panelEstadisticasIndividuales;
+    private javax.swing.JPanel panelEstadisticasMejorMapa;
     private javax.swing.JPanel panelResumenStats;
     private javax.swing.JPanel panelStatsDetalladas;
     private javax.swing.JPanel panelTablasClasificacion;
     private javax.swing.JPanel panelUltimosPartidos;
+    private javax.swing.JPanel panelUtilidad;
     private javax.swing.JTable tablaClasificacionPais;
     public javax.swing.JTable tablaClasificacionRegion;
     private javax.swing.JTable tablaHistorialPartidos;
+    public javax.swing.JTextArea textAreaEntriesClutches;
+    public javax.swing.JTextArea textAreaEstadisticasArmas;
+    public javax.swing.JTextArea textAreaEstadisticasIndividuales;
+    public javax.swing.JTextArea textAreaMejorMapa;
+    public javax.swing.JTextArea textAreaUtilidad;
     // End of variables declaration//GEN-END:variables
 }

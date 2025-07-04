@@ -6,14 +6,15 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Clase modelo para modelar un Equipo de un jugador
+ * Clase modelo para modelar un Equipo de un jugador.
+ * Esta clase se utiliza para la interfaz Equipos, donde es necesario modelar cada equipo del jugador, donde a su vez contendrá
+ * una clase interna para modelar esos Miembros del Equipo y otra para modelar los Torneos que ha jugado ese Equipo. Se utiliza para añadir los Equipos a una
+ * tabla, así como los Miembros y Torneos una vez se selecciona un Equipo del jugador.
  * @author Javier
  */
 public class EquipoJugador {
-    /* 
-    Se utiliza @SerializedName ya que para la respuesta del JSON por la API de Flask, se utilizan nombres con espacios, entonces con esta
-    anotación se pueden mapear atributos de la clase actual con los campos del JSON.
-    */
+    /* Se utiliza @SerializedName ya que para la respuesta del JSON por la API de Flask, se utilizan nombres con espacios, entonces con esta
+    anotación se pueden mapear atributos de la clase actual con los campos del JSON. */
     
     @SerializedName("Chat room ID")
     private String idChatroom;
@@ -51,7 +52,8 @@ public class EquipoJugador {
     @SerializedName("Miembros")
     private List<Miembro> miembros;
     
-    // Se define una clase interna para modelar los miembros del equipo (Se hace dentro de esta propia clase porque realmente debería pertenecer a esta y no como externa)
+    /* Se implementa la clase Miembro como una clase interna porque modela una parte de EquiposJugador que solo existe con la clase principal y no necesita ser accesible
+    por otras clases externas */
     public static class Miembro {
               
         @SerializedName("avatar")
@@ -96,7 +98,7 @@ public class EquipoJugador {
         }
     }
     
-    // Se hace de la misma manera para los torneos que ha jugado un equipo
+    // Se hace de la misma manera para la clase Torneos
     public static class Torneo {
         @SerializedName("Nombre del torneo")
         private String nombre;
@@ -144,7 +146,7 @@ public class EquipoJugador {
         }
     }
     
-    
+    // Getters y setters de la clase EquipoJugador generados automáticamente con NetBeans
     public List<Miembro> getMiembros() {
         return miembros;
     }
@@ -152,7 +154,7 @@ public class EquipoJugador {
     public List<Torneo> getTorneos() {
         return torneos;
     }
-    // Getters y setters de la clase EquipoJugador generados automáticamente con NetBeans
+    
     public String getIdChatroom() {
         return idChatroom;
     }
@@ -232,7 +234,4 @@ public class EquipoJugador {
     public void setTotalMiembros(int totalMiembros) {
         this.totalMiembros = totalMiembros;
     }
-    
-    
-    
 }

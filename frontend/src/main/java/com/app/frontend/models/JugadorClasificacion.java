@@ -1,7 +1,8 @@
 package com.app.frontend.models;
 
 /**
- * Clase para modelar los Jugadores para añadir en la tabla de Clasificación.
+ * Clase para modelar los Jugadores de un ranking.
+ * Se utiliza para añadir los Jugadores a las tablas de clasificación y solo contiene los datos que se van a añadir a la tabla.
  * @author Javier
  */
 public class JugadorClasificacion {
@@ -9,7 +10,7 @@ public class JugadorClasificacion {
     private String country;
     private int faceit_elo;
     private String nickname;
-    private String player_id;
+    private String player_id; // Identificador
     private int posicion;
 
     public JugadorClasificacion(String country, int faceit_elo, String nickname, String player_id, int posicion) {

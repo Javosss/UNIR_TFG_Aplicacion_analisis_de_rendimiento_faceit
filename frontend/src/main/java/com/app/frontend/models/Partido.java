@@ -3,16 +3,16 @@ package com.app.frontend.models;
 import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
- /* 
-  * Clase modelo para modelar un partido de un jugador
+ /* Clase modelo para modelar un partido de un jugador. En esta clase se modelan la información básica del partido y se utiliza para añadir los partidos a la tabla 
+  * del historial de partidos. Además se utilizan dos clases internas para modelar los Equipos del partido y los jugadores de cada equipo, para mostrarlos en los paneles 
+  * correspondientes una vez se hace click sobre el partido en cuestión en la tabla del historial de partidos.
   * @author Javier
   */
 public class Partido {
     
     /* 
     Se utiliza @SerializedName ya que para la respuesta del JSON por la API de Flask, se utilizan nombres con espacios, entonces con esta
-    anotación se pueden mapear atributos de la clase actual con los campos del JSON.
-    */
+    anotación se pueden mapear atributos de la clase actual con los campos del JSON. */
     @SerializedName("Hora de comienzo")
     private String horaComienzo;
     
@@ -44,7 +44,8 @@ public class Partido {
     @SerializedName("Equipo contrario")
     private Equipo equipoContrario;
     
-    // Clase para modelar un equipo
+    /* Clase inerna para modelar un equipo del partido. Se implementa como clase interna porque solo existe para la clase Partido, entonces se considera
+    que es más óptimo definirla como clase interna de la clase Partido, que es el único momento en el que se va a refenciar a esta clase*/
     public static class Equipo {
         private String nombre;
         private String avatar;
@@ -82,12 +83,10 @@ public class Partido {
 
         public void setJugadores(List<JugadorPartido> jugadores) {
             this.jugadores = jugadores;
-        }
-        
-        
+        }       
     }
     
-    // Clase para modelar un jugador en un partido
+    // Clase interna para modelar un jugador en un partido (Misma decisión que para la clase interna Equipo
     public static class JugadorPartido {
         private String nickname;
         private String avatar;
@@ -127,8 +126,7 @@ public class Partido {
         public void setSkillLevel(int skillLevel) {
             this.skillLevel = skillLevel;
         }
-        
-        
+              
     }
     
     

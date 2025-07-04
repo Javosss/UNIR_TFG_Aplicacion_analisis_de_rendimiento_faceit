@@ -7,18 +7,17 @@ package com.app.frontend.models;
  * @author Javier
  */
 public class Jugador {
-    
     private String nickname;
-    private String player_id; // El player_id es una cadena de texto muy larga que contiene numeros y caracteres 
-    private String pais; // Código del país
-    private String avatar; // URL de la imagen
+    private String player_id; // Identificador
+    private String pais;
+    private String avatar;
     private String region_csgo;
     private int nivel_csgo;
     private int elo_csgo;
     private String region_cs2;
     private int nivel_cs2;
     private int elo_cs2;
-    private String steam_id_64; // ID de la cuenta de steam
+    private String steam_id_64; // ID de la cuenta de Steam
     private String fecha_creacion_cuenta;
     
     public Jugador() {

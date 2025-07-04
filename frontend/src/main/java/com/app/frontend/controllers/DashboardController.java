@@ -4,6 +4,7 @@ import com.app.frontend.views.Dashboard;
 import com.app.frontend.models.Jugador;
 import com.app.frontend.models.JugadorClasificacion;
 import com.app.frontend.models.Partido;
+import com.app.frontend.models.ResumenEstadisticas;
 import com.app.frontend.services.ApiService;
 import javax.swing.JLabel;
 import com.app.frontend.utils.CargarImagenDesdeURL;
@@ -14,6 +15,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Image;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -33,7 +35,7 @@ public class DashboardController {
     }
     
     // Funcion para cargar los datos del Jugador en el Panel de Resumen de estadísticas
-    public void CargarDatosPanelResumenStats(Jugador jugador, JLabel labelAvatar, JLabel labelNickname, JLabel labelFechaCreacionCuenta, JLabel labelEloCs2, JLabel labelEloCsgo) {    
+    public void cargarDatosPanelResumenStats(Jugador jugador, JLabel labelAvatar, JLabel labelNickname, JLabel labelFechaCreacionCuenta, JLabel labelEloCs2, JLabel labelEloCsgo) {    
         int elo_cs2 = jugador.getElo_cs2();
         int elo_csgo = jugador.getElo_csgo();
         String elo_cs2_str = String.valueOf(elo_cs2);
@@ -41,36 +43,36 @@ public class DashboardController {
         
         // Se cargan los datos a los labels del panel
         labelNickname.setText(jugador.getNickname());
-        labelFechaCreacionCuenta.setText(GestionIdiomas.getMensaje("label_fecha_creacion_2") +jugador.getFecha_creacion_cuenta());
+        labelFechaCreacionCuenta.setText(GestionIdiomas.getMensaje("label_fecha_creacion_2") + jugador.getFecha_creacion_cuenta());
         labelEloCs2.setText("Elo CS2: " + elo_cs2_str);
         labelEloCsgo.setText("Elo CSGO: " + elo_csgo_str);     
         CargarImagenDesdeURL.cargarImagen(labelAvatar, jugador.getAvatar(),80,70);
     }
     
     // Cargar los datos de la clasificación en la tabla
-    public void CargarTablasDeClasificacioin(String region, String juego, JTable tabla) {
-        String respuestaAPI = ApiService.getClasificacionRegion(region); // JSON de la respuesta de la API
+    public void cargarTablasDeClasificacioin(String region, String juego, JTable tabla) {
+        String respuestaAPI = ApiService.getClasificacionRegion(region); // Llamada a la API para extraer los datos de la clasificación
         // Convertir el JSON a un objeto para poder añadir los datos a la tabla
         Gson gson = new Gson();
         JugadorClasificacion[] jugadores = gson.fromJson(respuestaAPI, JugadorClasificacion[].class); // Se convierte el JSON en un array de objetos JugadorClasificacion
 
-        DefaultTableModel model = new DefaultTableModel(); // Se crea el modelo de tabla
-        model.setColumnIdentifiers(new String[]{"Posición", "Nickname", "País", "Elo"}); // Se añaden las columnas de la tabla (Se hace desde el controller porque desde la vista no carga la tabla)
-            
-        for (JugadorClasificacion jugador : jugadores) { // Crea un array de obbjetos que representa una fila de la tabla a partir de los datos del jugador
-            // Nombre del país a partir del código del país
+        DefaultTableModel model = new DefaultTableModel();
+        model.setColumnIdentifiers(new String[]{"Posición", "Nickname", "País", "Elo"});
+        
+        //Construir las filas de la tabla de clasificación    
+        for (JugadorClasificacion jugador : jugadores) {
+            // Sacar el nombre completo del país mediante su código de país (La documentación de FACEIT indica que se utiliza ISO 3166-1, códigos de 2 dígitos)
             String codigoPais = jugador.getCountry();
             String pais = ConvertirCodigoEnPais.getPaisDesdeCodigoIngles(codigoPais); // Por defecto se utilizará el inglés           
             Object[] fila = {jugador.getPosicion(),jugador.getNickname(),pais,jugador.getFaceit_elo()
             };
-            model.addRow(fila); // Se añade la fila a la tabla
+            model.addRow(fila);
         }
-        tabla.setModel(model); // Se asigna el modelo a la tabla para mostrar los datos
+        tabla.setModel(model);
     }
     
     // Cargar los datos de la clasificacion del pais del jugador. Funcion muy parecida a la anterior, lo que cambia es la peticion a la API
-    public void CargarTablaClasificacionPais(JTable tabla) {
-        // Sacar la region y el pais del jugador para la peticion a FLask
+    public void cargarTablaClasificacionPais(JTable tabla) {
         Jugador jugadorInterfaz = vista.getJugador();
         String respuestaAPI = ApiService.getClasificacionPais(jugadorInterfaz.getRegion_cs2(), jugadorInterfaz.getPais()); // Se le pasa la region y el pais para hacer la petición
         
@@ -91,9 +93,9 @@ public class DashboardController {
     }
     
     // Cargar la posición del jugador en el Ranking de su región
-    public void CargarPosicionJugadorRegion(JLabel labelPosicion) {
+    public void cargarPosicionJugadorRegion(JLabel labelPosicion) {
         Jugador jugador = vista.getJugador();     
-        // Sacar la ruta del icono a mostrar en base a la región del jugador
+        // Sacar la ruta del icono a mostrar en base a la región del jugador (icono de la región como EU (Europa), NA (Norte América), etc.)
         String rutaIcono;
         switch (jugador.getRegion_cs2()) {
             case "EU":
@@ -116,7 +118,7 @@ public class DashboardController {
                 break;
         }
         
-        String posicion = ApiService.getPosicionJugadorRegion(jugador.getRegion_cs2(), jugador.getPlayer_id(), ""); // Respuesta de la API
+        String posicion = ApiService.getPosicionJugadorRegion(jugador.getRegion_cs2(), jugador.getPlayer_id(), ""); // Respuesta de la API sobre la posición
        
         // Cargar el icono desde la ruta de iconos
         java.net.URL iconUrl = getClass().getResource(rutaIcono); // Se carga el icono desde la ruta
@@ -129,26 +131,26 @@ public class DashboardController {
             
             } else {
             System.err.println("No se ha podido cargar el icono: " + rutaIcono);
-            labelPosicion.setIcon(null); // Limpiar el icono
+            labelPosicion.setIcon(null);
             }
         
-        // Mostrar la posición y el nivel en el JLabel
         labelPosicion.setText("#" + posicion);      
     }
     
     // Cargar la posición del jugador en el ranking de su país
-    public void CargarPosicionJugadorPais(JLabel labelPosicionPais) {
+    public void cargarPosicionJugadorPais(JLabel labelPosicionPais) {
         Jugador jugador = vista.getJugador();       
-        String posicion = ApiService.getPosicionJugadorRegion(jugador.getRegion_cs2(), jugador.getPlayer_id(), jugador.getPais());
+        String posicion = ApiService.getPosicionJugadorRegion(jugador.getRegion_cs2(), jugador.getPlayer_id(), jugador.getPais()); // Respuesta de la API sobre la posición
         // Cargar la bandera del jugador al label       
         String banderaUrl = "https://flagcdn.com/h20/" + jugador.getPais().toLowerCase() + ".png";
-        CargarImagenDesdeURL.cargarImagen(labelPosicionPais, banderaUrl,20,10);       
+        CargarImagenDesdeURL.cargarImagen(labelPosicionPais, banderaUrl,20,10);   
+        
         labelPosicionPais.setText("#"+posicion);       
     } 
     
     // Cargar la posición del jugador en el ranking de su país
-    public void CargarHistorialPartidos(JTable tabla) {
-        Jugador jugador = vista.getJugador(); // Obtener el jugador de la vista     
+    public void cargarHistorialPartidos(JTable tabla) {
+        Jugador jugador = vista.getJugador();     
         List<Partido> partidos = ApiService.getHistorialPartidos(jugador.getPlayer_id(), "cs2",100); // Obtener el historial de partidos llamando a la API
 
         if (partidos == null || partidos.isEmpty()) {// Puede ser que el jugador esté registrado pero no haya jugado partidas en la plataforma
@@ -163,10 +165,10 @@ public class DashboardController {
                 return false; // Hacer que la tabla no sea editable
             }
         };
-        // Configurar las columnas de la tabla
+
         model.setColumnIdentifiers(new String[]{"Competición","Tipo","Región","Modo","Resultado","Inicio","Fin","ID Partido"});
 
-        // Se llena la tabla con los datos de los partidos
+        // Se construye la tabla con los datos del partido
         for (Partido partido : partidos) {
             Object[] fila = {partido.getNombreCompeticion(),partido.getTipoCompeticion(),partido.getRegion(),partido.getModo(),partido.getResultadoPartido(),
                 partido.getHoraComienzo(),partido.getHoraFinalizacion(),partido.getIdPartido()
@@ -210,5 +212,75 @@ public class DashboardController {
         tabla.getColumnModel().getColumn(5).setPreferredWidth(120);
         tabla.getColumnModel().getColumn(6).setPreferredWidth(120);
         tabla.getColumnModel().getColumn(7).setPreferredWidth(200);
-    }        
+    }       
+    
+    // Cargar el resumen de estadistciacs 
+    public void cargarEstadisticasDetalladas() {
+        Jugador jugador = vista.getJugador();
+        String json = ApiService.getResumenEstadisticasJugador(jugador.getPlayer_id(), "cs2", 20); // Llamada a la API para extraer las estadísticas del jugador para el número de partidos
+
+        if (json != null) {
+            ResumenEstadisticas resumen = new Gson().fromJson(json, ResumenEstadisticas.class);
+            mostrarEstadisticas(resumen);
+            cargarEstadisticasMapas(resumen);
+        }
+    }
+    
+    
+    // Método para mostrar las estadísticas en los paneles 
+    private void mostrarEstadisticas(ResumenEstadisticas resumen) {
+        Map<String, Double> stats = resumen.getEstadisticasPromedio();
+
+        // Panel de estadísticas individuales
+        String textoIndividuales = String.format( // Se crea el string de las estadísticas y se muestra en el text area correspondiente
+            "Partidos analizados: %d\nVictorias: %d\nWinrate: %.2f%%\n\n" + "Kills: %.2f\nDeaths: %.2f\nAssists: %.2f\nADR: %.2f\n" + "K/D Ratio: %.2f\nHS%%: %.2f\nMVPs: %.2f",
+            resumen.getPartidosAnalizados(), resumen.getVictorias(), resumen.getPorcentajeVictorias(), stats.get("Kills"), stats.get("Deaths"), 
+            stats.get("Assists"), stats.get("ADR"), stats.get("K/D Ratio"), stats.get("Headshots %"), stats.get("MVPs")
+        );
+        vista.textAreaEstadisticasIndividuales.setText(textoIndividuales);
+
+        // Panel de entries y clutches
+        String textoEntriesClutches = String.format(
+            "1v1: %.2f/%.2f (%.1f%%)\n1v2: %.2f/%.2f (%.1f%%)\n" + "Clutch Kills: %.2f\nEntry Count: %.2f\nEntry Wins: %.2f\n" + "First Kills: %.2f",
+            stats.get("1v1Wins"), stats.get("1v1Count"), stats.get("Match 1v1 Win Rate") * 100, stats.get("1v2Wins"), stats.get("1v2Count"), 
+            stats.get("Match 1v2 Win Rate") * 100, stats.get("Clutch Kills"), stats.get("Entry Count"), stats.get("Entry Wins"), stats.get("First_Kills")
+        );
+        vista.textAreaEntriesClutches.setText(textoEntriesClutches);
+
+        // Panel de estadísticas de rendimiento con armas
+        String textoArmas = String.format(
+            "Pistol Kills: %.2f\nSniper Kills: %.2f\n" + "Double Kills: %.2f\nTriple Kills: %.2f\n" + "Quadro Kills: %.2f\nPenta Kills: %.2f",
+            stats.get("Pistol Kills"), stats.get("Sniper Kills"), stats.get("Double_Kills"), stats.get("Triple Kills"), stats.get("Quadro Kills"), 
+            stats.get("Penta Kills")
+        );
+        vista.textAreaEstadisticasArmas.setText(textoArmas);
+
+        // Panel de estadísticas de utilidad
+        String textoUtilidad = String.format(
+            "Flash Count: %.2f\nFlash Successes: %.2f\n" + "Enemies Flashed: %.2f\nUtility Damage: %.2f\n" + "Utility Count: %.2f\nUtility Successes: %.2f",
+            stats.get("Flash Count"), stats.get("Flash Successes"), stats.get("Enemies Flashed"), stats.get("Utility Damage"), 
+            stats.get("Utility Count"), stats.get("Utility Successes")
+        );
+        vista.textAreaUtilidad.setText(textoUtilidad);
+    }
+
+    // Método para cargar las estadísticas de mapas
+    private void cargarEstadisticasMapas(ResumenEstadisticas resumen) {
+        Map<String, Map<String, Double>> statsMapas = resumen.getEstadisticasPorMapa();
+        StringBuilder sb = new StringBuilder();
+
+        // Se recorren todos los mapas y se muestra el winrate de cada uno
+        for (Map.Entry<String, Map<String, Double>> entry : statsMapas.entrySet()) {
+            String mapa = entry.getKey().substring(3); // Se quita "de_" del nombre
+            
+            Map<String, Double> stats = entry.getValue();
+            double winrate = stats.get("Winrate (%)");
+            int partidas = stats.get("Partidas jugadas").intValue();
+
+            sb.append(String.format("%s: %.1f%% (%d partidas)\n", mapa, winrate, partidas));
+        }
+      
+        vista.textAreaMejorMapa.setText(sb.toString());
+        vista.imagenMejorMapa.setVisible(false);
+    }   
 }

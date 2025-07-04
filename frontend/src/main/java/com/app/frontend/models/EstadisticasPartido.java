@@ -4,13 +4,13 @@ import com.google.gson.annotations.SerializedName;
 
 /*
 * Clase para modelar las estadísticas de un partido de la clase modelo Partido.java
+* Esta clase simplemente modela el JSON que se ha procesado en el backend desde esta clase para poder añadir las estadísticas del partido
+* en la interfaz de partidos.
 * @author Javier
 */
 public class EstadisticasPartido {
-    /* 
-    Al igual que para la clase Partido, se utiliza @SerializedName ya que para la respuesta del JSON por la API de Flask, se utilizan nombres con espacios, entonces con esta
-    anotación se pueden mapear atributos de la clase actual con los campos del JSON.
-    */
+    /* Al igual que para la clase Partido, se utiliza @SerializedName ya que para la respuesta del JSON por la API de Flask, se utilizan nombres con espacios, entonces con esta
+    anotación se pueden mapear atributos de la clase actual con los campos del JSON. */
     private String Mapa;
     
     @SerializedName("Resultado del partido")
@@ -160,7 +160,7 @@ public class EstadisticasPartido {
     private String jugadorEquipo;
 
    
-
+    // Getters y setters generados con NetBeans automáticamente
     public String getMapa() {
         return Mapa;
     }
