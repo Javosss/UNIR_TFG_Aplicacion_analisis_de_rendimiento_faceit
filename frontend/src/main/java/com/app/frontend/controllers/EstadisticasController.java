@@ -7,8 +7,6 @@ import com.app.frontend.utils.CargarImagenDesdeURL;
 import com.app.frontend.views.Estadisticas;
 import com.google.gson.Gson;
 import java.util.Map;
-
-import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 
 
@@ -36,7 +34,7 @@ public class EstadisticasController {
         cargarEstadisticasMapas(resumen);
     }
     
-    // Método para mostrar los datos cargados en los JTextArea de la interfaz
+    // Método para mostrar los datos cargados del resumen de estadísticas en los JTextArea de la interfaz
     private void mostrarEstadisticas(ResumenEstadisticas resumen) {
         
         Map<String, Double> stats = resumen.getEstadisticasPromedio();
@@ -101,7 +99,7 @@ public class EstadisticasController {
             textArea.setText("No se ha jugado este mapa");
         }
     }
-    // Se cargan al TextArea de cada mapa
+    // Se cargan las estadísticas al TextArea de cada mapa
     private void cargarEstadisticasMapas(ResumenEstadisticas resumen) {
         Map<String, Map<String, Double>> statsMapas = resumen.getEstadisticasPorMapa();
 
@@ -114,7 +112,7 @@ public class EstadisticasController {
         cargarEstadisticasMapa(statsMapas, "de_train", vista.getTextAreaTrain());
     }
     
-    // Método para cargar las imágenes del mapa (para ello utilizo las imágenes de una Wiki de Counter Strike y las cargo con la función auxiliar desarrollada)
+    // Método para cargar las imágenes del mapa (para ello utilizo las imágenes de una Wiki de Counter Strike y las cargo con la función auxiliar desarrollada mediante la url de la wiki)
     private void cargarImagenesMapas() {
         
         // Tamaños

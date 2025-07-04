@@ -1,5 +1,7 @@
 package com.app.frontend.views;
 
+import com.app.frontend.utils.GestionIdiomas;
+
 /**
  * Clase de la interfaz del Menú lateral que se reutiliza en algunas interfaces
  * @author Javier
@@ -30,11 +32,7 @@ public class MenuLateral extends javax.swing.JPanel {
     public void setEquiposListener(java.awt.event.ActionListener listener) {
         btnEquipos.addActionListener(listener);
     }
-    
-    public void setLigasListener(java.awt.event.ActionListener listener) {
-        btnLigas.addActionListener(listener);
-    }
-    
+      
     public void setBuscadorListener(java.awt.event.ActionListener listener) {
         btnBuscador.addActionListener(listener);
     }
@@ -52,65 +50,56 @@ public class MenuLateral extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
         btnDashboard = new javax.swing.JButton();
         btnEstadisticas = new javax.swing.JButton();
         btnPartidos = new javax.swing.JButton();
         btnClasificaciones = new javax.swing.JButton();
         btnEquipos = new javax.swing.JButton();
-        btnLigas = new javax.swing.JButton();
         btnBuscador = new javax.swing.JButton();
         btnCerrar = new javax.swing.JButton();
 
         jLabel1.setText("jLabel1");
 
-        setBackground(new java.awt.Color(153, 204, 255));
+        setBackground(new java.awt.Color(204, 204, 204));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-
-        btnDashboard.setText("Dashboard");
+        btnDashboard.setText(GestionIdiomas.getMensaje("boton_menu_lateral_dashboard"));
         btnDashboard.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDashboardActionPerformed(evt);
             }
         });
 
-        btnEstadisticas.setText("Estadisticas");
+        btnEstadisticas.setText(GestionIdiomas.getMensaje("boton_menu_lateral_estadisticas"));
 
-        btnPartidos.setText("Partidos");
+        btnPartidos.setText(GestionIdiomas.getMensaje("boton_menu_lateral_partidos"));
 
-        btnClasificaciones.setText("Clasificaciones");
+        btnClasificaciones.setText(GestionIdiomas.getMensaje("boton_menu_lateral_clasificaciones"));
+        btnClasificaciones.setMaximumSize(new java.awt.Dimension(78, 16));
+        btnClasificaciones.setMinimumSize(new java.awt.Dimension(78, 16));
+        btnClasificaciones.setPreferredSize(new java.awt.Dimension(78, 16));
 
-        btnEquipos.setText("Equipos");
+        btnEquipos.setText(GestionIdiomas.getMensaje("boton_menu_lateral_equipos"));
 
-        btnLigas.setText("Ligas");
+        btnBuscador.setBackground(new java.awt.Color(204, 255, 204));
+        btnBuscador.setText(GestionIdiomas.getMensaje("boton_menu_lateral_buscador"));
 
-        btnBuscador.setText("Buscador");
-
-        btnCerrar.setText("Cerrar");
+        btnCerrar.setBackground(new java.awt.Color(255, 153, 153));
+        btnCerrar.setText(GestionIdiomas.getMensaje("boton_menu_lateral_cerrar"));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnDashboard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnEstadisticas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnPartidos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnClasificaciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnEquipos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnLigas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnBuscador, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnCerrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(btnClasificaciones, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnDashboard, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
+                    .addComponent(btnEstadisticas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnPartidos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnEquipos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnBuscador, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCerrar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -124,14 +113,11 @@ public class MenuLateral extends javax.swing.JPanel {
                 .addComponent(btnClasificaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnLigas, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(90, 90, 90)
-                .addComponent(btnBuscador, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addGap(30, 30, 30)
+                .addComponent(btnBuscador, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -147,9 +133,7 @@ public class MenuLateral extends javax.swing.JPanel {
     public javax.swing.JButton btnDashboard;
     public javax.swing.JButton btnEquipos;
     public javax.swing.JButton btnEstadisticas;
-    public javax.swing.JButton btnLigas;
     public javax.swing.JButton btnPartidos;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
 }

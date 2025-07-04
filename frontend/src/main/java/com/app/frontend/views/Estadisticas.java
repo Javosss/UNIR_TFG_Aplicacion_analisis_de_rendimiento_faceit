@@ -1,33 +1,32 @@
 package com.app.frontend.views;
 
-import com.app.frontend.controllers.EquiposController;
 import com.app.frontend.controllers.EstadisticasController;
 import com.app.frontend.controllers.MenuLateralController;
 import com.app.frontend.models.Jugador;
+import com.app.frontend.utils.GestionIdiomas;
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 
+
 /**
- * Clase para la interfaz Estadisticas
+ * Clase para la interfaz Estadisticas. En esta interfaz se muestran las estadísticas de rendimiento mucho más detalladas sobre el rendimiento del jugador,
+ * incluyendo estadísticas individuales del jugador, clutching, daño de utilidad, estadísticas de rendimiento con cada arma y de mapas.
  * @author Javier
  */
 public class Estadisticas extends javax.swing.JFrame implements MainView{
-    private Jugador jugador;
-    private MenuLateral menuLateral;
-    private EstadisticasController controlador;
+    private final Jugador jugador;
+    private final MenuLateral menuLateral;
+    private final EstadisticasController controlador;
 
-    /**
-     * Creates new form Estadisticas
-     */
     public Estadisticas(Jugador jugador) {
         this.jugador = jugador;
         // Configuración del JFrame
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        // Primero inicializa los componentes Swing (importante porque si no el menu lateral no funciona)
+        // Primero se inicializa los componentes Swing (importante porque si no el menu lateral no funciona)
         initComponents();
         // Configuracion del menu lateral
         this.menuLateral = new MenuLateral(); 
@@ -39,6 +38,7 @@ public class Estadisticas extends javax.swing.JFrame implements MainView{
     }
     
     
+    // Getters
     public JTextArea getTextAreaEstadisticasIndividuales() {
         return textAreaEstadisticasIndividuales;
     }
@@ -138,7 +138,6 @@ public class Estadisticas extends javax.swing.JFrame implements MainView{
         textAreaEstadisticasArmas = new javax.swing.JTextArea();
         jLabel4 = new javax.swing.JLabel();
         panelResumenJugador = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
         panelMapas = new javax.swing.JPanel();
         panelDust2 = new javax.swing.JPanel();
         imagenDust2 = new javax.swing.JLabel();
@@ -185,7 +184,7 @@ public class Estadisticas extends javax.swing.JFrame implements MainView{
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jLabel1.setText("Estadísticas individuales");
+        jLabel1.setText(GestionIdiomas.getMensaje("label_estadisticas_individuales"));
 
         panelEstadisticasIndividuales.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -258,7 +257,7 @@ public class Estadisticas extends javax.swing.JFrame implements MainView{
                 .addContainerGap())
         );
 
-        jLabel3.setText("Daño de utilidad");
+        jLabel3.setText(GestionIdiomas.getMensaje("label_estadisticas_dano_utilidad"));
 
         panelArmas.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -283,27 +282,19 @@ public class Estadisticas extends javax.swing.JFrame implements MainView{
                 .addContainerGap())
         );
 
-        jLabel4.setText("Estadísticas de armas distintas");
+        jLabel4.setText(GestionIdiomas.getMensaje("label_estadisticas_armas"));
 
         panelResumenJugador.setBackground(new java.awt.Color(255, 255, 255));
-
-        jLabel5.setText("Resumen estadísticas");
 
         javax.swing.GroupLayout panelResumenJugadorLayout = new javax.swing.GroupLayout(panelResumenJugador);
         panelResumenJugador.setLayout(panelResumenJugadorLayout);
         panelResumenJugadorLayout.setHorizontalGroup(
             panelResumenJugadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelResumenJugadorLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         panelResumenJugadorLayout.setVerticalGroup(
             panelResumenJugadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelResumenJugadorLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(183, Short.MAX_VALUE))
+            .addGap(0, 214, Short.MAX_VALUE)
         );
 
         panelMapas.setBackground(new java.awt.Color(255, 255, 255));
@@ -544,16 +535,21 @@ public class Estadisticas extends javax.swing.JFrame implements MainView{
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInformacionLayout.createSequentialGroup()
                 .addGroup(panelInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelInformacionLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(panelResumenJugador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(panelClutching, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(panelInformacionLayout.createSequentialGroup()
                         .addGroup(panelInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(panelEstadisticasIndividuales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(18, 18, 18)
+                            .addGroup(panelInformacionLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(panelResumenJugador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(panelClutching, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(panelInformacionLayout.createSequentialGroup()
+                                .addGroup(panelInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(panelEstadisticasIndividuales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18))
+                    .addGroup(panelInformacionLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(panelInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(panelUtilidad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -568,9 +564,9 @@ public class Estadisticas extends javax.swing.JFrame implements MainView{
                 .addContainerGap()
                 .addComponent(panelResumenJugador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(panelInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(panelEstadisticasIndividuales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -651,7 +647,6 @@ public class Estadisticas extends javax.swing.JFrame implements MainView{
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;

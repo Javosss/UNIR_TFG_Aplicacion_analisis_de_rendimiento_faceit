@@ -69,12 +69,7 @@ public class MenuLateralController {
                 vistaEquipos.setVisible(true);
             }
         });
-        
-        // Listener para el botón Buscador
-        vista.setLigasListener(e -> {
-            
-        });
-        
+              
         // Listener para el botón Buscador
         vista.setBuscadorListener(e -> {
             if (!(parentView instanceof Buscador)) {
@@ -87,13 +82,11 @@ public class MenuLateralController {
 
         // Listener para el botón de Cerrar
         vista.setCerrarListener(e -> System.exit(0));
-        
-        
+              
         // Se habilitan los botones
         vista.btnEstadisticas.setEnabled(true);
         vista.btnPartidos.setEnabled(true);
         vista.btnClasificaciones.setEnabled(true);
         vista.btnEquipos.setEnabled(true);
-        vista.btnLigas.setEnabled(true);
     }
 }
