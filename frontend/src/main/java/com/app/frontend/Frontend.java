@@ -13,11 +13,7 @@ import com.app.frontend.services.ApiService;
  */
 public class Frontend {
 
-    public static void main(String[] args) {
-         ApiService prueba = new ApiService();
-         prueba.getEquiposJugador("d682a62e-43f5-49be-b8c9-de923adcf564");
-         
-        // Primera interfaz, test.
+    public static void main(String[] args) {              
         java.awt.EventQueue.invokeLater(() -> {
             Buscador vista = new Buscador();
             vista.setSize(600,400);

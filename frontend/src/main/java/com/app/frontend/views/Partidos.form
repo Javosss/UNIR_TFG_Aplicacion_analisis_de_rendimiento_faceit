@@ -170,8 +170,18 @@
                   <Properties>
                     <Property name="editable" type="boolean" value="false"/>
                     <Property name="columns" type="int" value="20"/>
+                    <Property name="lineWrap" type="boolean" value="true"/>
                     <Property name="rows" type="int" value="5"/>
                     <Property name="text" type="java.lang.String" value="Clutching"/>
+                    <Property name="wrapStyleWord" type="boolean" value="true"/>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
+                        <BevelBorder/>
+                      </Border>
+                    </Property>
+                    <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+                      <Insets value="[5, 5, 5, 5]"/>
+                    </Property>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -187,8 +197,18 @@
                   <Properties>
                     <Property name="editable" type="boolean" value="false"/>
                     <Property name="columns" type="int" value="20"/>
+                    <Property name="lineWrap" type="boolean" value="true"/>
                     <Property name="rows" type="int" value="5"/>
                     <Property name="text" type="java.lang.String" value="Esad&#xed;sticas individuales"/>
+                    <Property name="wrapStyleWord" type="boolean" value="true"/>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
+                        <BevelBorder/>
+                      </Border>
+                    </Property>
+                    <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+                      <Insets value="[5, 5, 5, 5]"/>
+                    </Property>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -204,8 +224,18 @@
                   <Properties>
                     <Property name="editable" type="boolean" value="false"/>
                     <Property name="columns" type="int" value="20"/>
+                    <Property name="lineWrap" type="boolean" value="true"/>
                     <Property name="rows" type="int" value="5"/>
                     <Property name="text" type="java.lang.String" value="Utility"/>
+                    <Property name="wrapStyleWord" type="boolean" value="true"/>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
+                        <BevelBorder/>
+                      </Border>
+                    </Property>
+                    <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+                      <Insets value="[5, 5, 5, 5]"/>
+                    </Property>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -221,8 +251,18 @@
                   <Properties>
                     <Property name="editable" type="boolean" value="false"/>
                     <Property name="columns" type="int" value="20"/>
+                    <Property name="lineWrap" type="boolean" value="true"/>
                     <Property name="rows" type="int" value="5"/>
                     <Property name="text" type="java.lang.String" value="Rendimiento con armas"/>
+                    <Property name="wrapStyleWord" type="boolean" value="true"/>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
+                        <BevelBorder/>
+                      </Border>
+                    </Property>
+                    <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+                      <Insets value="[5, 5, 5, 5]"/>
+                    </Property>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -244,12 +284,10 @@
                           <EmptySpace min="-2" pref="106" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="panelJugadorEquipoContrario4" pref="334" max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="panelJugadorEquipoContrario5" pref="334" max="32767" attributes="0"/>
-                                  <Component id="panelJugadorEquipoContrario1" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="panelJugadorEquipoContrario2" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="panelJugadorEquipoContrario3" alignment="1" max="32767" attributes="0"/>
-                              </Group>
+                              <Component id="panelJugadorEquipoContrario5" alignment="1" pref="334" max="32767" attributes="0"/>
+                              <Component id="panelJugadorEquipoContrario1" alignment="1" max="32767" attributes="0"/>
+                              <Component id="panelJugadorEquipoContrario2" alignment="1" max="32767" attributes="0"/>
+                              <Component id="panelJugadorEquipoContrario3" alignment="1" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -307,14 +345,8 @@
                   </Layout>
                   <SubComponents>
                     <Component class="javax.swing.JLabel" name="imagenJugadorEquipoJugador1">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="jLabel1"/>
-                      </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="labelNombreJugadorEquipoJugador1">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="jLabel1"/>
-                      </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="imagenNivelJugadorEquipoJugador1">
                     </Component>
@@ -338,14 +370,8 @@
                   </Layout>
                   <SubComponents>
                     <Component class="javax.swing.JLabel" name="imagenJugadorEquipoJugador5">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="jLabel1"/>
-                      </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="labelNombreJugadorEquipoJugador5">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="jLabel1"/>
-                      </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="imagenNivelJugadorEquipoJugador5">
                     </Component>
@@ -369,14 +395,8 @@
                   </Layout>
                   <SubComponents>
                     <Component class="javax.swing.JLabel" name="imagenJugadorEquipoJugador4">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="jLabel1"/>
-                      </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="labelNombreJugadorEquipoJugador4">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="jLabel1"/>
-                      </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="imagenNivelJugadorEquipoJugador4">
                     </Component>
@@ -400,14 +420,8 @@
                   </Layout>
                   <SubComponents>
                     <Component class="javax.swing.JLabel" name="imagenJugadorEquipoJugador3">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="jLabel1"/>
-                      </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="labelNombreJugadorEquipoJugador3">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="jLabel1"/>
-                      </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="imagenNivelJugadorEquipoJugador3">
                     </Component>
@@ -431,14 +445,8 @@
                   </Layout>
                   <SubComponents>
                     <Component class="javax.swing.JLabel" name="imagenJugadorEquipoJugador2">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="jLabel1"/>
-                      </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="labelNombreJugadorEquipoJugador2">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="jLabel1"/>
-                      </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="imagenNivelJugadorEquipoJugador2">
                     </Component>
@@ -462,14 +470,8 @@
                   </Layout>
                   <SubComponents>
                     <Component class="javax.swing.JLabel" name="imagenJugadorEquipoContrario2">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="jLabel1"/>
-                      </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="labelNombreJugadorEquipoContrario2">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="jLabel1"/>
-                      </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="imagenNivelJugadorEquipoContrario2">
                     </Component>
@@ -493,14 +495,8 @@
                   </Layout>
                   <SubComponents>
                     <Component class="javax.swing.JLabel" name="imagenJugadorEquipoContrario3">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="jLabel1"/>
-                      </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="labelNombreJugadorEquipoContrario3">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="jLabel1"/>
-                      </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="imagenNivelJugadorEquipoContrario3">
                     </Component>
@@ -524,14 +520,8 @@
                   </Layout>
                   <SubComponents>
                     <Component class="javax.swing.JLabel" name="imagenJugadorEquipoContrario4">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="jLabel1"/>
-                      </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="labelNombreJugadorEquipoContrario4">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="jLabel1"/>
-                      </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="imagenNivelJugadorEquipoContrario4">
                     </Component>
@@ -555,14 +545,8 @@
                   </Layout>
                   <SubComponents>
                     <Component class="javax.swing.JLabel" name="imagenJugadorEquipoContrario5">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="jLabel1"/>
-                      </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="labelNombreJugadorEquipoContrario5">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="jLabel1"/>
-                      </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="imagenNivelJugadorEquipoContrario5">
                     </Component>
@@ -586,14 +570,8 @@
                   </Layout>
                   <SubComponents>
                     <Component class="javax.swing.JLabel" name="imagenJugadorEquipoContrario1">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="jLabel1"/>
-                      </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="labelNombreJugadorEquipoContrario1">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="jLabel1"/>
-                      </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="imagenNivelJugadorEquipoContrario1">
                     </Component>

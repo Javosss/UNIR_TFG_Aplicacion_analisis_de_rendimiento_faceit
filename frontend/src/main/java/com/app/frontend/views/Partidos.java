@@ -8,7 +8,8 @@ import javax.swing.JFrame;
 import javax.swing.*;
 
 /**
- * Interfaz partidos donde se mostrarán los partidos del jugador y algunas estadísticas en ellos
+ * Interfaz partidos donde se mostrarán los partidos del jugador en una tabla. Además, en el momento en el que se seleccione un partido de la tabla,
+ * se mostrarán las estadísticas detalladas del jugador en ese partido, junto con los jugadores del partido.
  * @author Javier
  */
 public class Partidos extends javax.swing.JFrame implements MainView{
@@ -320,135 +321,111 @@ public class Partidos extends javax.swing.JFrame implements MainView{
 
         textAreaClucthes.setEditable(false);
         textAreaClucthes.setColumns(20);
+        textAreaClucthes.setLineWrap(true);
         textAreaClucthes.setRows(5);
         textAreaClucthes.setText("Clutching");
+        textAreaClucthes.setWrapStyleWord(true);
+        textAreaClucthes.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        textAreaClucthes.setMargin(new java.awt.Insets(5, 5, 5, 5));
         jScrollPane2.setViewportView(textAreaClucthes);
 
         textAreaEstadisticasIndividuales.setEditable(false);
         textAreaEstadisticasIndividuales.setColumns(20);
+        textAreaEstadisticasIndividuales.setLineWrap(true);
         textAreaEstadisticasIndividuales.setRows(5);
         textAreaEstadisticasIndividuales.setText("Esadísticas individuales");
+        textAreaEstadisticasIndividuales.setWrapStyleWord(true);
+        textAreaEstadisticasIndividuales.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        textAreaEstadisticasIndividuales.setMargin(new java.awt.Insets(5, 5, 5, 5));
         jScrollPane3.setViewportView(textAreaEstadisticasIndividuales);
 
         textAreaUtilidad.setEditable(false);
         textAreaUtilidad.setColumns(20);
+        textAreaUtilidad.setLineWrap(true);
         textAreaUtilidad.setRows(5);
         textAreaUtilidad.setText("Utility");
+        textAreaUtilidad.setWrapStyleWord(true);
+        textAreaUtilidad.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        textAreaUtilidad.setMargin(new java.awt.Insets(5, 5, 5, 5));
         jScrollPane4.setViewportView(textAreaUtilidad);
 
         jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
+        jTextArea1.setLineWrap(true);
         jTextArea1.setRows(5);
         jTextArea1.setText("Rendimiento con armas");
+        jTextArea1.setWrapStyleWord(true);
+        jTextArea1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jTextArea1.setMargin(new java.awt.Insets(5, 5, 5, 5));
         jScrollPane5.setViewportView(jTextArea1);
 
         panelJugadorEquipoJugador5.setBackground(new java.awt.Color(255, 255, 255));
         panelJugadorEquipoJugador5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
-        panelJugadorEquipoJugador5.setLayout(new java.awt.GridLayout());
-
-        imagenJugadorEquipoJugador1.setText("jLabel1");
+        panelJugadorEquipoJugador5.setLayout(new java.awt.GridLayout(1, 0));
         panelJugadorEquipoJugador5.add(imagenJugadorEquipoJugador1);
-
-        labelNombreJugadorEquipoJugador1.setText("jLabel1");
         panelJugadorEquipoJugador5.add(labelNombreJugadorEquipoJugador1);
         panelJugadorEquipoJugador5.add(imagenNivelJugadorEquipoJugador1);
 
         panelJugadorEquipoJugador4.setBackground(new java.awt.Color(255, 255, 255));
         panelJugadorEquipoJugador4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
-        panelJugadorEquipoJugador4.setLayout(new java.awt.GridLayout());
-
-        imagenJugadorEquipoJugador5.setText("jLabel1");
+        panelJugadorEquipoJugador4.setLayout(new java.awt.GridLayout(1, 0));
         panelJugadorEquipoJugador4.add(imagenJugadorEquipoJugador5);
-
-        labelNombreJugadorEquipoJugador5.setText("jLabel1");
         panelJugadorEquipoJugador4.add(labelNombreJugadorEquipoJugador5);
         panelJugadorEquipoJugador4.add(imagenNivelJugadorEquipoJugador5);
 
         panelJugadorEquipoJugador3.setBackground(new java.awt.Color(255, 255, 255));
         panelJugadorEquipoJugador3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
-        panelJugadorEquipoJugador3.setLayout(new java.awt.GridLayout());
-
-        imagenJugadorEquipoJugador4.setText("jLabel1");
+        panelJugadorEquipoJugador3.setLayout(new java.awt.GridLayout(1, 0));
         panelJugadorEquipoJugador3.add(imagenJugadorEquipoJugador4);
-
-        labelNombreJugadorEquipoJugador4.setText("jLabel1");
         panelJugadorEquipoJugador3.add(labelNombreJugadorEquipoJugador4);
         panelJugadorEquipoJugador3.add(imagenNivelJugadorEquipoJugador4);
 
         panelJugadorEquipoJugador2.setBackground(new java.awt.Color(255, 255, 255));
         panelJugadorEquipoJugador2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
-        panelJugadorEquipoJugador2.setLayout(new java.awt.GridLayout());
-
-        imagenJugadorEquipoJugador3.setText("jLabel1");
+        panelJugadorEquipoJugador2.setLayout(new java.awt.GridLayout(1, 0));
         panelJugadorEquipoJugador2.add(imagenJugadorEquipoJugador3);
-
-        labelNombreJugadorEquipoJugador3.setText("jLabel1");
         panelJugadorEquipoJugador2.add(labelNombreJugadorEquipoJugador3);
         panelJugadorEquipoJugador2.add(imagenNivelJugadorEquipoJugador3);
 
         panelJugadorEquipoJugador1.setBackground(new java.awt.Color(255, 255, 255));
         panelJugadorEquipoJugador1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
-        panelJugadorEquipoJugador1.setLayout(new java.awt.GridLayout());
-
-        imagenJugadorEquipoJugador2.setText("jLabel1");
+        panelJugadorEquipoJugador1.setLayout(new java.awt.GridLayout(1, 0));
         panelJugadorEquipoJugador1.add(imagenJugadorEquipoJugador2);
-
-        labelNombreJugadorEquipoJugador2.setText("jLabel1");
         panelJugadorEquipoJugador1.add(labelNombreJugadorEquipoJugador2);
         panelJugadorEquipoJugador1.add(imagenNivelJugadorEquipoJugador2);
 
         panelJugadorEquipoContrario1.setBackground(new java.awt.Color(255, 255, 255));
         panelJugadorEquipoContrario1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
-        panelJugadorEquipoContrario1.setLayout(new java.awt.GridLayout());
-
-        imagenJugadorEquipoContrario2.setText("jLabel1");
+        panelJugadorEquipoContrario1.setLayout(new java.awt.GridLayout(1, 0));
         panelJugadorEquipoContrario1.add(imagenJugadorEquipoContrario2);
-
-        labelNombreJugadorEquipoContrario2.setText("jLabel1");
         panelJugadorEquipoContrario1.add(labelNombreJugadorEquipoContrario2);
         panelJugadorEquipoContrario1.add(imagenNivelJugadorEquipoContrario2);
 
         panelJugadorEquipoContrario2.setBackground(new java.awt.Color(255, 255, 255));
         panelJugadorEquipoContrario2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
-        panelJugadorEquipoContrario2.setLayout(new java.awt.GridLayout());
-
-        imagenJugadorEquipoContrario3.setText("jLabel1");
+        panelJugadorEquipoContrario2.setLayout(new java.awt.GridLayout(1, 0));
         panelJugadorEquipoContrario2.add(imagenJugadorEquipoContrario3);
-
-        labelNombreJugadorEquipoContrario3.setText("jLabel1");
         panelJugadorEquipoContrario2.add(labelNombreJugadorEquipoContrario3);
         panelJugadorEquipoContrario2.add(imagenNivelJugadorEquipoContrario3);
 
         panelJugadorEquipoContrario3.setBackground(new java.awt.Color(255, 255, 255));
         panelJugadorEquipoContrario3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
-        panelJugadorEquipoContrario3.setLayout(new java.awt.GridLayout());
-
-        imagenJugadorEquipoContrario4.setText("jLabel1");
+        panelJugadorEquipoContrario3.setLayout(new java.awt.GridLayout(1, 0));
         panelJugadorEquipoContrario3.add(imagenJugadorEquipoContrario4);
-
-        labelNombreJugadorEquipoContrario4.setText("jLabel1");
         panelJugadorEquipoContrario3.add(labelNombreJugadorEquipoContrario4);
         panelJugadorEquipoContrario3.add(imagenNivelJugadorEquipoContrario4);
 
         panelJugadorEquipoContrario4.setBackground(new java.awt.Color(255, 255, 255));
         panelJugadorEquipoContrario4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
-        panelJugadorEquipoContrario4.setLayout(new java.awt.GridLayout());
-
-        imagenJugadorEquipoContrario5.setText("jLabel1");
+        panelJugadorEquipoContrario4.setLayout(new java.awt.GridLayout(1, 0));
         panelJugadorEquipoContrario4.add(imagenJugadorEquipoContrario5);
-
-        labelNombreJugadorEquipoContrario5.setText("jLabel1");
         panelJugadorEquipoContrario4.add(labelNombreJugadorEquipoContrario5);
         panelJugadorEquipoContrario4.add(imagenNivelJugadorEquipoContrario5);
 
         panelJugadorEquipoContrario5.setBackground(new java.awt.Color(255, 255, 255));
         panelJugadorEquipoContrario5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
-        panelJugadorEquipoContrario5.setLayout(new java.awt.GridLayout());
-
-        imagenJugadorEquipoContrario1.setText("jLabel1");
+        panelJugadorEquipoContrario5.setLayout(new java.awt.GridLayout(1, 0));
         panelJugadorEquipoContrario5.add(imagenJugadorEquipoContrario1);
-
-        labelNombreJugadorEquipoContrario1.setText("jLabel1");
         panelJugadorEquipoContrario5.add(labelNombreJugadorEquipoContrario1);
         panelJugadorEquipoContrario5.add(imagenNivelJugadorEquipoContrario1);
 
@@ -467,11 +444,10 @@ public class Partidos extends javax.swing.JFrame implements MainView{
                 .addGap(106, 106, 106)
                 .addGroup(panelInfoPartidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(panelJugadorEquipoContrario4, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)
-                    .addGroup(panelInfoPartidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(panelJugadorEquipoContrario5, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)
-                        .addComponent(panelJugadorEquipoContrario1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(panelJugadorEquipoContrario2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(panelJugadorEquipoContrario3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(panelJugadorEquipoContrario5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)
+                    .addComponent(panelJugadorEquipoContrario1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelJugadorEquipoContrario2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelJugadorEquipoContrario3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelInfoPartidoLayout.setVerticalGroup(

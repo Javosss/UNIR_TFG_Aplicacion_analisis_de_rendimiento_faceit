@@ -13,9 +13,11 @@ import com.app.frontend.utils.GestionIdiomas;
 import com.google.gson.Gson;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.Image;
 import java.util.List;
 import java.util.Map;
+import javax.swing.BorderFactory;
 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -41,6 +43,14 @@ public class DashboardController {
         String elo_cs2_str = String.valueOf(elo_cs2);
         String elo_csgo_str = String.valueOf(elo_csgo);
         
+        // Fuentes de los Labels
+        Font fuenteTexto = new Font("Segoe UI", Font.PLAIN, 12);
+        Font fuenteNickname = new Font("Segoe UI", Font.BOLD, 14);
+        labelNickname.setFont(fuenteNickname);
+        labelFechaCreacionCuenta.setFont(fuenteTexto);
+        labelEloCs2.setFont(fuenteTexto);
+        labelEloCsgo.setFont(fuenteTexto);
+     
         // Se cargan los datos a los labels del panel
         labelNickname.setText(jugador.getNickname());
         labelFechaCreacionCuenta.setText(GestionIdiomas.getMensaje("label_fecha_creacion_2") + jugador.getFecha_creacion_cuenta());
@@ -56,7 +66,12 @@ public class DashboardController {
         Gson gson = new Gson();
         JugadorClasificacion[] jugadores = gson.fromJson(respuestaAPI, JugadorClasificacion[].class); // Se convierte el JSON en un array de objetos JugadorClasificacion
 
-        DefaultTableModel model = new DefaultTableModel();
+        DefaultTableModel model = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) { // No editable
+                return false;
+            }
+        };
         model.setColumnIdentifiers(new String[]{"Posición", "Nickname", "País", "Elo"});
         
         //Construir las filas de la tabla de clasificación    
@@ -69,6 +84,12 @@ public class DashboardController {
             model.addRow(fila);
         }
         tabla.setModel(model);
+        
+        // Ajustes estéticos para la tabla
+        tabla.setRowHeight(25); // Fijar altura de filas
+        tabla.setFont(new Font("Segoe UI", Font.PLAIN, 12)); // Fuente Segoe UI
+        tabla.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12)); // Header de las columnas en negrita
+        tabla.setGridColor(new Color(220, 220, 220)); // Color de grid más suave
     }
     
     // Cargar los datos de la clasificacion del pais del jugador. Funcion muy parecida a la anterior, lo que cambia es la peticion a la API
@@ -79,7 +100,14 @@ public class DashboardController {
         // Mismo procedimiento que para CargarTablasDeClasificacion
         Gson gson = new Gson();
         JugadorClasificacion[] jugadores = gson.fromJson(respuestaAPI, JugadorClasificacion[].class);
-        DefaultTableModel modelo = new DefaultTableModel();
+        
+        DefaultTableModel modelo = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) { // No editable
+                return false;
+            }
+        };
+        
         modelo.setColumnIdentifiers(new String[] {"Posicion","Nickname","Pais","Elo"});
         
         for (JugadorClasificacion jugador : jugadores) {
@@ -90,6 +118,11 @@ public class DashboardController {
             modelo.addRow(fila);
         }
         tabla.setModel(modelo);
+        // Misma estética que la primera tabla
+        tabla.setRowHeight(25);
+        tabla.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        tabla.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+        tabla.setGridColor(new Color(220, 220, 220));
     }
     
     // Cargar la posición del jugador en el Ranking de su región
@@ -230,7 +263,22 @@ public class DashboardController {
     // Método para mostrar las estadísticas en los paneles 
     private void mostrarEstadisticas(ResumenEstadisticas resumen) {
         Map<String, Double> stats = resumen.getEstadisticasPromedio();
-
+        
+        // Fuente y wrap de texto para el text area
+        Font fuenteTextArea = new Font("Segoe UI", Font.PLAIN, 12);
+        
+        vista.textAreaEstadisticasIndividuales.setFont(fuenteTextArea);
+        vista.textAreaEntriesClutches.setFont(fuenteTextArea);
+        vista.textAreaEstadisticasArmas.setFont(fuenteTextArea);
+        vista.textAreaUtilidad.setFont(fuenteTextArea);
+        vista.textAreaMejorMapa.setFont(fuenteTextArea);
+        
+        vista.textAreaEstadisticasIndividuales.setLineWrap(true);
+        vista.textAreaEntriesClutches.setLineWrap(true);
+        vista.textAreaEstadisticasArmas.setLineWrap(true);
+        vista.textAreaUtilidad.setLineWrap(true);
+        vista.textAreaMejorMapa.setLineWrap(true);
+        
         // Panel de estadísticas individuales
         String textoIndividuales = String.format( // Se crea el string de las estadísticas y se muestra en el text area correspondiente
             "Partidos analizados: %d\nVictorias: %d\nWinrate: %.2f%%\n\n" + "Kills: %.2f\nDeaths: %.2f\nAssists: %.2f\nADR: %.2f\n" + "K/D Ratio: %.2f\nHS%%: %.2f\nMVPs: %.2f",

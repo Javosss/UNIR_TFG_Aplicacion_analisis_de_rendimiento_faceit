@@ -5,6 +5,8 @@ import com.app.frontend.models.JugadorClasificacion;
 import com.app.frontend.services.ApiService;
 import com.app.frontend.views.Clasificaciones;
 import com.google.gson.Gson;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Image;
 
 import javax.swing.ImageIcon;
@@ -102,6 +104,12 @@ public class ClasificacionesController {
         tabla.getColumnModel().getColumn(1).setPreferredWidth(150);
         tabla.getColumnModel().getColumn(2).setPreferredWidth(50);
         tabla.getColumnModel().getColumn(3).setPreferredWidth(80);
+        
+        // Ajustes estéticos para la tabla
+        tabla.setRowHeight(25); // Fijar altura de filas
+        tabla.setFont(new Font("Segoe UI", Font.PLAIN, 12)); // Fuente Segoe UI
+        tabla.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12)); // Header de las columnas en negrita
+        tabla.setGridColor(new Color(220, 220, 220)); // Color de grid más suave
         
         // Configurar renderizador para la columna de banderas
         tabla.getColumnModel().getColumn(2).setCellRenderer(new DefaultTableCellRenderer() {

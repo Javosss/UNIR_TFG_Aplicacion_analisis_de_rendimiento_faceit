@@ -186,24 +186,28 @@ public class Estadisticas extends javax.swing.JFrame implements MainView{
 
         jLabel1.setText(GestionIdiomas.getMensaje("label_estadisticas_individuales"));
 
-        panelEstadisticasIndividuales.setBackground(new java.awt.Color(204, 204, 204));
+        panelEstadisticasIndividuales.setBackground(new java.awt.Color(255, 255, 255));
+        panelEstadisticasIndividuales.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(200, 220, 255), 4));
 
         textAreaEstadisticasIndividuales.setColumns(20);
+        textAreaEstadisticasIndividuales.setLineWrap(true);
         textAreaEstadisticasIndividuales.setRows(5);
+        textAreaEstadisticasIndividuales.setWrapStyleWord(true);
+        textAreaEstadisticasIndividuales.setMargin(new java.awt.Insets(5, 5, 5, 5));
         jScrollPane1.setViewportView(textAreaEstadisticasIndividuales);
 
         javax.swing.GroupLayout panelEstadisticasIndividualesLayout = new javax.swing.GroupLayout(panelEstadisticasIndividuales);
         panelEstadisticasIndividuales.setLayout(panelEstadisticasIndividualesLayout);
         panelEstadisticasIndividualesLayout.setHorizontalGroup(
             panelEstadisticasIndividualesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelEstadisticasIndividualesLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelEstadisticasIndividualesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelEstadisticasIndividualesLayout.setVerticalGroup(
             panelEstadisticasIndividualesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelEstadisticasIndividualesLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelEstadisticasIndividualesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
                 .addContainerGap())
@@ -211,10 +215,14 @@ public class Estadisticas extends javax.swing.JFrame implements MainView{
 
         jLabel2.setText("Clutching");
 
-        panelClutching.setBackground(new java.awt.Color(204, 204, 204));
+        panelClutching.setBackground(new java.awt.Color(255, 255, 255));
+        panelClutching.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(200, 220, 255), 4));
 
         textAreaClutching.setColumns(20);
+        textAreaClutching.setLineWrap(true);
         textAreaClutching.setRows(5);
+        textAreaClutching.setWrapStyleWord(true);
+        textAreaClutching.setMargin(new java.awt.Insets(5, 5, 5, 5));
         jScrollPane3.setViewportView(textAreaClutching);
 
         javax.swing.GroupLayout panelClutchingLayout = new javax.swing.GroupLayout(panelClutching);
@@ -228,16 +236,20 @@ public class Estadisticas extends javax.swing.JFrame implements MainView{
         );
         panelClutchingLayout.setVerticalGroup(
             panelClutchingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelClutchingLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelClutchingLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane3)
                 .addContainerGap())
         );
 
-        panelUtilidad.setBackground(new java.awt.Color(204, 204, 204));
+        panelUtilidad.setBackground(new java.awt.Color(255, 255, 255));
+        panelUtilidad.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(200, 220, 255), 4));
 
         textAreaUtilidad.setColumns(20);
+        textAreaUtilidad.setLineWrap(true);
         textAreaUtilidad.setRows(5);
+        textAreaUtilidad.setWrapStyleWord(true);
+        textAreaUtilidad.setMargin(new java.awt.Insets(5, 5, 5, 5));
         jScrollPane2.setViewportView(textAreaUtilidad);
 
         javax.swing.GroupLayout panelUtilidadLayout = new javax.swing.GroupLayout(panelUtilidad);
@@ -251,7 +263,7 @@ public class Estadisticas extends javax.swing.JFrame implements MainView{
         );
         panelUtilidadLayout.setVerticalGroup(
             panelUtilidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelUtilidadLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelUtilidadLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2)
                 .addContainerGap())
@@ -259,10 +271,14 @@ public class Estadisticas extends javax.swing.JFrame implements MainView{
 
         jLabel3.setText(GestionIdiomas.getMensaje("label_estadisticas_dano_utilidad"));
 
-        panelArmas.setBackground(new java.awt.Color(204, 204, 204));
+        panelArmas.setBackground(new java.awt.Color(255, 255, 255));
+        panelArmas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(200, 220, 255), 4));
 
         textAreaEstadisticasArmas.setColumns(20);
+        textAreaEstadisticasArmas.setLineWrap(true);
         textAreaEstadisticasArmas.setRows(5);
+        textAreaEstadisticasArmas.setWrapStyleWord(true);
+        textAreaEstadisticasArmas.setMargin(new java.awt.Insets(5, 5, 5, 5));
         jScrollPane4.setViewportView(textAreaEstadisticasArmas);
 
         javax.swing.GroupLayout panelArmasLayout = new javax.swing.GroupLayout(panelArmas);
@@ -276,7 +292,7 @@ public class Estadisticas extends javax.swing.JFrame implements MainView{
         );
         panelArmasLayout.setVerticalGroup(
             panelArmasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelArmasLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelArmasLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
                 .addContainerGap())
@@ -510,7 +526,7 @@ public class Estadisticas extends javax.swing.JFrame implements MainView{
         panelMapasLayout.setVerticalGroup(
             panelMapasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelMapasLayout.createSequentialGroup()
-                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
+                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelDust2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)

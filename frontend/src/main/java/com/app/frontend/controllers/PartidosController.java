@@ -8,6 +8,7 @@ import com.app.frontend.utils.CargarImagenDesdeURL;
 import com.app.frontend.views.Partidos;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -43,7 +44,7 @@ public class PartidosController {
     https://docs.oracle.com/javase/8/docs/api/javax/swing/SwingWorker.html
     */
     
-    // Cargar el historial de partidos del jugador ( se utiliza SwingWorker para no bloquear la interfaz mientras se cargan los datos)
+    // Cargar el historial de partidos del jugador ( se utiliza SwingWorker para no bloquear la interfaz mientras se cargan los datos en segundo plano)
     private void cargarHistorialPartidos() {
         new SwingWorker<List<Partido>, Void>() {
             @Override
@@ -78,16 +79,10 @@ public class PartidosController {
         };
         
         model.setColumnIdentifiers(new String[]{"Partido", "ID Partido", "Competición", "Resultado", "Modo", "Región", "Fecha"}); // Columnas de la tabla
-        
+
         // Se añaden los partidos en la fila de la tabla
         for (Partido partido : partidos) {
-            model.addRow(new Object[]{
-                partido,
-                partido.getIdPartido(),
-                partido.getNombreCompeticion(),
-                partido.getResultadoPartido(),
-                partido.getModo(),
-                partido.getRegion(),
+            model.addRow(new Object[]{partido, partido.getIdPartido(), partido.getNombreCompeticion(), partido.getResultadoPartido(), partido.getModo(), partido.getRegion(),               
                 partido.getHoraComienzo()
             });
         }
@@ -117,7 +112,7 @@ public class PartidosController {
             }
         });
         
-//Ajustar los anchos de la tabla para que quede bien
+        //Ajustar los anchos de la tabla para que quede bien
         TableColumnModel columnModel = vista.getTablaPartidos().getColumnModel();
         columnModel.getColumn(0).setMinWidth(0);
         columnModel.getColumn(0).setMaxWidth(0);
@@ -127,6 +122,12 @@ public class PartidosController {
         columnModel.getColumn(4).setPreferredWidth(80);
         columnModel.getColumn(5).setPreferredWidth(80);
         columnModel.getColumn(6).setPreferredWidth(120);
+        
+        // Ajustes estéticos para la tabla
+        vista.getTablaPartidos().setRowHeight(25); // Fijar altura de filas
+        vista.getTablaPartidos().setFont(new Font("Segoe UI", Font.PLAIN, 12)); // Fuente Segoe UI
+        vista.getTablaPartidos().getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12)); // Header de las columnas en negrita
+        vista.getTablaPartidos().setGridColor(new Color(220, 220, 220)); // Color de grid más suave
     }
     
     // Configuración de los listeners para cuando el usuario interactue con la tabla
@@ -143,6 +144,7 @@ public class PartidosController {
     private void cargarEstadisticasPartido() {
         int filaSeleccionada = vista.getTablaPartidos().getSelectedRow();
         
+        // Cuando se selecciona una fila válida
         if (filaSeleccionada >= 0) {
             Partido partido = (Partido) vista.getTablaPartidos().getModel().getValueAt(filaSeleccionada, 0); // Se obtiene el partido seleccionado
             String idPartido = partido.getIdPartido();

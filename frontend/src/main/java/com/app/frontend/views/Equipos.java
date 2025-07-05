@@ -38,6 +38,7 @@ public class Equipos extends javax.swing.JFrame implements MainView{
         this.controlador = new EquiposController(this, jugador);
     }
     
+    // Getters de los componentes
     public JTable getTablaEquipos() {
         return tablaEquipos;
     }

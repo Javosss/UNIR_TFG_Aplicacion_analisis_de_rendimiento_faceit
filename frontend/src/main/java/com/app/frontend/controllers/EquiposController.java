@@ -5,6 +5,8 @@ import com.app.frontend.models.Jugador;
 import com.app.frontend.services.ApiService;
 import com.app.frontend.utils.CargarImagenDesdeURL;
 import com.app.frontend.views.Equipos;
+import java.awt.Color;
+import java.awt.Font;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JTable;
@@ -94,6 +96,12 @@ public class EquiposController {
         tabla.getColumnModel().getColumn(1).setPreferredWidth(150);
         tabla.getColumnModel().getColumn(2).setPreferredWidth(100);
         
+        // Ajustes estéticos para la tabla
+        tabla.setRowHeight(25); // Fijar altura de filas
+        tabla.setFont(new Font("Segoe UI", Font.PLAIN, 12)); // Fuente Segoe UI
+        tabla.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12)); // Header de las columnas en negrita
+        tabla.setGridColor(new Color(220, 220, 220)); // Color de grid más suave
+        
         // Configurar el renderizador para centrar las imágenes en la columna de la tabla (TableCellRender es el componente que controla cómo se muestra la información en la tabla)
         tabla.getColumnModel().getColumn(0).setCellRenderer(new javax.swing.table.DefaultTableCellRenderer() {// La columna 0 es la de las fotos del equipo
             @Override
@@ -162,6 +170,12 @@ public class EquiposController {
         tabla.getColumnModel().getColumn(0).setPreferredWidth(50);   // Avatar
         tabla.getColumnModel().getColumn(1).setPreferredWidth(150);  // Nickname
         tabla.getColumnModel().getColumn(2).setPreferredWidth(50);   // Bandera
+        
+        // Se asigna la misma estética que a las otras tablas
+        tabla.setRowHeight(25);
+        tabla.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        tabla.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+        tabla.setGridColor(new Color(220, 220, 220));
 
         // Se renderizan las imágenes (para ambas columnas con iconos)
         javax.swing.table.DefaultTableCellRenderer renderer = new javax.swing.table.DefaultTableCellRenderer() {
@@ -207,6 +221,13 @@ public class EquiposController {
         tabla.getColumnModel().getColumn(2).setPreferredWidth(80);
         tabla.getColumnModel().getColumn(3).setPreferredWidth(100);
         tabla.getColumnModel().getColumn(4).setPreferredWidth(120);
+        
+        // Se asigna la misma estética que a las otras tablas
+        tabla.setRowHeight(25);
+        tabla.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        tabla.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+        tabla.setGridColor(new Color(220, 220, 220));
+        
         tabla.revalidate();
         tabla.repaint();
     }

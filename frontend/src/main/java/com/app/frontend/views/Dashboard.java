@@ -22,7 +22,9 @@ public class Dashboard extends javax.swing.JFrame implements MainView{
     public Dashboard(Jugador jugador) {
         this.jugador = jugador;       
         //setSize(1440, 900);
-        
+        //setPreferredSize(new Dimension(1920, 1080));
+        //pack();
+        //panelStatsDetalladas
         // Configuración básica del JFrame
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
@@ -105,7 +107,8 @@ public class Dashboard extends javax.swing.JFrame implements MainView{
         jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(1440, 900));
+        setMaximumSize(new java.awt.Dimension(1740, 900));
+        setPreferredSize(new java.awt.Dimension(1440, 900));
 
         jPanel1.setBackground(new java.awt.Color(218, 244, 255));
         jPanel1.setMaximumSize(new java.awt.Dimension(1440, 900));
@@ -180,8 +183,10 @@ public class Dashboard extends javax.swing.JFrame implements MainView{
 
         panelTablasClasificacion.setBackground(new java.awt.Color(255, 255, 255));
 
+        labelClasificacion.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         labelClasificacion.setText(GestionIdiomas.getMensaje("label_clasificacion_2"));
 
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setText(GestionIdiomas.getMensaje("label_clasificacion_pais_2"));
 
         jScrollPane3.setPreferredSize(new java.awt.Dimension(400, 200));
@@ -241,6 +246,7 @@ public class Dashboard extends javax.swing.JFrame implements MainView{
 
         panelStatsDetalladas.setBackground(new java.awt.Color(255, 255, 255));
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setText(GestionIdiomas.getMensaje("label_resumen_estadisticas_dashboard"));
 
         panelEstadisticasIndividuales.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 204, 255), 3));
@@ -373,15 +379,19 @@ public class Dashboard extends javax.swing.JFrame implements MainView{
             panelStatsDetalladasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelStatsDetalladasLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelStatsDetalladasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(panelUtilidad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelEstadisticasIndividuales, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelEntriesClutches, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
-                .addGroup(panelStatsDetalladasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(panelEstadisticasArmas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelEstadisticasMejorMapa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(panelStatsDetalladasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelStatsDetalladasLayout.createSequentialGroup()
+                        .addGroup(panelStatsDetalladasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(panelUtilidad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(panelEstadisticasIndividuales, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(panelEntriesClutches, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                        .addGroup(panelStatsDetalladasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(panelEstadisticasArmas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(panelEstadisticasMejorMapa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(panelStatsDetalladasLayout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 474, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelStatsDetalladasLayout.setVerticalGroup(
@@ -435,7 +445,7 @@ public class Dashboard extends javax.swing.JFrame implements MainView{
                 .addContainerGap())
         );
 
-        labelUltimosPartidos.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
+        labelUltimosPartidos.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         labelUltimosPartidos.setText(GestionIdiomas.getMensaje("label_ultimos_partidos_2"));
         labelUltimosPartidos.setMaximumSize(new java.awt.Dimension(170, 17));
         labelUltimosPartidos.setMinimumSize(new java.awt.Dimension(100, 17));
@@ -447,16 +457,16 @@ public class Dashboard extends javax.swing.JFrame implements MainView{
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(panelUltimosPartidos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(labelUltimosPartidos, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(panelTablasClasificacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(panelResumenStats, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(panelStatsDetalladas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                .addContainerGap(55, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -493,8 +503,8 @@ public class Dashboard extends javax.swing.JFrame implements MainView{
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1433, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(477, 477, 477))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -557,7 +567,7 @@ public class Dashboard extends javax.swing.JFrame implements MainView{
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
-    private javax.swing.JLabel labelClasificacion;
+    public javax.swing.JLabel labelClasificacion;
     private javax.swing.JLabel labelClasificacionPais;
     private javax.swing.JLabel labelClasificacionRegion;
     private javax.swing.JLabel labelCuentaCreada;

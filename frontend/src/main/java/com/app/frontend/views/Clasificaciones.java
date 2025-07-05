@@ -13,7 +13,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 
 /**
- *
+ * Clase de la interfaz Clasificaciones, donde se permite filtrar los rankings de la plataforma en base a los jugadores con mayor puntuación.
  * @author Javier
  */
 public class Clasificaciones extends javax.swing.JFrame implements MainView{
@@ -38,6 +38,7 @@ public class Clasificaciones extends javax.swing.JFrame implements MainView{
     }
     
     
+    // Getters de los componentes
     public JButton getBotonFiltrar() {
         return botonFiltrar;
     }
