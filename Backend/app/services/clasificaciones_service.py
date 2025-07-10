@@ -49,5 +49,5 @@ def posicion_jugador_clasificacion(juego, region, player_id,country=None):
     posicion = cuerpo["position"]
     return posicion
 
-#clasificacion_jugadores("EU","cs2")
+#print(clasificacion_jugadores("EU","cs2"))
 #posicion_jugador_clasificacion("cs2","EU","d1a1aa41-f4ea-4035-97f7-cd522733c6d9","fr")

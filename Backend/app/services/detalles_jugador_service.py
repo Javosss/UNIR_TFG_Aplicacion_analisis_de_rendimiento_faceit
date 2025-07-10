@@ -57,5 +57,5 @@ def devolver_nickname_jugador(player_id):
     return nickname
 
 
-#estadisticas_jugador("Javos")
+#print(estadisticas_jugador("Javos"))
 #devolver_nickname_jugador("d1a1aa41-f4ea-4035-97f7-cd522733c6d9")

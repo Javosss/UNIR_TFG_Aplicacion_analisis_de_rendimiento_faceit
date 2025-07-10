@@ -39,7 +39,7 @@ public class Partidos extends javax.swing.JFrame implements MainView{
         add(panelInforrmacion, BorderLayout.CENTER);  // Asegúrate que panelInforrmacion contiene el contenido principal
 
         this.controlador = new PartidosController(this, jugador);
-}
+    }
     
     // Getters de los componentes
     public JTable getTablaPartidos() {
