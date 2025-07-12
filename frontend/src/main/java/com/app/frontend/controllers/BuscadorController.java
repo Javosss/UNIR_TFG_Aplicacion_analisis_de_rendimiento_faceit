@@ -22,34 +22,39 @@ public class BuscadorController {
     }
     
     public void buscarJugador(JLabel label) {
-    String nickname = vista.getNickname();
-    
-    // Validar que el nickname no sea el texto predeterminado o esté vacío (Es necesario porque si no se envia "Introducir texto" a la API.
-    if (nickname.isEmpty() || nickname.equals(GestionIdiomas.getMensaje("field_nickname_1"))) {
-        System.out.println("Introducir un jugador válido en el buscador");
-        return;
-    }
-    // Obtener datos del jugador desde Flask
-    Jugador jugador = ApiService.getPlayerStats(nickname);  
-    
-    if (jugador != null) {
-        mostrarInfoJugador(jugador);
-    } else {
-        System.out.println("Jugador no encontrado");
+        
+        String nickname = vista.getNickname();
+
+        // Validar que el nickname no sea el texto predeterminado o esté vacío (Es necesario porque si no se envia "Introducir texto" a la API.
+        if (nickname.isEmpty() || nickname.equals(GestionIdiomas.getMensaje("field_nickname_1"))) {
+            System.out.println("Introducir un jugador válido en el buscador");
+            return;
         }
-    }
-    
-    // Funcion para quitar el texto del Text Field "Introducir nickname" cuando se haga click en él para escribir
-    public void eliminarTextoField(JTextField field) { 
-        field.setText("");
-    }
-    // Funcion para hacer lo contrario que la funcion anterior eliminarTextoField, esta funcion añade el mensaje de nuevo al Text Field
-    public void anadirTextoDeNuevo(JTextField field) { 
-        field.setText(GestionIdiomas.getMensaje("field_nickname_1"));
-    }
-    // Mostrar los datos de la petición a la API en el labelInfoJugador
-    public void mostrarInfoJugador(Jugador jugador) { 
-        vista.actualizarInfoJugador(jugador); // Se actualiza la vista con el jugador pasado como objeto
-    }
+        // Obtener datos del jugador desde Flask
+        Jugador jugador = ApiService.getPlayerStats(nickname);  
+
+        if (jugador != null) {
+            vista.getLabelEstadoRespuesta().setText(GestionIdiomas.getMensaje("label_jugador_encontrado") + jugador.getNickname()); // Se muestra el mensaje de jugador encontrado en la interfaz
+            vista.getLabelEstadoRespuesta().setForeground(Color.GREEN);
+            mostrarInfoJugador(jugador);
+        } else {
+            vista.getLabelEstadoRespuesta().setText(GestionIdiomas.getMensaje("label_jugador_no_encontrado")); // Se muestra el mensaje de jugador no encontrado en l,a interfaz
+            vista.getLabelEstadoRespuesta().setForeground(Color.RED);
+            System.out.println("Jugador no encontrado");
+            }
+        }
+
+        // Funcion para quitar el texto del Text Field "Introducir nickname" cuando se haga click en él para escribir
+        public void eliminarTextoField(JTextField field) { 
+            field.setText("");
+        }
+        // Funcion para hacer lo contrario que la funcion anterior eliminarTextoField, esta funcion añade el mensaje de nuevo al Text Field
+        public void anadirTextoDeNuevo(JTextField field) { 
+            field.setText(GestionIdiomas.getMensaje("field_nickname_1"));
+        }
+        // Mostrar los datos de la petición a la API en el labelInfoJugador
+        public void mostrarInfoJugador(Jugador jugador) { 
+            vista.actualizarInfoJugador(jugador); // Se actualiza la vista con el jugador pasado como objeto
+        }
     
 }

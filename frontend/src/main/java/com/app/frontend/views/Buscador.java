@@ -89,7 +89,7 @@ public class Buscador extends javax.swing.JFrame {
         // Se cargan todos los datos
         labelNickname.setText(jugador.getNickname());
         labelElo.setText("Elo: " + elo_cs2_str);
-        CargarImagenDesdeURL.cargarImagen(labelFotoJugador, jugador.getAvatar(),100,100); // Se carga la imagen desde la URL
+        CargarImagenDesdeURL.cargarImagen(labelFotoJugador, jugador.getAvatar(),450,210); // Se carga la imagen desde la URL
         
         // Cargar el icono del nivel correspondiente (Nivel 1-10)
         String nivelIconPath = "/icons/niveles_faceit/" + jugador.getNivel_cs2() + ".png"; // Ruta donde se guardan los 11 iconos
@@ -109,7 +109,7 @@ public class Buscador extends javax.swing.JFrame {
         De todas las que ofrece la página, las que mejor quedan en mi interfaz son las de "https://flagcdn.com/h20/" , hay multiples tipos
         */
         String banderaUrl = "https://flagcdn.com/h20/" + jugador.getPais().toLowerCase() + ".png"; // URL completa que proporciona la bandera ("pais" pasado como parámetro es el código del país)
-        CargarImagenDesdeURL.cargarImagen(labelPais, banderaUrl,100,100);
+        CargarImagenDesdeURL.cargarImagen(labelPais2, banderaUrl,70,70);
         panelTarjeta.setVisible(true);    
     }
     
@@ -145,6 +145,10 @@ public class Buscador extends javax.swing.JFrame {
         btnBuscar.setText(GestionIdiomas.getMensaje("boton_buscar_1"));
     }
     
+    public JLabel getLabelEstadoRespuesta() {
+        return labelEstadoRespuesta;
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -154,19 +158,23 @@ public class Buscador extends javax.swing.JFrame {
         fieldBuscador = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
         panelTarjeta = new javax.swing.JPanel();
-        labelNickname = new javax.swing.JLabel();
         labelFotoJugador = new javax.swing.JLabel();
-        labelNivel = new javax.swing.JLabel();
         labelPais = new javax.swing.JLabel();
+        panelInfoJugador = new javax.swing.JPanel();
+        labelNickname = new javax.swing.JLabel();
         labelElo = new javax.swing.JLabel();
+        labelNivel = new javax.swing.JLabel();
+        labelPais2 = new javax.swing.JLabel();
         labelEstadoBusqueda = new javax.swing.JLabel();
         comboBoxCambiarIdioma = new javax.swing.JComboBox<>();
+        labelEstadoRespuesta = new javax.swing.JLabel();
+        labelInformacion = new javax.swing.JLabel();
 
         labelElo1.setText("jLabel1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        panelPrincipal.setBackground(new java.awt.Color(153, 204, 255));
+        panelPrincipal.setBackground(new java.awt.Color(204, 204, 204));
 
         // Se le asigna el texto traducido al Text Field
         fieldBuscador.setText(GestionIdiomas.getMensaje("field_nickname_1"));
@@ -176,11 +184,11 @@ public class Buscador extends javax.swing.JFrame {
 
         panelTarjeta.setBackground(new java.awt.Color(255, 255, 255));
 
-        labelNickname.setText("jLabel1");
-
-        labelNivel.setText("jLabel1");
-
-        labelElo.setText("jLabel1");
+        panelInfoJugador.setLayout(new java.awt.GridLayout());
+        panelInfoJugador.add(labelNickname);
+        panelInfoJugador.add(labelElo);
+        panelInfoJugador.add(labelNivel);
+        panelInfoJugador.add(labelPais2);
 
         javax.swing.GroupLayout panelTarjetaLayout = new javax.swing.GroupLayout(panelTarjeta);
         panelTarjeta.setLayout(panelTarjetaLayout);
@@ -189,27 +197,18 @@ public class Buscador extends javax.swing.JFrame {
             .addGroup(panelTarjetaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelTarjetaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelFotoJugador, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
-                    .addComponent(labelPais, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
-                    .addGroup(panelTarjetaLayout.createSequentialGroup()
-                        .addComponent(labelNickname, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelNivel, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(labelElo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(labelPais, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelInfoJugador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labelFotoJugador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelTarjetaLayout.setVerticalGroup(
             panelTarjetaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTarjetaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(labelFotoJugador, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
+                .addComponent(labelFotoJugador, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(panelTarjetaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelNivel)
-                    .addComponent(labelNickname))
-                .addGap(8, 8, 8)
-                .addComponent(labelElo)
+                .addComponent(panelInfoJugador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelPais)
                 .addContainerGap())
@@ -217,45 +216,54 @@ public class Buscador extends javax.swing.JFrame {
 
         comboBoxCambiarIdioma.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {}));
 
+        labelEstadoRespuesta.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        labelEstadoRespuesta.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        labelInformacion.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        labelInformacion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelInformacion.setText(GestionIdiomas.getMensaje("label_informacion_buscador"));
+
         javax.swing.GroupLayout panelPrincipalLayout = new javax.swing.GroupLayout(panelPrincipal);
         panelPrincipal.setLayout(panelPrincipalLayout);
         panelPrincipalLayout.setHorizontalGroup(
             panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelPrincipalLayout.createSequentialGroup()
-                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelPrincipalLayout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addComponent(fieldBuscador, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelPrincipalLayout.createSequentialGroup()
-                        .addGap(134, 134, 134)
-                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelPrincipalLayout.createSequentialGroup()
-                        .addGap(63, 63, 63)
-                        .addComponent(labelEstadoBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addGap(63, 63, 63)
+                .addComponent(labelEstadoBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(1120, Short.MAX_VALUE))
             .addGroup(panelPrincipalLayout.createSequentialGroup()
-                .addGap(97, 97, 97)
-                .addComponent(panelTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(comboBoxCambiarIdioma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(569, 569, 569)
+                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(panelPrincipalLayout.createSequentialGroup()
+                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(comboBoxCambiarIdioma, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panelTarjeta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(fieldBuscador)
+                    .addComponent(labelEstadoRespuesta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labelInformacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         panelPrincipalLayout.setVerticalGroup(
             panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPrincipalLayout.createSequentialGroup()
+                .addContainerGap(212, Short.MAX_VALUE)
+                .addComponent(labelInformacion, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(55, 55, 55)
+                .addComponent(fieldBuscador, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39)
+                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(comboBoxCambiarIdioma, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(labelEstadoRespuesta, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(panelTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(113, 113, 113))
             .addGroup(panelPrincipalLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(fieldBuscador, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelPrincipalLayout.createSequentialGroup()
-                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(labelEstadoBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(16, 16, 16)
-                        .addComponent(panelTarjeta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(19, 19, 19))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPrincipalLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(comboBoxCambiarIdioma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(95, 95, 95)
+                .addComponent(labelEstadoBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -314,10 +322,14 @@ public class Buscador extends javax.swing.JFrame {
     private javax.swing.JLabel labelElo;
     private javax.swing.JLabel labelElo1;
     private javax.swing.JLabel labelEstadoBusqueda;
+    private javax.swing.JLabel labelEstadoRespuesta;
     private javax.swing.JLabel labelFotoJugador;
+    private javax.swing.JLabel labelInformacion;
     private javax.swing.JLabel labelNickname;
     private javax.swing.JLabel labelNivel;
     private javax.swing.JLabel labelPais;
+    private javax.swing.JLabel labelPais2;
+    private javax.swing.JPanel panelInfoJugador;
     private javax.swing.JPanel panelPrincipal;
     private javax.swing.JPanel panelTarjeta;
     // End of variables declaration//GEN-END:variables
