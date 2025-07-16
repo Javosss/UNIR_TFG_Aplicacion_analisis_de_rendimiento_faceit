@@ -28,7 +28,7 @@ public class EstadisticasController {
        
     // Llamada a la API para extraer el resumen de estadisticas
     private void cargarEstadisticas() {
-        String json = ApiService.getResumenEstadisticasJugador(jugador.getPlayer_id(), "cs2", 20);
+        String json = ApiService.getResumenEstadisticasJugador(jugador.getPlayer_id(), "cs2", 100);
         ResumenEstadisticas resumen = new Gson().fromJson(json, ResumenEstadisticas.class);
         mostrarEstadisticas(resumen);
         cargarEstadisticasMapas(resumen);
