@@ -71,4 +71,3 @@ Abrir símbolo del sistema en la raíz del proyecto y seguir los siguientes paso
 - Historial de equipos del jugador.
 - Soporte multilenguaje (Español, Inglés y Francés)
 - Interfaz intuitiva y sencilla
-
