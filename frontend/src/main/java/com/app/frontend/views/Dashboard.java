@@ -184,10 +184,10 @@ public class Dashboard extends javax.swing.JFrame implements MainView{
         panelTablasClasificacion.setBackground(new java.awt.Color(255, 255, 255));
 
         labelClasificacion.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        labelClasificacion.setText(GestionIdiomas.getMensaje("label_clasificacion_2"));
+        labelClasificacion.setText(GestionIdiomas.getMensaje("label_clasificacion_2") +"  "+ jugador.getPais());
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel3.setText(GestionIdiomas.getMensaje("label_clasificacion_pais_2"));
+        jLabel3.setText(GestionIdiomas.getMensaje("label_clasificacion_pais_2") + "  " + jugador.getRegion_cs2());
 
         jScrollPane3.setPreferredSize(new java.awt.Dimension(400, 200));
 
@@ -253,6 +253,7 @@ public class Dashboard extends javax.swing.JFrame implements MainView{
 
         textAreaEstadisticasIndividuales.setEditable(false);
         textAreaEstadisticasIndividuales.setColumns(20);
+        textAreaEstadisticasIndividuales.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         textAreaEstadisticasIndividuales.setRows(5);
         jScrollPane5.setViewportView(textAreaEstadisticasIndividuales);
 
@@ -277,6 +278,7 @@ public class Dashboard extends javax.swing.JFrame implements MainView{
 
         textAreaEntriesClutches.setEditable(false);
         textAreaEntriesClutches.setColumns(20);
+        textAreaEntriesClutches.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         textAreaEntriesClutches.setRows(5);
         jScrollPane6.setViewportView(textAreaEntriesClutches);
 
@@ -301,6 +303,7 @@ public class Dashboard extends javax.swing.JFrame implements MainView{
 
         textAreaEstadisticasArmas.setEditable(false);
         textAreaEstadisticasArmas.setColumns(20);
+        textAreaEstadisticasArmas.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         textAreaEstadisticasArmas.setRows(5);
         jScrollPane8.setViewportView(textAreaEstadisticasArmas);
 
@@ -325,6 +328,7 @@ public class Dashboard extends javax.swing.JFrame implements MainView{
 
         textAreaUtilidad.setEditable(false);
         textAreaUtilidad.setColumns(20);
+        textAreaUtilidad.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         textAreaUtilidad.setRows(5);
         jScrollPane7.setViewportView(textAreaUtilidad);
 
@@ -349,6 +353,7 @@ public class Dashboard extends javax.swing.JFrame implements MainView{
 
         textAreaMejorMapa.setEditable(false);
         textAreaMejorMapa.setColumns(20);
+        textAreaMejorMapa.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         textAreaMejorMapa.setRows(5);
         jScrollPane4.setViewportView(textAreaMejorMapa);
 

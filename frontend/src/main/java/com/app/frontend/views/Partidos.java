@@ -321,6 +321,7 @@ public class Partidos extends javax.swing.JFrame implements MainView{
 
         textAreaClucthes.setEditable(false);
         textAreaClucthes.setColumns(20);
+        textAreaClucthes.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         textAreaClucthes.setLineWrap(true);
         textAreaClucthes.setRows(5);
         textAreaClucthes.setText("Clutching");
@@ -331,9 +332,10 @@ public class Partidos extends javax.swing.JFrame implements MainView{
 
         textAreaEstadisticasIndividuales.setEditable(false);
         textAreaEstadisticasIndividuales.setColumns(20);
+        textAreaEstadisticasIndividuales.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         textAreaEstadisticasIndividuales.setLineWrap(true);
         textAreaEstadisticasIndividuales.setRows(5);
-        textAreaEstadisticasIndividuales.setText("Esadísticas individuales");
+        textAreaEstadisticasIndividuales.setText("Estadísticas individuales");
         textAreaEstadisticasIndividuales.setWrapStyleWord(true);
         textAreaEstadisticasIndividuales.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         textAreaEstadisticasIndividuales.setMargin(new java.awt.Insets(5, 5, 5, 5));
@@ -341,6 +343,7 @@ public class Partidos extends javax.swing.JFrame implements MainView{
 
         textAreaUtilidad.setEditable(false);
         textAreaUtilidad.setColumns(20);
+        textAreaUtilidad.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         textAreaUtilidad.setLineWrap(true);
         textAreaUtilidad.setRows(5);
         textAreaUtilidad.setText("Utility");
@@ -351,6 +354,7 @@ public class Partidos extends javax.swing.JFrame implements MainView{
 
         jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
+        jTextArea1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jTextArea1.setLineWrap(true);
         jTextArea1.setRows(5);
         jTextArea1.setText("Rendimiento con armas");
