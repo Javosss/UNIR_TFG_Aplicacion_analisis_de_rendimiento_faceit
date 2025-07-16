@@ -52,8 +52,9 @@ Abrir símbolo del sistema en la raíz del proyecto y seguir los siguientes paso
 1. Navega al directorio del backend: cd backend/
 2. Instala las dependencias necesarias:
    - pip install flask requests
-3. Crea un archivo creds.py con tu clave de la API pública de FACEIT que se puede conseguir registrándose en la plataforma FACEIT.com. El archivo debe contener el siguiente texto: FACEIT_API_KEY = "TU_CLAVE_API"
-4. Ejecuta el backend de la aplicación: python -m app.routes.faceit_routes
+3. Crea un archivo creds.py con tu clave de la API pública de FACEIT que se puede conseguir registrándose en la plataforma FACEIT.com.        
+   El archivo simplemente debe contener la siguiente variable con la clave: FACEIT_API_KEY = "TU_CLAVE_API"
+5. Ejecuta el backend de la aplicación: python -m app.routes.faceit_routes
 
 **Frontend del sistema:**
 1. Asegúrate de tener instalado el JDK 21 de Java para ejecutar el archivo .jar de la aplicación.
